@@ -4,6 +4,6 @@ package studyplanner.Model;
  *
  * @author aidan
  */
-public class Assignment {
+public class Assignment extends Objective {
     
 }

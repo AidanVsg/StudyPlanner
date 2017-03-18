@@ -4,6 +4,6 @@ package studyplanner.Model;
  *
  * @author aidan
  */
-public class Task {
+public class Task extends Objective{
     
 }

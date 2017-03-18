@@ -4,6 +4,6 @@ package studyplanner.Model;
  *
  * @author aidan
  */
-public class Milestone {
+public class Milestone extends Objective{
     
 }
