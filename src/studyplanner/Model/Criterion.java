@@ -1,17 +1,17 @@
 package studyplanner.Model;
 
-public class Criteria {
+public class Criterion {
 
     private String name;             //Name of a criteria.
-    private CriteriaType type;       //Type of a criteria.
+    private CriterionType type;       //Type of a criteria.
     private boolean isMet;           //Whether criteria is met or not.
     private double value;            //Value of a criteria.
     private String unitOfMeasure;    //Unit of measure for the criteria.
 
     /**
-     * Default constructor for an instance of Criteria.
+     * Default constructor for an instance of Criterion.
      */
-    public Criteria(){
+    public Criterion(){
         //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
         this.name = null;
         this.type = null;
@@ -32,80 +32,80 @@ public class Criteria {
      *******************/
 
     /**
-     * Get name of a criteria.
-     * @return Criteria name.
+     * Get name of a criterion.
+     * @return Criterion name.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Set name of a criteria.
-     * @param name Name for a criteria.
+     * Set name of a criterion.
+     * @param name Name for a criterion.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Get type of a criteria.
-     * @return Criteria type.
+     * Get type of a criterion.
+     * @return Criterion type.
      */
-    public CriteriaType getType() {
+    public CriterionType getType() {
         return type;
     }
 
     /**
-     * Set type of a criteria.
-     * @param type Type for a criteria.
+     * Set type of a criterion.
+     * @param type Type for a criterion.
      */
-    public void setType(CriteriaType type) {
+    public void setType(CriterionType type) {
         this.type = type;
     }
 
     /**
-     * Check if the criteria is met.
-     * @return Whether the criteria is met or not.
+     * Check if the criterion is met.
+     * @return Whether the criterion is met or not.
      */
     public boolean isMet() {
         return isMet;
     }
 
     /**
-     * Set the criteria to be met or unmet.
-     * @param met Is the criteria met or not.
+     * Set the criterion to be met or unmet.
+     * @param met Is the criterion met or not.
      */
     public void setMet(boolean met) {
         isMet = met;
     }
 
     /**
-     * Get value of a criteria.
-     * @return Criteria value.
+     * Get value of a criterion.
+     * @return Criterion value.
      */
     public double getValue() {
         return value;
     }
 
     /**
-     * Set value of a criteria.
-     * @param value Value for a criteria.
+     * Set value of a criterion.
+     * @param value Value for a criterion.
      */
     public void setValue(double value) {
         this.value = value;
     }
 
     /**
-     * Get unit of measure of a criteria.
-     * @return Criteria unit of measure.
+     * Get unit of measure of a criterion.
+     * @return Criterion unit of measure.
      */
     public String getUnitOfMeasure() {
         return unitOfMeasure;
     }
 
     /**
-     * Set unit of measure of a criteria.
-     * @param unitOfMeasure Unit of measure for a criteria.
+     * Set unit of measure of a criterion.
+     * @param unitOfMeasure Unit of measure for a criterion.
      */
     public void setUnitOfMeasure(String unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;

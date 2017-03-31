@@ -8,7 +8,7 @@ public class Activity {
     private String description;                 //Description of an activity.
     private Double value;                       //Value of an activity.
     //TODO check if plural of 'criteria' exists
-    private ArrayList<Criteria> criterias;      //List of all criterias of an activity.
+    private ArrayList<Criterion> criteria;      //List of all criteria of an activity.
     /**
      * Default constructor for an instance of Activity.
      */
@@ -17,13 +17,13 @@ public class Activity {
         this.name = null;
         this.description = null;
         this.value = 0.0;
-        this.criterias = new ArrayList<Criteria>();
+        this.criteria = new ArrayList<Criterion>();
     }
 
     /**
      * Update a criteria.
      */
-    public void updateCriteria(Criteria c){
+    public void updateCriteria(Criterion c){
 
         c.setMet(true);
         //TODO check if the method has to do something besides setting boolean isMet
@@ -82,26 +82,26 @@ public class Activity {
     }
 
     /**
-     * Get a list of criterias of an activity.
-     * @return List of activity criterias.
+     * Get a list of criteria of an activity.
+     * @return List of activity criteria.
      */
-    public ArrayList<Criteria> getCriterias() {
-        return criterias;
+    public ArrayList<Criterion> getCriteria() {
+        return criteria;
     }
 
     /**
      * Add a criteria to an activity.
-     * @param criteria Criteria to add for an activity.
+     * @param criteria Criterion to add for an activity.
      */
-    public void add(Criteria criteria){
-        criterias.add(criteria);
+    public void add(Criterion criteria){
+        this.criteria.add(criteria);
     }
 
     /**
-     * Add an existing list of criterias to the activity.
-     * @param criterias Existing list of criterias to add for an activity.
+     * Add an existing list of criteria to the activity.
+     * @param criteria Existing list of criteria to add for an activity.
      */
-    public void add(ArrayList<Criteria> criterias) {
-        this.criterias = criterias;
+    public void add(ArrayList<Criterion> criteria) {
+        this.criteria = criteria;
     }
 }

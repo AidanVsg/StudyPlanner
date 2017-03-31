@@ -3,6 +3,6 @@ package studyplanner.Model;
 /**
  * Available types of criteria.
  */
-public enum CriteriaType {
+public enum CriterionType {
     Boolean, Value
 }
