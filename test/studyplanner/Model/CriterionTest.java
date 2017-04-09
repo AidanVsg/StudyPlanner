@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author aidan
  */
-public class CriteriaTest {
+public class CriterionTest {
     
-    public CriteriaTest() {
+    public CriterionTest() {
     }
     
     @BeforeClass
