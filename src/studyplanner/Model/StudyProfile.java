@@ -61,6 +61,4 @@ public class StudyProfile {
     public void add(StudyProfile profiles) {
         this.profiles.add(profiles);
     }
-
-    
 }
