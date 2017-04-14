@@ -1,18 +1,20 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 
-public class StudyProfile {
+
+public class StudyProfile implements Serializable{
     private String name;                                // name of the study prrofile
     private ArrayList<Module> modules;                  //List of all modules
-    HashSet<StudyProfile> profiles = new HashSet<>();   //HashSet to prevent 
+    HashSet<StudyProfile> profiles;                     //HashSet to prevent
                                                         //inserting duplicate StudyProfile Objects
-    
+    private static final long serialVersionUID = 1L;
     /**
      * StudyProfile Constructor
      */
-    StudyProfile(){
+    public StudyProfile(){
         this.name = null;
         this.modules = new ArrayList<>();
         this.profiles = new HashSet<>();
@@ -61,4 +63,6 @@ public class StudyProfile {
     public void add(StudyProfile profiles) {
         this.profiles.add(profiles);
     }
+
 }
+
