@@ -1,16 +1,32 @@
 package studyplanner;
 
-/**
- *
- * @author Doggo
- */
+import studyplanner.Model.StudyProfile;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+
+
 public class StudyPlanner {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        StudyProfile sp = new StudyProfile();
+
+
+        try{
+            writeObject(sp);
+        }
+        catch (IOException ex){
+
+        }
+
     }
-    
+    public static void writeObject(Object obj) throws IOException{
+        FileOutputStream fos = new FileOutputStream("spfile.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(obj);
+    }
+
+
+
 }
