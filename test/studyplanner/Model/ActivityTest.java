@@ -38,9 +38,53 @@ public class ActivityTest {
     }
 
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void updateCriteria() {
+
+    }
+
+    @Test
+    void getName() {
+
+    }
+
+    @Test
+    void setName() {
+
+    }
+
+    @Test
+    void getDescription() {
+
+    }
+
+    @Test
+    void setDescription() {
+
+    }
+
+    @Test
+    void getValue() {
+
+    }
+
+    @Test
+    void setValue() {
+
+    }
+
+    @Test
+    void getCriteria() {
+
+    }
+
+    @Test
+    void add() {
+
+    }
+
+    @Test
+    void add1() {
+
     }
     
 }

@@ -1,6 +1,7 @@
 package studyplanner;
 
 import studyplanner.Model.StudyProfile;
+import studyplanner.View.GanttChartView;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -13,6 +14,7 @@ public class StudyPlanner {
         StudyProfile sp = new StudyProfile();
 
 
+        GanttChartView chart = new GanttChartView();
         try{
             writeObject(sp);
         }
