@@ -5,6 +5,7 @@
  */
 package studyplanner.Model;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,8 +22,19 @@ public class AssignmentTest {
     public AssignmentTest() {
     }
     
+    Assignment testClass;
+    double weighting;
+    ArrayList<Task> tasks;
+    Milestone milestones;
+    
     @BeforeClass
     public static void setUpClass() {
+        testClass = new Assignment(weighting, tasks, milestones);
+    }
+    
+    public static addTaskTest(String type,Criterion criteria, 
+                        Activity activityHistory, ArrayList <Task> dependentOn){
+        return new Task(type, criteria, activityHistory, dependentOn);        
     }
     
     @AfterClass

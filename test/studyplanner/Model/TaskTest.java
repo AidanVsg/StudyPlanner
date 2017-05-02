@@ -5,6 +5,7 @@
  */
 package studyplanner.Model;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,8 +22,15 @@ public class TaskTest {
     public TaskTest() {
     }
     
+    Task testClass;
+    String type;
+    Criterion criteria;
+    Activity activityHistory;
+    ArrayList <Task> dependentOn;
+    
     @BeforeClass
     public static void setUpClass() {
+        testClass = new Task(type,criteria,activityHistory,dependentOn);
     }
     
     @AfterClass
