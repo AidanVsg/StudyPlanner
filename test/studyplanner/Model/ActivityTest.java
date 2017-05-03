@@ -1,90 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package studyplanner.Model;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
- * @author aidan
+ * Created by aidan on 03/05/2017.
  */
-public class ActivityTest {
-    
-    public ActivityTest() {
+class ActivityTest {
+    @BeforeEach
+    void setUp() {
+
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+
+    @AfterEach
+    void tearDown() {
+
     }
 
     @Test
     void updateCriteria() {
+        Criterion c = new Criterion();
+        Activity a = new Activity();
 
-    }
+        a.updateCriteria(c);
 
-    @Test
-    void getName() {
-
-    }
-
-    @Test
-    void setName() {
-
-    }
-
-    @Test
-    void getDescription() {
-
-    }
-
-    @Test
-    void setDescription() {
-
-    }
-
-    @Test
-    void getValue() {
-
-    }
-
-    @Test
-    void setValue() {
-
-    }
-
-    @Test
-    void getCriteria() {
-
+        assertTrue(c.isMet());
     }
 
     @Test
     void add() {
+        Activity a = new Activity();
+        Criterion c = new Criterion();
 
+        a.add(c);
+        assertTrue(a.getCriteria().contains(c));
     }
 
     @Test
     void add1() {
+        Activity a = new Activity();
+        ArrayList<Criterion> cl = new ArrayList();
+        Criterion c1 = new Criterion();cl.add(c1);
+        Criterion c2 = new Criterion();cl.add(c2);
+        Criterion c3= new Criterion();cl.add(c3);
+        Criterion c4 = new Criterion();cl.add(c4);
+        Criterion c5 = new Criterion();cl.add(c5);
+
+        a.add(cl);
+
+        int criteriaQuantity = 0;
+        for (Criterion c:
+             cl) {
+            if(a.getCriteria().contains(c)) criteriaQuantity++;
+        }
+
+        assertEquals(criteriaQuantity, cl.size());
+
 
     }
-    
+
 }

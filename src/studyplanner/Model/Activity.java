@@ -7,7 +7,6 @@ public class Activity {
     private String name;                        //Name of an activity.
     private String description;                 //Description of an activity.
     private Double value;                       //Value of an activity.
-    //TODO check if plural of 'criteria' exists
     private ArrayList<Criterion> criteria;      //List of all criteria of an activity.
     /**
      * Default constructor for an instance of Activity.
@@ -17,7 +16,7 @@ public class Activity {
         this.name = null;
         this.description = null;
         this.value = 0.0;
-        this.criteria = new ArrayList<Criterion>();
+        this.criteria = new ArrayList<>();
     }
 
     /**

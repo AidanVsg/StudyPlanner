@@ -1,4 +1,5 @@
 package studyplanner.Model;
+import java.util.ArrayList;
 
 public class Criterion {
 
@@ -23,8 +24,14 @@ public class Criterion {
     /**
      * Update a task.
      */
-    public void updateTask(){
+    public void updateTask(Task t){
         //TODO update the task that a criteria has been completed - note: could potentially move this to Task class
+        ArrayList<Criterion> criteria = t.getCriteria();
+
+        for (Criterion c:
+             criteria) {
+            if(c.equals(this)) c.setMet(true);
+        }
     }
 
     /*******************
