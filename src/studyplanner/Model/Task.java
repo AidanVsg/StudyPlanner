@@ -8,6 +8,9 @@ public class Task extends Objective{
     protected Activity activityHistory;
     protected ArrayList <Task> dependentOn;
     
+    public Task(){
+        
+    }
     public Task(String type, Criterion criteria, Activity activityHistory,
                                                     ArrayList <Task> dependentOn){
         
