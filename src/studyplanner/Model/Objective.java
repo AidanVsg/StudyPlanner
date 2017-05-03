@@ -22,6 +22,13 @@ public class Objective {
         this.end = null;
         this.isDone = false;    //Objective is not met by default
     }
+    public Objective(String name, String description, Date start, Date end){
+        this.name = name;
+        this.description = null;
+        this.start = new Date();
+        this.end = null;
+        this.isDone = false;
+    }
     /**
      * Get name of this Objective
      * @return - name of this Objective
@@ -87,6 +94,7 @@ public class Objective {
         if(this.isDone()){
             this.end = new Date();
         }
+        //TODO NOTICE! Make sure criteria are unique and stuff
     }
     
 }
