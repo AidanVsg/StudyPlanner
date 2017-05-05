@@ -35,7 +35,7 @@ public class Module {
         this.code = code;
     }
     
-    //add method to add assignemts to assignment hashSet
+    //add method to add assignments to assignment hashSet
     public void add(Assignment assignment){
         this.assignment.add(assignment);
     }

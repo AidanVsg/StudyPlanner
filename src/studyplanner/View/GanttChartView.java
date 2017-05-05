@@ -1,9 +1,18 @@
-package studyplanner.View;
-
-/**
- *
- * @author aidan
+package studyplanner.View;/**
+ * Created by aidan on 03/05/2017.
  */
-public class GanttChartView {
-    
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class GanttChartView extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+
+    }
 }
