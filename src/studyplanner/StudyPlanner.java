@@ -21,7 +21,7 @@ public class StudyPlanner {
         catch (IOException ex){
 
         }
-
+      
     }
     public static void writeObject(Object obj) throws IOException{
         FileOutputStream fos = new FileOutputStream("spfile.ser");
