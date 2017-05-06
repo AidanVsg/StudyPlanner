@@ -53,7 +53,7 @@ public class Milestone extends Objective{
     //testing Milestone
     public static void main(String[] args){
         
-          Milestone ms1 = new Milestone();
+        Milestone ms1 = new Milestone();
         Task ts1 = new Task();
         Task ts2 = new Task();
         

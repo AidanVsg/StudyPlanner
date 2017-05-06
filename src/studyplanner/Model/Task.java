@@ -8,15 +8,9 @@ public class Task extends Objective{
     private ArrayList<Activity> activityHistory;
     private ArrayList<Task> dependentOn;
     
-<<<<<<< HEAD
-    public Task(String type, ArrayList<Criterion> criteria, ArrayList<Activity> activityHistory,
-=======
-    public Task(){
-        
-    }
-    public Task(String type, Criterion criteria, Activity activityHistory,
->>>>>>> master
-                                                    ArrayList <Task> dependentOn){
+   
+    public Task(String type, ArrayList<Criterion> criteria, 
+            ArrayList<Activity> activityHistory, ArrayList <Task> dependentOn){
         
         this.type = type;
         this.criteria = criteria;
