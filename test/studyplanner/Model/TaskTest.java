@@ -5,13 +5,13 @@
  */
 package studyplanner.Model;
 
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.*;
 
 /**
  *
@@ -30,7 +30,7 @@ public class TaskTest {
     
     @BeforeClass
     public static void setUpClass() {
-        testClass = new Task(type,criteria,activityHistory,dependentOn);
+        
     }
     
     @AfterClass
@@ -47,6 +47,7 @@ public class TaskTest {
 
     @Test
     public void testSomeMethod() {
+        testClass = new Task(type,criteria,activityHistory,dependentOn);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
