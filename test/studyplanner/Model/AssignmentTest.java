@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package studyplanner.Model;
 
 import org.junit.After;
@@ -22,18 +17,19 @@ public class AssignmentTest {
     public AssignmentTest() {
     }
     
-    Assignment testClass;
-    double weighting;
-    ArrayList<Task> tasks;
-    Milestone milestones;
-    
-    @BeforeClass
-    public static void setUpClass() {
-        testClass = new Assignment(weighting, tasks, milestones);
-    }
-    
-    public static addTaskTest(String type,Criterion criteria, 
-                        Activity activityHistory, ArrayList <Task> dependentOn){
+//    Assignment testClass;
+//    double weighting;
+//    ArrayList<Task> tasks;
+//    ArrayList<Milestone> milestones;                              //!!!!!!!!!!!!!!!!!PROBLEM HERE, WHO WORKED ON THIS
+                                                                    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//    
+//    @BeforeClass
+//    public static void setUpClass() {
+//        testClass = new Assignment(weighting, tasks, milestones);
+//    }
+//    
+    public static Task addTaskTest(String type,ArrayList<Criterion> criteria, 
+              ArrayList<Activity> activityHistory, ArrayList<Task> dependentOn){
         return new Task(type, criteria, activityHistory, dependentOn);        
     }
     
