@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package studyplanner.Model;
 
 import org.junit.After;
@@ -24,8 +19,8 @@ public class TaskTest {
     
     Task testClass;
     String type;
-    Criterion criteria;
-    Activity activityHistory;
+    ArrayList<Criterion> criteria;
+    ArrayList<Activity> activityHistory;
     ArrayList <Task> dependentOn;
     
     @BeforeClass
