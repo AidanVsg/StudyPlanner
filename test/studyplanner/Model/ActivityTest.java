@@ -1,4 +1,4 @@
-package studyplanner.Model;
+ package studyplanner.Model;
 
 import org.junit.After;
 import org.junit.AfterClass;
