@@ -4,13 +4,18 @@ import java.util.HashSet;
 public class Module {
     private String name;
     private String code;
-    HashSet<Assignment> assignment = new HashSet<>();
+    HashSet<Assignment> assignments;
     
     // Module constructor
     public Module(){
         this.name = null;
         this.code = null;
-        this.assignment = new HashSet<>();
+        this.assignments = new HashSet<>();
+    }
+    public Module(String name, String code){
+        this.name = null;
+        this.code = null;
+        this.assignments = new HashSet<>();
     }
     
     //get methods
@@ -22,8 +27,8 @@ public class Module {
         return code;
     }
     
-    public HashSet getAssignment(){
-        return assignment;
+    public HashSet getAssignments(){
+        return assignments;
     }
     
     //Set methods
@@ -37,7 +42,7 @@ public class Module {
     
     //add method to add assignments to assignment hashSet
     public void add(Assignment assignment){
-        this.assignment.add(assignment);
+        this.assignments.add(assignment);
     }
             
 }

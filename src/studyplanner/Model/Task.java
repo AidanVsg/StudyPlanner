@@ -1,6 +1,7 @@
 package studyplanner.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Task extends Objective{
     private String type;
@@ -12,8 +13,10 @@ public class Task extends Objective{
         
     }
     public Task(String type, ArrayList<Criterion> criteria, 
-            ArrayList<Activity> activityHistory, ArrayList <Task> dependentOn){
+            ArrayList<Activity> activityHistory, ArrayList <Task> dependentOn,
+                            String name, String description,Date start, Date end){
         
+        super(name, description, start, end);
         this.type = type;
         this.criteria = criteria;
         this.activityHistory = activityHistory;
