@@ -51,26 +51,26 @@ public class Milestone extends Objective{
         this.setEnd(new Date());
     }
     //testing Milestone
-    public static void main(String[] args){
-        
-        Milestone ms1 = new Milestone();
-        Task ts1 = new Task();
-        Task ts2 = new Task();
-        
-        ms1.addTask(ts1);
-        ms1.addTask(ts2);
-        
-        System.out.println(ms1.isDone());
-        System.out.println("Now updating with added tasks");
-        ms1.update();
-        System.out.println(ms1.isDone());
-        System.out.println("Now updating ts2 to done");
-        ts2.setIsDone(true);
-        ms1.update();
-        System.out.println(ms1.isDone());
-        System.out.println("Now updating ts1 to done");
-        ts1.setIsDone(true);
-        ms1.update();
-        System.out.println(ms1.isDone());
-    }
+//    public static void main(String[] args){
+//        
+//        Milestone ms1 = new Milestone();
+//        Task ts1 = new Task();
+//        Task ts2 = new Task();
+//        
+//        ms1.addTask(ts1);
+//        ms1.addTask(ts2);
+//        
+//        System.out.println(ms1.isDone());
+//        System.out.println("Now updating with added tasks");
+//        ms1.update();
+//        System.out.println(ms1.isDone());
+//        System.out.println("Now updating ts2 to done");
+//        ts2.setIsDone(true);
+//        ms1.update();
+//        System.out.println(ms1.isDone());
+//        System.out.println("Now updating ts1 to done");
+//        ts1.setIsDone(true);
+//        ms1.update();
+//        System.out.println(ms1.isDone());
+//    }
 }
