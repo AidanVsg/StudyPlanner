@@ -29,6 +29,11 @@ public class Objective {
         this.end = null;
         this.isDone = false;
     }
+    
+    /*******************
+     * GET/SET METHODS *
+     *******************/
+    
     /**
      * Get name of this Objective
      * @return - name of this Objective
@@ -37,6 +42,10 @@ public class Objective {
         return name;
     }
     
+    /**
+     * 
+     * @param name 
+     */
     public void setName(String name) {
         this.name = name;
     }

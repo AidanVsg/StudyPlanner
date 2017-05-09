@@ -24,30 +24,55 @@ public class Task extends Objective{
         
     }
 
+    /*******************
+     * GET/SET METHODS *
+     *******************/
+    
+    /**
+     * @return 
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * @param type 
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * @return 
+     */
     public ArrayList<Criterion> getCriteria() {
         return criteria;
     }
 
+    /**
+     * @param criteria 
+     */
     public void setCriteria(ArrayList<Criterion> criteria) {
         this.criteria = criteria;
     }
 
+    /**
+     * @return 
+     */
     public ArrayList<Activity> getActivityHistory() {
         return activityHistory;
     }
 
+    /**
+     * @param activityHistory 
+     */
     public void setActivityHistory(ArrayList<Activity> activityHistory) {
         this.activityHistory = activityHistory;
     }
 
+    /**
+     * @return 
+     */
     public ArrayList<Task> getDependentOn() {
         return dependentOn;
     }

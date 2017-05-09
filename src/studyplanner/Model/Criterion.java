@@ -22,7 +22,7 @@ public class Criterion {
     }
 
     /**
-     * Update a task.
+     * @param t Task to update.
      */
     public void updateTask(Task t){
         //TODO update the task that a criteria has been completed - note: could potentially move this to Task class
@@ -39,15 +39,13 @@ public class Criterion {
      *******************/
 
     /**
-     * Get name of a criterion.
-     * @return Criterion name.
+     *@return Criterion name.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Set name of a criterion.
      * @param name Name for a criterion.
      */
     public void setName(String name) {
@@ -55,7 +53,6 @@ public class Criterion {
     }
 
     /**
-     * Get type of a criterion.
      * @return Criterion type.
      */
     public CriterionType getType() {
@@ -63,7 +60,6 @@ public class Criterion {
     }
 
     /**
-     * Set type of a criterion.
      * @param type Type for a criterion.
      */
     public void setType(CriterionType type) {
@@ -71,7 +67,6 @@ public class Criterion {
     }
 
     /**
-     * Check if the criterion is met.
      * @return Whether the criterion is met or not.
      */
     public boolean isMet() {
@@ -79,7 +74,6 @@ public class Criterion {
     }
 
     /**
-     * Set the criterion to be met or unmet.
      * @param met Is the criterion met or not.
      */
     public void setMet(boolean met) {
@@ -87,7 +81,6 @@ public class Criterion {
     }
 
     /**
-     * Get value of a criterion.
      * @return Criterion value.
      */
     public double getValue() {
@@ -95,7 +88,6 @@ public class Criterion {
     }
 
     /**
-     * Set value of a criterion.
      * @param value Value for a criterion.
      */
     public void setValue(double value) {
@@ -103,7 +95,6 @@ public class Criterion {
     }
 
     /**
-     * Get unit of measure of a criterion.
      * @return Criterion unit of measure.
      */
     public String getUnitOfMeasure() {
@@ -111,7 +102,6 @@ public class Criterion {
     }
 
     /**
-     * Set unit of measure of a criterion.
      * @param unitOfMeasure Unit of measure for a criterion.
      */
     public void setUnitOfMeasure(String unitOfMeasure) {

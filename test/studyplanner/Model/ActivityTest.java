@@ -18,7 +18,7 @@ class ActivityTest {
         Criterion c = new Criterion();
         Activity a = new Activity();
 
-        a.updateCriteria(c);
+        a.updateCriterion(c);
 
         assertTrue(c.isMet());
     }

@@ -27,4 +27,51 @@ public class Assignment extends Objective {
         milestones.add(new Milestone(tasks,name,description,start,end));
     }
     
+    /*******************
+     * GET/SET METHODS *
+     *******************/
+    
+    /**
+     * @return 
+     */
+    public double getWeighting() {
+        return weighting;
+    }
+
+    /**
+     * @param weighting 
+     */
+    public void setWeighting(double weighting) {
+        this.weighting = weighting;
+    }
+
+    /**
+     * @return 
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
+     * @param tasks 
+     */
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
+     * @return 
+     */
+    public ArrayList<Milestone> getMilestones() {
+        return milestones;
+    }
+
+    /**
+     * 
+     * @param milestones 
+     */
+    public void setMilestones(ArrayList<Milestone> milestones) {
+        this.milestones = milestones;
+    }
+    
 }
