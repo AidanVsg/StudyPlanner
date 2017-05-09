@@ -2,7 +2,7 @@ package studyplanner.Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-
+//XML imports below
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -14,18 +14,21 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
-
+/**
+ * Class to model the Study Profile of the Planner.
+ * @author Moaz
+ */
 public class StudyProfile implements Serializable{
-    private String name;                                // name of the study prrofile
-    static private ArrayList<Module> modules;                  //List of all modules
-    //todo remove static
+    private static final long serialVersionUID = 1L;    //Serialisation ID
+    private String name;                                //Name of the study prrofile
+    //TODO remove static
+    static private ArrayList<Module> modules;           //List of all modules 
+    //TODO discuss moving set of profiles to another class
     HashSet<StudyProfile> profiles;                     //HashSet to prevent
-                                                        //inserting duplicate StudyProfile Objects
-    private static final long serialVersionUID = 1L;
+                                                        //inserting duplicate 
+                                                        //StudyProfile Objects
     /**
-     * StudyProfile Constructor
+     * Default constructor for an instance of Study Profile.
      */
     public StudyProfile(){
         this.name = null;
@@ -38,32 +41,28 @@ public class StudyProfile implements Serializable{
      *******************/
 
     /**
-     * Get name of an StudyProfile method.
-     * @return StudProfile name.
+     * @return Name of the Study Profile.
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Get modules method.
-     * @return ArrayList of modules.
+     * @return List of all modules.
      */
     public ArrayList getModules() {
         return modules;
     }
     
     /**
-     * Get profiles.
-     * @return set of profiles.
+     * @return A set of profiles.
      */
     public HashSet<StudyProfile> getProfiles(){
         return profiles;
     }
     
     /**
-     * Set the name of the study profile.
-     * @param name
+     * @param name Name for a Study Profile.
      */
     public void setName(String name) {
         this.name = name;

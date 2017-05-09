@@ -1,13 +1,17 @@
 package studyplanner.Model;
 import java.util.HashSet;
-
+/**
+ * Class to model a Module of the Study Planner.
+ * @author Moaz
+ */
 public class Module {
-    private String name;
-    private String code;
-    HashSet<Assignment> assignments;
+    private String name;                //Name for the module.
+    private String code;                //Code for the module.
+    HashSet<Assignment> assignments;    //Set of assignments of the module to prevent
+                                        //adding same assignments.
     
     /**
-     * 
+     * Default constructor for this Module.
      */
     public Module(){
         this.name = null;
@@ -16,13 +20,13 @@ public class Module {
     }
     
     /**
-     * 
-     * @param name
-     * @param code 
+     * Overloaded constructor with additional properties.
+     * @param name Name for this module.
+     * @param code University code for this module.
      */
     public Module(String name, String code){
-        this.name = null;
-        this.code = null;
+        this.name = name;
+        this.code = code;
         this.assignments = new HashSet<>();
     }
     
@@ -31,36 +35,35 @@ public class Module {
      *******************/
     
     /**
-     * @return 
+     * @return The name of this module.
      */
     public String getName(){
         return name;
     }
     
     /** 
-     * @return 
+     * @return The university code of this module.
      */
     public String getCode(){
         return code;
     }
     
     /**
-     * 
-     * @return 
+     * @return Set of assignments of this module.
      */
     public HashSet getAssignments(){
         return assignments;
     }
     
     /**
-     * @param name 
+     * @param name Name for the module.
      */
     public void setName(String name){
         this.name = name;
     }
     
     /**
-     * @param code 
+     * @param code University code for the module.
      */
     public void setCode(String code){
         this.code = code;

@@ -1,13 +1,15 @@
 package studyplanner.Model;
 import java.util.ArrayList;
-
+/**
+ * Class to model a Criterion of the Study Planner.
+ * @author Kiril
+ */
 public class Criterion {
-
     private String name;             //Name of a criteria.
     private CriterionType type;       //Type of a criteria.
     private boolean isMet;           //Whether criteria is met or not.
     private double value;            //Value of a criteria.
-    private String unitOfMeasure;    //Unit of measure for the criteria.
+    private String unitOfMeasure;    //Unit of measure for the value.
 
     /**
      * Default constructor for an instance of Criterion.
@@ -19,6 +21,21 @@ public class Criterion {
         this.isMet = false;
         this.value = 0.0;
         this.unitOfMeasure= null;
+    }
+    
+    /**
+     * Overloaded constructor with additional parameters.
+     * @param name Name of a criteria.
+     * @param type Type of a criteria.
+     * @param value Value of a criteria.
+     * @param uom Unit of measure for the value.
+     */
+    public Criterion(String name, CriterionType type, double value, String uom){
+        this.name = name;
+        this.type = type;
+        this.isMet = false; //The criterion will not be met when initialised.
+        this.value = value;
+        this.unitOfMeasure = uom;
     }
 
     /**

@@ -1,27 +1,60 @@
 package studyplanner.Model;
-
 import java.util.ArrayList;
 import java.util.Date;
-
-public class Assignment extends Objective {
+/**
+ * Class to model an Objective of the Study Planner.
+ * @author Michail
+ */
+public class Assignment extends Objective { 
+    private double weighting;                   //Percentage of the assignment's worth.
+    private ArrayList<Task> tasks;              //List of tasks.
+    private ArrayList<Milestone> milestones;    //List of milestones.
     
-    private double weighting;
-    private ArrayList<Task> tasks;
-    private ArrayList<Milestone> milestones;
-    
-    public Assignment(double weighting,String name, String description,Date start, Date end){
+    /**
+     * Constructor with additional parameters.
+     * @param weighting How much % does the assignment weight.
+     * @param name Name of the task.
+     * @param description Description of the task.
+     * @param start Beginning date of the task.
+     * @param end Deadline of the task.
+     */
+    public Assignment(double weighting,String name, String description,
+                        Date start, Date end){
         
         super(name, description, start, end);
         this.weighting = weighting;
     }
     
+    /**
+     * Add a task to an assignment.
+     * @param type The type of the task (can be custom).
+     * @param criteria List of criteria of the task.
+     * @param activityHistory History of finished activities of the task.
+     * @param dependentOn Other tasks that have to be complete before this one
+     *                    can be started.
+     * @param name Name of the task.
+     * @param description Description of the task.
+     * @param start Beginning date of the task.
+     * @param end Deadline of the task.
+     */
     public void addTask(String type, ArrayList<Criterion> criteria, 
-            ArrayList<Activity> activityHistory, ArrayList <Task> dependentOn,
-                            String name, String description,Date start, Date end){
+                        ArrayList<Activity> activityHistory, 
+                        ArrayList <Task> dependentOn,
+                        String name, String description,
+                        Date start, Date end){
         
-        tasks.add(new Task(type, criteria, activityHistory, dependentOn, name, description, start, end));
+        tasks.add(new Task(type, criteria, activityHistory, dependentOn, 
+                            name, description, start, end));
     }
     
+    /**
+     * Add a milestone to an assignment.
+     * @param tasks Certain tasks need to be done for the milestone.
+     * @param name Name of the milestone.
+     * @param description Description of the milestone.
+     * @param start Beginning date of the milestone.
+     * @param end Deadline of the milestone.
+     */
     public void addMilestone(ArrayList<Task> tasks, String name, String description,
                     Date start, Date end){
         milestones.add(new Milestone(tasks,name,description,start,end));
@@ -32,43 +65,42 @@ public class Assignment extends Objective {
      *******************/
     
     /**
-     * @return 
+     * @return Weighting of the assignment.
      */
     public double getWeighting() {
         return weighting;
     }
 
     /**
-     * @param weighting 
+     * @param weighting  How much % does the assignment weight.
      */
     public void setWeighting(double weighting) {
         this.weighting = weighting;
     }
 
     /**
-     * @return 
+     * @return List of assignment's tasks.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * @param tasks 
+     * @param tasks List of tasks for an assignment.
      */
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
     /**
-     * @return 
+     * @return List of assignment's milestones.
      */
     public ArrayList<Milestone> getMilestones() {
         return milestones;
     }
 
     /**
-     * 
-     * @param milestones 
+     * @param milestones List of milestones for an assignment.
      */
     public void setMilestones(ArrayList<Milestone> milestones) {
         this.milestones = milestones;

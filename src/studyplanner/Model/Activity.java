@@ -1,9 +1,10 @@
 package studyplanner.Model;
-
 import java.util.ArrayList;
-
+/**
+ * Class to model an Activity of Study Planner.
+ * @author Kiril
+ */
 public class Activity {
-
     private String name;                        //Name of an activity.
     private String description;                 //Description of an activity.
     private Double value;                       //Value of an activity.
@@ -19,6 +20,12 @@ public class Activity {
         this.criteria = new ArrayList<>();
     }
     
+    /**
+     * Overloaded constructor with additional parameters.
+     * @param name
+     * @param desc
+     * @param value 
+     */
     public Activity(String name, String desc, Double value) {
         //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
         this.name = name;
@@ -28,7 +35,7 @@ public class Activity {
     }
 
     /** 
-     * Updates the criterion to be set as "Criterion is met"
+     * Updates the criterion to be set as "Criterion is met".
      * @param c A criterion to update
      */
     public void updateCriterion(Criterion c){

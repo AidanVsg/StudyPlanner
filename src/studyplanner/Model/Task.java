@@ -1,26 +1,47 @@
 package studyplanner.Model;
-
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Class to model a Task of the Study Planner.
+ * @author Ioakim
+ */
 public class Task extends Objective{
-    private String type;
-    private ArrayList<Criterion> criteria;
-    private ArrayList<Activity> activityHistory;
-    private ArrayList<Task> dependentOn;
+    private String type;                            //Type of the task.
+    private ArrayList<Criterion> criteria;          //Criteria of the task.
+    private ArrayList<Activity> activityHistory;    //Activities of the task.
+    private ArrayList<Task> dependentOn;            //Dependencies of the task.
     
+    /**
+    * Default constructor for an instance of Task.
+    */
     public Task(){
-        
+        this.type = null;
+        this.criteria = new ArrayList<>();
+        this.activityHistory = new ArrayList<>();
+        this.dependentOn = new ArrayList<>();
     }
+    
+    /**
+     * Overloaded constructor with additional parameters.
+     * @param type Type of the task.
+     * @param criteria List of task criteria.
+     * @param activityHistory List of previous activities.
+     * @param dependencies Tasks on which this task is dependent on.
+     * @param name Name of a task.
+     * @param description Description of task.
+     * @param start Beginning date of a task.
+     * @param end Deadline of a task.
+     */
     public Task(String type, ArrayList<Criterion> criteria, 
-            ArrayList<Activity> activityHistory, ArrayList <Task> dependentOn,
+            ArrayList<Activity> activityHistory, ArrayList <Task> dependencies,
                             String name, String description,Date start, Date end){
         
         super(name, description, start, end);
         this.type = type;
         this.criteria = criteria;
         this.activityHistory = activityHistory;
-        this.dependentOn = dependentOn;
+        this.dependentOn = dependencies;
         
     }
 
@@ -29,51 +50,51 @@ public class Task extends Objective{
      *******************/
     
     /**
-     * @return 
+     * @return The type of this task.
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @param type 
+     * @param type The type for the task.
      */
     public void setType(String type) {
         this.type = type;
     }
 
     /**
-     * @return 
+     * @return List of criteria of this task.
      */
     public ArrayList<Criterion> getCriteria() {
         return criteria;
     }
 
     /**
-     * @param criteria 
+     * @param criteria List of criteria for the task to be complete.
      */
     public void setCriteria(ArrayList<Criterion> criteria) {
         this.criteria = criteria;
     }
 
     /**
-     * @return 
+     * @return List of previous activities.
      */
     public ArrayList<Activity> getActivityHistory() {
         return activityHistory;
     }
 
     /**
-     * @param activityHistory 
+     * @param activityHistory A list of activities for the task.
      */
     public void setActivityHistory(ArrayList<Activity> activityHistory) {
         this.activityHistory = activityHistory;
     }
 
     /**
-     * @return 
+     * @return List of tasks on which this task is dependent.
      */
-    public ArrayList<Task> getDependentOn() {
+    public ArrayList<Task> getDependencies() {
         return dependentOn;
     }
 }

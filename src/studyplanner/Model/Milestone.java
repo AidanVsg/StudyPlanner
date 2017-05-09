@@ -1,26 +1,27 @@
 package studyplanner.Model;
-
 import java.util.ArrayList;
 import java.util.Date;
-
-public class Milestone extends Objective{
-    
-    private ArrayList<Task> tasks;          //tasks that need to be done
-                                            //for this Milestone to be done
+/**
+ * Class to model a Milestone of the Study Planner.
+ * @author Michail
+ */
+public class Milestone extends Objective{  
+    private ArrayList<Task> tasks;          //Tasks that need to be done
+                                            //for this Milestone to be done.
     /**
-     * Default constructor for this Milestone
+     * Default constructor for this Milestone.
      */
     public Milestone(){
         super();
         this.tasks = new ArrayList();
     }
     /**
-     * Overloaded constructor with additional parameters
-     * @param tasks Tasks of the milestone
-     * @param name Name of the milestone
-     * @param description Description of the milestone
-     * @param start Start date of the milestone
-     * @param end End date of the milestone
+     * Overloaded constructor with additional parameters.
+     * @param tasks Tasks of the milestone.
+     * @param name Name of the milestone.
+     * @param description Description of the milestone.
+     * @param start Start date of the milestone.
+     * @param end End date of the milestone.
      */
     public Milestone(ArrayList<Task> tasks, String name, String description,
                     Date start, Date end){
@@ -33,7 +34,7 @@ public class Milestone extends Objective{
      *******************/
     
     /**
-     * @return A list of current tasks
+     * @return A list of current tasks.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
@@ -47,16 +48,16 @@ public class Milestone extends Objective{
     }
     
     /** 
-     * @param task The task to be added
-     * @return The added task
+     * @param task The task to be added.
+     * @return The added task.
      */
     public boolean addTask(Task task){
         return this.tasks.add(task);
     }
     
     /** 
-     * @param task The task to be removed
-     * @return The removed task
+     * @param task The task to be removed.
+     * @return The removed task.
      */
     public boolean removeTask(Task task){
         return this.tasks.remove(task);
