@@ -76,6 +76,11 @@ public class StudyProfile implements Serializable{
         this.profiles.add(profiles);
     }
 
+    @Override
+    public String toString(){
+        return this.name;
+    }
+    
     public static void main(String argv[]) {
 
     try {

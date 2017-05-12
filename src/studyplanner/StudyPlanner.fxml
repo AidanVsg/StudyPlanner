@@ -32,6 +32,6 @@
         </menus>
       </MenuBar>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="45.0" layoutX="206.0" layoutY="355.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
-      <ListView fx:id="profileList" layoutX="3.0" layoutY="25.0" prefHeight="327.0" prefWidth="594.0" />
+      <ListView fx:id="profileListView" layoutX="3.0" layoutY="25.0" prefHeight="327.0" prefWidth="594.0" />
    </children>
 </AnchorPane>
