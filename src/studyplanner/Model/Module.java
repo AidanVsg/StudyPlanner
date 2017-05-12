@@ -51,7 +51,7 @@ public class Module {
     /**
      * @return Set of assignments of this module.
      */
-    public HashSet getAssignments(){
+    public HashSet<Assignment> getAssignments(){
         return assignments;
     }
     

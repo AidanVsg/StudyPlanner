@@ -7,12 +7,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import studyplanner.Controller.StudyPlannerControl;
-import studyplanner.Model.Module;
 
 
 
@@ -39,11 +37,6 @@ public class StudyPlanner extends Application{
         controller.initData(profile);
         stage.setTitle("WILL IT BLEND");
         stage.show();
-    }
-    
-    public void start(StudyProfile profile){
-        
-
     }
 
     public static void main(String[] args) {

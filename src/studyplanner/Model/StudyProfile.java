@@ -50,7 +50,7 @@ public class StudyProfile implements Serializable{
     /**
      * @return List of all modules.
      */
-    public ArrayList getModules() {
+    public ArrayList<Module> getModules() {
         return modules;
     }
     
