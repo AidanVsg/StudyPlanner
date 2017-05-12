@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import studyplanner.Controller.CreateStudyProfileControl;
 import studyplanner.Controller.StudyPlannerControl;
 
 
@@ -31,11 +32,12 @@ public class StudyPlanner extends Application{
                 (Pane) loader.load()
             )
         );
+        stage.setTitle("WILL IT BLEND");
         
         StudyPlannerControl controller = 
                 loader.<StudyPlannerControl>getController();
         controller.initData(profile);
-        stage.setTitle("WILL IT BLEND");
+        
         stage.show();
     }
 

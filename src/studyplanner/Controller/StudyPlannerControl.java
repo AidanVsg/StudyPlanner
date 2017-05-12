@@ -4,9 +4,15 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import studyplanner.Model.StudyProfile;
 
 /**
@@ -18,9 +24,6 @@ public class StudyPlannerControl {
     private StudyProfile profile; //model data to be used by the controller
     @FXML
     private ListView<StudyProfile> profileListView;
-    private ObservableList<StudyProfile> studyProfileList = 
-                                            FXCollections.observableArrayList();
-    
     
     public void profileAdded(final StudyProfile sp)
     {
@@ -39,19 +42,12 @@ public class StudyPlannerControl {
     private void button2Click(){
         StudyProfile sp1 = new StudyProfile();
         sp1.setName("Johny");
-        studyProfileList.add(sp1);
         profileAdded(sp1);
-        System.out.println("WOrks twice as much!");
-        profile.setName("John");
     }
     @FXML
-    private void button1Click(){
-        
-        if(profile.getName() != null){
-            System.out.println(profile.getName());
-        }else{
-            System.out.println("Profile not named yet.");
-        }
+    private void button1Click() throws Exception{
+        System.out.println("works");
+        showCreateStudyProfile();
     }
     
     /**
@@ -60,5 +56,27 @@ public class StudyPlannerControl {
      */
     public void initData(StudyProfile profile){
         this.profile = profile;
+    }
+    //PLEASE FIX ISSUE WITH FILE PLACEMENT. WHY CAN THIS BITCH PATH TO FXML GAAWD
+    public void showCreateStudyProfile() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(
+                "CreateStudyProfile.fxml"
+                )
+        );
+        
+        
+        Stage stage = new Stage();
+        stage.setScene(
+            new Scene(
+                (Pane) loader.load()
+            )
+        );
+        stage.setTitle("Create New Profile");
+        
+        CreateStudyProfileControl controller = 
+                loader.<CreateStudyProfileControl>getController();
+        controller.initData(profile);
+        stage.show();
     }
 }
