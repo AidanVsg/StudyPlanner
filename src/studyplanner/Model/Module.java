@@ -39,5 +39,9 @@ public class Module {
     public void add(Assignment assignment){
         this.assignment.add(assignment);
     }
-            
+    
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }
