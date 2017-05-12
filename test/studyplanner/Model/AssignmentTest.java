@@ -29,8 +29,10 @@ public class AssignmentTest {
 //    }
 //    
     public static Task addTaskTest(String type,ArrayList<Criterion> criteria, 
-              ArrayList<Activity> activityHistory, ArrayList<Task> dependentOn){
-        return new Task(type, criteria, activityHistory, dependentOn);        
+              ArrayList<Activity> activityHistory, ArrayList<Task> dependentOn,
+              String name, String desc, Date start, Date end){
+        return new Task(type, criteria, activityHistory, dependentOn, name, desc,
+                        start, end);        
     }
     
     @AfterClass

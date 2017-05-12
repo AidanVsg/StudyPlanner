@@ -22,6 +22,8 @@ public class TaskTest {
     ArrayList<Criterion> criteria;
     ArrayList<Activity> activityHistory;
     ArrayList <Task> dependentOn;
+    Date start, end;
+    String name, desc;
     
     @BeforeClass
     public static void setUpClass() {
@@ -42,7 +44,7 @@ public class TaskTest {
 
     @Test
     public void testSomeMethod() {
-        testClass = new Task(type,criteria,activityHistory,dependentOn);
+        testClass = new Task(type,criteria,activityHistory,dependentOn, name, desc, start, end);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

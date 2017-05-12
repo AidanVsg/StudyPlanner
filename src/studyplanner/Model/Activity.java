@@ -1,9 +1,10 @@
 package studyplanner.Model;
-
 import java.util.ArrayList;
-
+/**
+ * Class to model an Activity of Study Planner.
+ * @author Kiril
+ */
 public class Activity {
-
     private String name;                        //Name of an activity.
     private String description;                 //Description of an activity.
     private Double value;                       //Value of an activity.
@@ -18,11 +19,26 @@ public class Activity {
         this.value = 0.0;
         this.criteria = new ArrayList<>();
     }
-
+    
     /**
-     * Update a criteria.
+     * Overloaded constructor with additional parameters.
+     * @param name
+     * @param desc
+     * @param value 
      */
-    public void updateCriteria(Criterion c){
+    public Activity(String name, String desc, Double value) {
+        //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
+        this.name = name;
+        this.description = desc;
+        this.value = value;
+        this.criteria = new ArrayList<>();
+    }
+
+    /** 
+     * Updates the criterion to be set as "Criterion is met".
+     * @param c A criterion to update
+     */
+    public void updateCriterion(Criterion c){
 
         c.setMet(true);
         //TODO check if the method has to do something besides setting boolean isMet
@@ -33,7 +49,6 @@ public class Activity {
      *******************/
 
     /**
-     * Get name of an activity.
      * @return Activity name.
      */
     public String getName() {
@@ -41,7 +56,6 @@ public class Activity {
     }
 
     /**
-     * Set name of an activity.
      * @param name Name for an activity.
      */
     public void setName(String name) {
@@ -49,7 +63,6 @@ public class Activity {
     }
 
     /**
-     * Get description of an activity.
      * @return  Activity description.
      */
     public String getDescription() {
@@ -57,7 +70,6 @@ public class Activity {
     }
 
     /**
-     * Set description of an activity.
      * @param description Description for an activity.
      */
     public void setDescription(String description) {
@@ -65,7 +77,6 @@ public class Activity {
     }
 
     /**
-     * Get the value of an activity.
      * @return Activity value.
      */
     public Double getValue() {
@@ -73,7 +84,6 @@ public class Activity {
     }
 
     /**
-     * Set the value of an activity.
      * @param value Value for an activity.
      */
     public void setValue(Double value) {
@@ -81,7 +91,6 @@ public class Activity {
     }
 
     /**
-     * Get a list of criteria of an activity.
      * @return List of activity criteria.
      */
     public ArrayList<Criterion> getCriteria() {
@@ -89,7 +98,6 @@ public class Activity {
     }
 
     /**
-     * Add a criteria to an activity.
      * @param criteria Criterion to add for an activity.
      */
     public void add(Criterion criteria){
@@ -97,7 +105,6 @@ public class Activity {
     }
 
     /**
-     * Add an existing list of criteria to the activity.
      * @param criteria Existing list of criteria to add for an activity.
      */
     public void add(ArrayList<Criterion> criteria) {

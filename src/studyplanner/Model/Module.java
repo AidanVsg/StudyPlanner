@@ -1,43 +1,79 @@
 package studyplanner.Model;
 import java.util.HashSet;
-
+/**
+ * Class to model a Module of the Study Planner.
+ * @author Moaz
+ */
 public class Module {
-    private String name;
-    private String code;
-    HashSet<Assignment> assignment = new HashSet<>();
+    private String name;                //Name for the module.
+    private String code;                //Code for the module.
+    HashSet<Assignment> assignments;    //Set of assignments of the module to prevent
+                                        //adding same assignments.
     
-    // Module constructor
+    /**
+     * Default constructor for this Module.
+     */
     public Module(){
         this.name = null;
         this.code = null;
-        this.assignment = new HashSet<>();
+        this.assignments = new HashSet<>();
     }
     
-    //get methods
+    /**
+     * Overloaded constructor with additional properties.
+     * @param name Name for this module.
+     * @param code University code for this module.
+     */
+    public Module(String name, String code){
+        this.name = name;
+        this.code = code;
+        this.assignments = new HashSet<>();
+    }
+    
+    /*******************
+     * GET/SET METHODS *
+     *******************/
+    
+    /**
+     * @return The name of this module.
+     */
     public String getName(){
         return name;
     }
     
+    /** 
+     * @return The university code of this module.
+     */
     public String getCode(){
         return code;
     }
     
-    public HashSet getAssignment(){
-        return assignment;
+    /**
+     * @return Set of assignments of this module.
+     */
+    public HashSet getAssignments(){
+        return assignments;
     }
     
-    //Set methods
+    /**
+     * @param name Name for the module.
+     */
     public void setName(String name){
         this.name = name;
     }
     
+    /**
+     * @param code University code for the module.
+     */
     public void setCode(String code){
         this.code = code;
     }
     
-    //add method to add assignments to assignment hashSet
+    /**
+     * @param assignment An assignment to add.
+     */
     public void add(Assignment assignment){
-        this.assignment.add(assignment);
+        this.assignments.add(assignment);
     }
     
     @Override
