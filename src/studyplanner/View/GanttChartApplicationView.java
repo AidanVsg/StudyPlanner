@@ -77,6 +77,7 @@ public class GanttChartApplicationView extends Application {
         
         chart.getData().addAll(series1, series2, series3, series4, series5);           
 
+        //System.out.println(getClass().getResource("."));
         chart.getStylesheets().add(getClass().getResource("GanttChartView.css").toExternalForm());
 
       
