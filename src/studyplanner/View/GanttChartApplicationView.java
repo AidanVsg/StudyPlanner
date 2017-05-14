@@ -30,15 +30,11 @@ public class GanttChartApplicationView extends Application {
         final NumberAxis xAxis = new NumberAxis();
         final CategoryAxis yAxis = new CategoryAxis();
 
-//        final GanttChartView<Number,String> chart = new GanttChartView<Number,String>(xAxis,yAxis);
-//        xAxis.setLabel("Time");
-//        xAxis.setTickLabelFill(Color.CHOCOLATE);
-//        xAxis.setMinorTickCount(3);
-
-        final GanttChartView<Number,String> chart = new GanttChartView<Number,String>(xAxis,yAxis);
+       final GanttChartView<Number,String> chart = new GanttChartView<Number,String>(xAxis,yAxis);
         xAxis.setLabel("Time");
         xAxis.setTickLabelFill(Color.CHOCOLATE);
-        xAxis.setMinorTickCount(3);
+        xAxis.setMinorTickCount(1);
+
 
 
         yAxis.setLabel("");
@@ -70,9 +66,9 @@ public class GanttChartApplicationView extends Application {
         
         
         
-         task = tasks[4];
+        task = tasks[4];
         XYChart.Series series5 = new XYChart.Series();
-        series4.getData().add(new XYChart.Data(0, task, new ExtraData(1, "status-yello")));
+        series5.getData().add(new XYChart.Data(0, task, new ExtraData(1, "status-yellow")));
        
         
         chart.getData().addAll(series1, series2, series3, series4, series5);           

@@ -8,7 +8,10 @@
     -fx-background-color:rgba(0,0,128,0.7);
 }
 
-.status-orange{
+.status-yellow{
     -fx-background-color:rgba(128,128,0,1.4);
 }
 
+.status-x{
+    -fx-background-color:rgba(128,128,128,1.4);
+}
