@@ -57,7 +57,7 @@ public class GanttChartView<X,Y> extends XYChart<X,Y> {
 
     public GanttChartView(@NamedArg("xAxis") Axis<X> xAxis, @NamedArg("yAxis") Axis<Y> yAxis, @NamedArg("data") ObservableList<Series<X,Y>> data) {
         super(xAxis, yAxis);
-        if (!(xAxis instanceof ValueAxis && yAxis instanceof CategoryAxis)) {
+        if (!(xAxis instanceof DateAxis && yAxis instanceof CategoryAxis)) {
             throw new IllegalArgumentException("Axis type incorrect, X and Y should both be NumberAxis");
         }
         setData(data);
