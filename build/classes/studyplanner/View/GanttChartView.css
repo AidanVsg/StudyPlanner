@@ -7,11 +7,12 @@
 .status-blue {
     -fx-background-color:rgba(0,0,128,0.7);
 }
-
-.status-yellow{
-    -fx-background-color:rgba(128,128,0,1.4);
+.status-none {
+    -fx-background-color:rgba(0,0,0,0);
 }
-
+.status-yello{
+    -fx-background-color: rgba(128,128,0,1.4);
+}
 .status-x{
-    -fx-background-color:rgba(128,128,128,1.4);
+    -fx-background-color: rgba(256,128,0,2.3);
 }
