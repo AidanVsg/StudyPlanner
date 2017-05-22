@@ -1,5 +1,6 @@
 package studyplanner.Model;
 import java.util.ArrayList;
+import studyplanner.Model.CriterionType;
 /**
  * Class to model a Criterion of the Study Planner.
  * @author Kiril
@@ -31,11 +32,19 @@ public class Criterion {
      * @param uom Unit of measure for the value.
      */
     public Criterion(String name, CriterionType type, double value, String uom){
-        this.name = name;
+        
+        if(type.equals(CriterionType.Boolean)){
+            this.value = 0.0;
+            this.unitOfMeasure = "";
+        }
+        else{
+            this.unitOfMeasure = uom;
+            this.value = value;
+        }
+                   
         this.type = type;
         this.isMet = false; //The criterion will not be met when initialised.
-        this.value = value;
-        this.unitOfMeasure = uom;
+
     }
 
     /**

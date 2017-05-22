@@ -5,6 +5,8 @@
  */
 package studyplanner.View;
 
+import studyplanner.Model.*;
+
 import java.util.Arrays;
 
 import javafx.application.Application;
@@ -22,84 +24,82 @@ import javafx.scene.layout.StackPane;
 import java.util.Date;
 import java.util.*;
 import java.util.ArrayList;
+import javafx.geometry.Side;
+import javafx.scene.Cursor;
 
 // TODO: use date for x-axis
 public class GanttChartApplicationView extends Application {
 
-    @Override public void start(Stage stage) {
+    private void showGanttChart(Assignment a, Date firstDateToShow, Date lastDateToShow)
+    {
+        Stage stage = new Stage();
+        
+         stage.setTitle("Gantt Chart");
+     
+        //Assignment game = new Assignment(0.6,"Game","Make a game",new GregorianCalendar(2017,4,5,15,00,00).getTime(), new GregorianCalendar(2017,4,25,15,00,00).getTime());
 
-        stage.setTitle("Gantt Chart");
-      
-        String[] tasks = new String[] { "Task 1", "Task 2", "Tasks 3", "Task 4"
-        , "Task 5"};
-        //ArrayList<Date> dates = new ArrayList<>();
-
-        final DateAxis xAxis = new DateAxis(new GregorianCalendar(2017,3,25).getTime(),new GregorianCalendar(2017,4,25).getTime());
+        //Task task1 = new Task();
+        //task1.setName("Reading");
+        //task1.setStart(new GregorianCalendar(2017,4,10,00,00,00).getTime());
+        //task1.setEnd(new GregorianCalendar(2017,4,12,00,00,00).getTime());
+        
+        //Task task2 = new Task();
+        //task2.setName("Smoke a joint");
+        //task2.setStart(new GregorianCalendar(2017,4,9,00,00,00).getTime());
+        //task2.setEnd(new GregorianCalendar(2017,4,10,00,00,00).getTime());
+        
+        //game.addTask(task1);
+        //game.addTask(task2);
+        
+        //final DateAxis xAxis = new DateAxis(new GregorianCalendar(2017,4,9,00,00,00).getTime(),new GregorianCalendar(2017,4,16,00,00,00).getTime());
+        final DateAxis xAxis = new DateAxis(firstDateToShow,lastDateToShow);
         final CategoryAxis yAxis = new CategoryAxis();
-
+        
+        List<String> tasknames = new ArrayList<>();
+        
        final GanttChartView<Date,String> chart = new GanttChartView<Date,String>(xAxis,yAxis);
-        xAxis.setLabel("Time");
+        xAxis.setLabel("Date");
         xAxis.setTickLabelFill(Color.CHOCOLATE);
-        //xAxis.setMinorTickCount(1);
-        //xAxis.setTickLabelGap(1);
         xAxis.setTickLabelGap(3);
-        //xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(dates)));
+        xAxis.setTickLabelRotation(90);
 
-
-
+        xAxis.setSide(Side.TOP);
+        
         yAxis.setLabel("");
         yAxis.setTickLabelFill(Color.CHOCOLATE);
         yAxis.setTickLabelGap(10);
-        yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(tasks)));
+        
+        yAxis.setCategories(FXCollections.<String>observableArrayList(tasknames));
 
         chart.setTitle("Study Planner");
         chart.setLegendVisible(false);
         chart.setBlockHeight( 25); //sets depth of block
-        String task;
 
-        task = tasks[0];
-        XYChart.Series series1 = new XYChart.Series();
-        series1.getData().add(new XYChart.Data(new GregorianCalendar(2017,4,6).getTime(), task, new ExtraData( 100, "status-red")));
+        float x = 4.2f;
 
-        task = tasks[1];
-        XYChart.Series series2 = new XYChart.Series();
-        series2.getData().add(new XYChart.Data(new GregorianCalendar(2017,4,1).getTime(), task, new ExtraData( 100, "status-green")));
+        ArrayList<XYChart.Series> allstuff = new ArrayList<XYChart.Series>();
+        
+        for (Task t : a.getTasks())
+        {
+            double time = (t.getEnd().getTime() - t.getStart().getTime())/3600000;
+            XYChart.Series series = new XYChart.Series();
+            series.getData().add(new XYChart.Data(t.getStart(), t.getName(), new ExtraData(time*x,"status-red")));
+            chart.getData().add(series);
+        }
 
-        task = tasks[2];
-        XYChart.Series series3 = new XYChart.Series();
-        series3.getData().add(new XYChart.Data(new GregorianCalendar(2017,4,2).getTime(), task, new ExtraData( 100, "status-blue")));
-        
-
-        task = tasks[3];
-        XYChart.Series series4 = new XYChart.Series();
-        series4.getData().add(new XYChart.Data(new GregorianCalendar(2017,4,4).getTime(), task, new ExtraData(100, "status-x")));
-        
-        
-        
-        task = tasks[4];
-        XYChart.Series series5 = new XYChart.Series();
-        series5.getData().add(new XYChart.Data(new GregorianCalendar(2017,4,5).getTime() , task, new ExtraData(100, "status-green")));
-       
-        
-        chart.getData().addAll(series5, series4, series3, series2, series1);           
-
-        //System.out.println(getClass().getResource("."));
         chart.getStylesheets().add(getClass().getResource("GanttChartView.css").toExternalForm());
 
-        //StackPane stack = new StackPane();
-        ScrollPane sp = new ScrollPane();
-        //
-        
-        
-        //sp.setContent(chart);
-       // stack.getChildren().add(sp);
-        
+
         Scene scene  = new Scene(chart,800,600);
         
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        //stack.getChildren().add(xAxis);
+    }
+    
+    @Override public void start(Stage stage) {
+      
+       
     }
 
     public static void main(String[] args) {

@@ -23,28 +23,15 @@ public class Assignment extends Objective {
         
         super(name, description, start, end);
         this.weighting = weighting;
+        this.tasks = new ArrayList<>();
+        this.milestones = new ArrayList<>();
     }
     
     /**
      * Add a task to an assignment.
-     * @param type The type of the task (can be custom).
-     * @param criteria List of criteria of the task.
-     * @param activityHistory History of finished activities of the task.
-     * @param dependentOn Other tasks that have to be complete before this one
-     *                    can be started.
-     * @param name Name of the task.
-     * @param description Description of the task.
-     * @param start Beginning date of the task.
-     * @param end Deadline of the task.
      */
-    public void addTask(String type, ArrayList<Criterion> criteria, 
-                        ArrayList<Activity> activityHistory, 
-                        ArrayList <Task> dependentOn,
-                        String name, String description,
-                        Date start, Date end){
-        
-        tasks.add(new Task(type, criteria, activityHistory, dependentOn, 
-                            name, description, start, end));
+    public void addTask(Task task){
+        tasks.add(task);
     }
     
     /**
