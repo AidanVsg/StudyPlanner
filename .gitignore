@@ -134,11 +134,16 @@ $RECYCLE.BIN/
 *.lnk
 
 ### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
+C:\Users\ioakeim\Documents\BitBucket\studyplanner/
++ build/
++ dist/
++ nbproject/
+  build-impl.xml
+  + private/
+  + project.properties
+  + project.xml
++ src/
++ test/
++ build.xml
 
 # End of https://www.gitignore.io/api/java,macos,windows,intellij

@@ -22,7 +22,7 @@ public class StudyProfile implements Serializable{
     private static final long serialVersionUID = 1L;    //Serialisation ID
     private String name;                                //Name of the study prrofile
     //TODO remove static
-    static private ArrayList<Module> modules;           //List of all modules 
+    static private ArrayList<Module> modules = new ArrayList<>();           //List of all modules 
     //TODO discuss moving set of profiles to another class
     HashSet<StudyProfile> profiles;                     //HashSet to prevent
                                                         //inserting duplicate 
@@ -110,11 +110,12 @@ public class StudyProfile implements Serializable{
 
 			Element eElement = (Element) nNode;
 			
-			String mname = eElement.getElementsByTagName("mname").item(0).getTextContent();//module name
+			String mname = eElement.getElementsByTagName("name").item(0).getTextContent();//module name
 			String code = eElement.getElementsByTagName("code").item(0).getTextContent();
                         
                         module.setName(mname);
                         module.setCode(code);
+
                         modules.add(module);
 		}
 		NodeList assignmentList = doc.getElementsByTagName("Assignment");
@@ -129,7 +130,7 @@ public class StudyProfile implements Serializable{
 
 				Element e1Element = (Element) n1Node;
 				
-				String name2 = e1Element.getElementsByTagName("aname").item(0).getTextContent();
+				String name2 = e1Element.getElementsByTagName("name").item(0).getTextContent();
                                 double weighting = Double.parseDouble(e1Element.getElementsByTagName("weighting").item(0).getTextContent());
                                 Date start = new Date();
                                 DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
