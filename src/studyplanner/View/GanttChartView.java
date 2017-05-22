@@ -24,16 +24,28 @@ public class GanttChartView<X,Y> extends XYChart<X,Y> {
 
     public static class ExtraData {
 
+<<<<<<< HEAD
         public double length;
         public String styleClass;
 
 
         public ExtraData(double lengthMs, String styleClass) {
+=======
+        public float length;
+        public String styleClass;
+
+
+        public ExtraData(float lengthMs, String styleClass) {
+>>>>>>> da3af90e5fd8b2d8cedd4209f67da21ad8bf8906
             super();
             this.length = lengthMs;
             this.styleClass = styleClass;
         }
+<<<<<<< HEAD
         public double getLength() {
+=======
+        public float getLength() {
+>>>>>>> da3af90e5fd8b2d8cedd4209f67da21ad8bf8906
             return length;
         }
         public void setLength(long length) {
