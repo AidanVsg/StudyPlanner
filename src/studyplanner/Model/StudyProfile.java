@@ -81,50 +81,41 @@ public class StudyProfile implements Serializable{
         return this.name;
     }
     
-    public static void main(String argv[]) {
+    public static void InitialiseStudyProfile(StudyProfile profile, File file){
+        try {
 
-    try {
-
-	File fXmlFile = new File("HubFile.xml");
+	File xmlFile = file;
 	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-	Document doc = dBuilder.parse(fXmlFile);
-
-	//optional, but recommended
-	//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+	Document doc = dBuilder.parse(xmlFile);
+        
 	doc.getDocumentElement().normalize();
-
-	System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
 	NodeList nList = doc.getElementsByTagName("Module");
 
-	System.out.println("----------------------------");
-
 	for (int temp = 0; temp < nList.getLength(); temp++) {
+            System.out.println(temp);
                 Module module = new Module();
 		Node nNode = nList.item(temp);
-
-		System.out.println("\nCurrent Element :" + nNode.getNodeName());
 
 		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 			Element eElement = (Element) nNode;
 			
-			String mname = eElement.getElementsByTagName("name").item(0).getTextContent();//module name
+			String mname = eElement.getElementsByTagName("mname").item(0).getTextContent();//module name
 			String code = eElement.getElementsByTagName("code").item(0).getTextContent();
                         
                         module.setName(mname);
                         module.setCode(code);
 
-                        modules.add(module);
+                        profile.getModules().add(module);
 		}
+                
 		NodeList assignmentList = doc.getElementsByTagName("Assignment");
 		
 		for (int temp1 = 0; temp1 < assignmentList.getLength(); temp1++) {
 
 			Node n1Node = assignmentList.item(temp1);
-
-			System.out.println("\nCurrent Element :" + n1Node.getNodeName());
 
 			if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -155,7 +146,22 @@ public class StudyProfile implements Serializable{
     } catch (Exception e) {
 	e.printStackTrace();
     }
-  }
+    }
+    
+    
+    public static void main(String argv[]) {
+        StudyProfile profile = new StudyProfile();
+        File hubFile = new File("HubFile.xml");
+        
+        InitialiseStudyProfile(profile, hubFile);
+        for(Module module : profile.getModules()){
+            System.out.println(module);
+            for(Assignment ass : module.getAssignments()){
+                System.out.println(ass);
+            }
+        }
+        
+    }
     
 }
 

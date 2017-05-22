@@ -92,5 +92,7 @@ public class Assignment extends Objective {
     public void setMilestones(ArrayList<Milestone> milestones) {
         this.milestones = milestones;
     }
-    
+     public String toString(){
+         return this.getName();
+}
 }

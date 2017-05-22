@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Semester_1>
-	<Module>
-		<name>Software Engineering</name>
+	<Module id="m1">
+		<mname>Software Engineering</mname>
 		<code>cmp5015</code>
-			<Assignment>
+			<Assignment id="1">
                 <name>Design Phase</name>
 				<weighting>30</weighting>
 				<start>22-01-2017</start>
@@ -18,7 +18,7 @@
 				</Description>
             </Assignment>   
 			
-			<Assignment>
+			<Assignment id="2">
                 <name>Implementation Phase</name>
 				<weighting>20</weighting>
 				<start>22-05-2017</start>
@@ -40,10 +40,10 @@
             </Assignment>
 	</Module>
 	
-	<Module>
-		<name>Programming</name>
+	<Module id = "m2">
+		<mname>Programming</mname>
 		<code>cmp5014y</code>
-			<Assignment>
+			<Assignment id="1">
 				<name>Cheat Game in Java</name>
 				<weighting>30</weighting>
 				<start>22-02-2017</start>
@@ -56,7 +56,7 @@
 				</Description>
 			</Assignment>
 			
-			<Assignment>
+			<Assignment id="2">
 				<name>OMDB</name>
 				<weighting>20</weighting>
 				<start>15-03-2017</start>
