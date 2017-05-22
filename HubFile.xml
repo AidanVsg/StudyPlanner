@@ -3,7 +3,8 @@
 	<Module>
 		<name>Software Engineering</name>
 		<code>cmp5015</code>
-			<Assignment>Design Phase</Assignment>
+			<Assignment>
+                                <name>Design Phase</name>
 				<weighting>30</weighting>
 				<start>22-01-2017</start>
 				<end>22-02-2017</end>
@@ -15,8 +16,9 @@
   				Ini ally this applica on will be o ered by the School of Compu ng Sciences but support 
   				for other schools in the future should be considered.
 				</Description>
-
-			<Assignment>Implementation Phase</Assignment>
+                        </Assignment>                
+			<Assignment>
+                                <name>Implementation Phase</name>
 				<weighting>20</weighting>
 				<start>22-05-2017</start>
 				<end>22-06-2017</end>
@@ -34,6 +36,7 @@
 				assumptions that it is based on. Use suitable UML diagrams to support your 
 				documentation.
 				</Description>
+                        </Assignment>
 	</Module>
 	
 	<Module>

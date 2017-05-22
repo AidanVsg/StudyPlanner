@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package studyplanner;
 
 import java.io.File;
@@ -38,8 +33,7 @@ public class CreateStudyProfileViewController implements Initializable {
     
     @FXML private Label errNameLabel, errDataLabel;
     
-    @FXML
-    private void browseButtonClick(){
+    @FXML private void browseButtonClick(){
         final FileChooser fileChooser = new FileChooser();
         configureFileChooser(fileChooser);
         File file = fileChooser.showOpenDialog(stage);
@@ -48,13 +42,11 @@ public class CreateStudyProfileViewController implements Initializable {
         }
     }
     
-    @FXML
-    private void cancelButtonClick(){
+    @FXML private void cancelButtonClick(){
         stage.hide();
     }
     
-    @FXML
-    private void createProfileButtonClick(){
+    @FXML private void createProfileButtonClick(){
         if(profileNameField.getText().trim().equals("")){
             errNameLabel.setText("name field is empty");
         }else{
@@ -76,11 +68,16 @@ public class CreateStudyProfileViewController implements Initializable {
         this.mainController = controller;
     }
     
+    /**
+     * Defines name and allowed extensions for fileChooser
+     * @param fileChooser - fileChooser to be configured
+     */
     private void configureFileChooser(final FileChooser fileChooser){
+        fileChooser.setTitle("Select Hub file");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Files", "*.*"),
                 new FileChooser.ExtensionFilter("XML", "*.xml"),
-                new FileChooser.ExtensionFilter("HUB", "*.hub")
+                new FileChooser.ExtensionFilter("HUB", "*.hub"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
             );
     }
 

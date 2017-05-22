@@ -80,7 +80,7 @@ public class StudyProfile implements Serializable{
     public String toString(){
         return this.name;
     }
-    
+
     public static void main(String argv[]) {
 
     try {
