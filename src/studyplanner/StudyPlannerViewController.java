@@ -27,8 +27,11 @@ public class StudyPlannerViewController implements Initializable {
     @FXML private AnchorPane content;
     
     
-    @FXML private void loadProfileButtonAction(){
-        System.out.println(profile);
+    @FXML private void loadProfileButtonAction() throws Exception{
+        if(profile != null){
+            content.getScene().getWindow().hide();
+            showStudyProfile();
+        }
     }
     @FXML private void newProfileButtonAction() throws Exception{
         showCreateStudyProfile();
@@ -64,10 +67,34 @@ public class StudyPlannerViewController implements Initializable {
         stage.show();
     }
     
+    public void showStudyProfile() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(
+                "StudyProfileView.fxml"
+                )
+        );
+        
+        Stage stage = new Stage();
+        stage.setTitle(profile.getName());
+        
+        stage.setScene(
+            new Scene(
+                (Pane) loader.load()
+            )
+        );
+        
+        StudyProfileViewController controller = 
+                loader.<StudyProfileViewController>getController();
+        controller.initData(profile);
+        stage.show();
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
         ChangeListener listener = (ChangeListener<StudyProfile>) 
-                (ObservableValue<? extends StudyProfile> observable, StudyProfile oldValue, StudyProfile newValue) -> {
+                (ObservableValue<? extends StudyProfile> observable, 
+                        StudyProfile oldValue, StudyProfile newValue) -> {
             profile = newValue;
             System.out.println("ListView selection changed from oldValue = "
                     + oldValue + " to newValue = " + newValue);
