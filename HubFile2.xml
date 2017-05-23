@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--updated deadline for SoftEng Implementation phase and for Networks VoIP-->
 <Semester_1>
 	<Module mname = "Software Engineering" code = "cmp5012">
 			<Assignment id="1">
@@ -20,7 +21,7 @@
                 <name>Implementation Phase</name>
 				<weighting>20</weighting>
 				<start>22-04-2017</start>
-				<end>22-05-2017</end>
+				<end>30-05-2017</end>
 				<Description>Study the Study Planner (SP) requirements sheet posted on 
 				Blackboard and implement a prototype for the new SP application, based on 
 				the MoSCoW criteria detailed on the sheet. Notice that the requirements 
@@ -74,7 +75,7 @@
 				<name>VoIP</name>
 				<weighting>30</weighting>
 				<start>09-02-2017</start>
-				<end>24-02-2017</end>
+				<end>07-03-2017</end>
 				<Description>The aim of this assignment is to design, implement and evaluate a VoIP 
 				communication system to operate between two PCs in the Lewin Lab. The assignment is 
 				to be tackled in pairs – typically with one person responsible for the sender and 
