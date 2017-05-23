@@ -82,67 +82,64 @@ public class StudyProfile implements Serializable{
     }
     
     public static void InitialiseStudyProfile(StudyProfile profile, File file){
-        try {
+        try{
+            File xmlFile = file;
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xmlFile);
 
-	File xmlFile = file;
-	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-	Document doc = dBuilder.parse(xmlFile);
-        
-	doc.getDocumentElement().normalize();
+            doc.getDocumentElement().normalize();
 
-	NodeList nList = doc.getElementsByTagName("Module");
+            NodeList nList = doc.getElementsByTagName("Module");
 
-	for (int i = 0; i < nList.getLength(); i++) {
+            for (int i = 0; i < nList.getLength(); i++) {
                 Module module = new Module();
-		Node nNode = nList.item(i);
+                Node nNode = nList.item(i);
 
-		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
 
-			Element eElement = (Element) nNode;
-			
-			String mname = eElement.getAttribute("mname");//module name
-			String code = eElement.getAttribute("code");
-                        
-                        module.setName(mname);
-                        module.setCode(code);
+                    String mname = eElement.getAttribute("mname");//module name
+                    String code = eElement.getAttribute("code");
 
-                        profile.getModules().add(module);
-		}
-                        
-		NodeList assignmentList = nNode.getChildNodes();
-		for (int j = 0; j < assignmentList.getLength(); j++) {
+                    module.setName(mname);
+                    module.setCode(code);
 
-			Node n1Node = assignmentList.item(j);
-			if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
+                    profile.getModules().add(module);
+                }
 
-				Element e1Element = (Element) n1Node;
-				
-				String name2 = e1Element.getElementsByTagName("name").item(0).getTextContent();
-                                double weighting = Double.parseDouble(e1Element.getElementsByTagName("weighting").item(0).getTextContent());
-                                Date start = new Date();
-                                DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                                try {
-                                    start = df.parse(e1Element.getElementsByTagName("start").item(0).getTextContent());
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                Date end  = new Date();
-                                try {
-                                    end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-				String description = e1Element.getElementsByTagName("Description").item(0).getTextContent();
-                                
-                                Assignment assignment = new Assignment(weighting,name2,description,start,end);
-                                module.getAssignments().add(assignment);
-			}
-		}
-	}
-    } catch (Exception e) {
-	e.printStackTrace();
-    }
+                NodeList assignmentList = nNode.getChildNodes();
+                for (int j = 0; j < assignmentList.getLength(); j++) {
+                    Node n1Node = assignmentList.item(j);
+                    if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
+
+                        Element e1Element = (Element) n1Node;
+
+                        String name2 = e1Element.getElementsByTagName("name").item(0).getTextContent();
+                        double weighting = Double.parseDouble(e1Element.getElementsByTagName("weighting").item(0).getTextContent());
+                        Date start = new Date();
+                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        try {
+                            start = df.parse(e1Element.getElementsByTagName("start").item(0).getTextContent());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date end  = new Date();
+                        try {
+                            end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String description = e1Element.getElementsByTagName("Description").item(0).getTextContent();
+
+                        Assignment assignment = new Assignment(weighting,name2,description,start,end);
+                        module.getAssignments().add(assignment);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     
     
@@ -153,8 +150,8 @@ public class StudyProfile implements Serializable{
         InitialiseStudyProfile(profile, hubFile);
         for(Module module : profile.getModules()){
             System.out.println(module);
-            for(Assignment ass : module.getAssignments()){
-                System.out.println(ass);
+            for(Assignment assignment : module.getAssignments()){
+                System.out.println(assignment);
             }
         }
         
