@@ -46,15 +46,32 @@ public class CreateStudyProfileViewController implements Initializable {
         stage.hide();
     }
     
+    //TODO IF FILE IS BAD FOR HEALTH, MAKE SURE IT DOESNT GET LOADED
     @FXML private void createProfileButtonClick(){
-        if(profileNameField.getText().trim().equals("")){
+        //
+        errNameLabel.setText("");
+        errDataLabel.setText("");
+        
+        Boolean nameFieldIsEmpty = profileNameField.getText().trim().equals("");
+        Boolean dataFieldIsEmpty = dataFilePathField.getText().trim().equals("");
+        if(nameFieldIsEmpty){
             errNameLabel.setText("name field is empty");
-        }else{
+        }
+        if(dataFieldIsEmpty){
+            errDataLabel.setText("data field is empty");
+        }
+        if(!nameFieldIsEmpty && !dataFieldIsEmpty){
             StudyProfile profile = new StudyProfile();
+            
+            File hubFile = new File(dataFilePathField.getText());
             profile.setName(profileNameField.getText());
+            
+            StudyProfile.InitialiseStudyProfile(profile, hubFile);
+            
             mainController.profileAdded(profile);
             stage.hide();
-        }
+        }    
+        
         
     }
     
