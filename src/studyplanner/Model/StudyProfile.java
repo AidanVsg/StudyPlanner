@@ -1,4 +1,5 @@
 package studyplanner.Model;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class StudyProfile implements Serializable{
     private static final long serialVersionUID = 1L;    //Serialisation ID
     private String name;                                //Name of the study prrofile
     //TODO remove static
-    private ArrayList<Module> modules;          //List of all modules 
+    static private ArrayList<Module> modules = new ArrayList<>();           //List of all modules 
     //TODO discuss moving set of profiles to another class
     HashSet<StudyProfile> profiles;                     //HashSet to prevent
                                                         //inserting duplicate 
@@ -80,7 +81,6 @@ public class StudyProfile implements Serializable{
     public String toString(){
         return this.name;
     }
-
     /**
      * method to initialise a study profile by reading a HUB file
      * @param profile   the profile to be initialised
@@ -89,7 +89,6 @@ public class StudyProfile implements Serializable{
     public static void InitialiseStudyProfile(StudyProfile profile, File file){
         try{
             File xmlFile = file;
-            
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
@@ -163,7 +162,7 @@ public class StudyProfile implements Serializable{
         for(Module module : profile.getModules()){
             System.out.println(module);
             for(Assignment assignment : module.getAssignments()){
-                System.out.println("\t"+assignment);
+                System.out.println(assignment);
             }
         }
         
