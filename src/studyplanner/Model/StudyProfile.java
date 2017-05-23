@@ -80,7 +80,11 @@ public class StudyProfile implements Serializable{
     public String toString(){
         return this.name;
     }
-    
+    /**
+     * method to initialise a study profile by reading a HUB file
+     * @param profile   the profile to be initialised
+     * @param file      the hub file to get the profile information from
+     */
     public static void InitialiseStudyProfile(StudyProfile profile, File file){
         try{
             File xmlFile = file;
@@ -90,8 +94,9 @@ public class StudyProfile implements Serializable{
 
             doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName("Module");
-
+            NodeList nList = doc.getElementsByTagName("Module");//returns list of modules
+            
+            // for each module it reads the name, code and the assignment details associated to the module
             for (int i = 0; i < nList.getLength(); i++) {
                 Module module = new Module();
                 Node nNode = nList.item(i);
@@ -99,38 +104,43 @@ public class StudyProfile implements Serializable{
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    String mname = eElement.getAttribute("mname");//module name
-                    String code = eElement.getAttribute("code");
+                    String mname = eElement.getAttribute("mname");//gets module name
+                    String code = eElement.getAttribute("code");//gets module code
 
                     module.setName(mname);
                     module.setCode(code);
 
-                    profile.getModules().add(module);
+                    profile.getModules().add(module);//adding the new module to the semester profile modules list
                 }
 
-                NodeList assignmentList = nNode.getChildNodes();
+                NodeList assignmentList = nNode.getChildNodes();//gets the assignments associated to the module
+                
+                /*
+                for each assignment associated to the module it gets the name,
+                weighting,start and end date and the description
+                */
                 for (int j = 0; j < assignmentList.getLength(); j++) {
                     Node n1Node = assignmentList.item(j);
                     if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
 
                         Element e1Element = (Element) n1Node;
 
-                        String name2 = e1Element.getElementsByTagName("name").item(0).getTextContent();
-                        double weighting = Double.parseDouble(e1Element.getElementsByTagName("weighting").item(0).getTextContent());
+                        String name2 = e1Element.getElementsByTagName("name").item(0).getTextContent();//gets assignment name
+                        double weighting = Double.parseDouble(e1Element.getElementsByTagName("weighting").item(0).getTextContent());//gets assignment wighting
                         Date start = new Date();
                         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                         try {
-                            start = df.parse(e1Element.getElementsByTagName("start").item(0).getTextContent());
+                            start = df.parse(e1Element.getElementsByTagName("start").item(0).getTextContent());//gets start date
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                         Date end  = new Date();
                         try {
-                            end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());
+                            end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());//gets end date
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        String description = e1Element.getElementsByTagName("Description").item(0).getTextContent();
+                        String description = e1Element.getElementsByTagName("Description").item(0).getTextContent();//gets assignment description
 
                         Assignment assignment = new Assignment(weighting,name2,description,start,end);
                         module.getAssignments().add(assignment);
