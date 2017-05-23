@@ -48,12 +48,13 @@ public class CreateStudyProfileViewController implements Initializable {
     
     //TODO IF FILE IS BAD FOR HEALTH, MAKE SURE IT DOESNT GET LOADED
     @FXML private void createProfileButtonClick(){
-        //
+        //reset fields so that they dynamically change with each button click
         errNameLabel.setText("");
         errDataLabel.setText("");
         
         Boolean nameFieldIsEmpty = profileNameField.getText().trim().equals("");
         Boolean dataFieldIsEmpty = dataFilePathField.getText().trim().equals("");
+        
         if(nameFieldIsEmpty){
             errNameLabel.setText("name field is empty");
         }
@@ -71,8 +72,6 @@ public class CreateStudyProfileViewController implements Initializable {
             mainController.profileAdded(profile);
             stage.hide();
         }    
-        
-        
     }
     
     /**
