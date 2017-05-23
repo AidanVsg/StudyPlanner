@@ -85,7 +85,74 @@ public class StudyProfile implements Serializable{
      * @param profile   the profile to be initialised
      * @param file      the hub file to get the profile information from
      */
-    public static void InitialiseStudyProfile(StudyProfile profile, File file){
+//    public static void InitialiseStudyProfile(StudyProfile profile, File file){
+//        try{
+//            File xmlFile = file;
+//            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+//            Document doc = dBuilder.parse(xmlFile);
+//
+//            doc.getDocumentElement().normalize();
+//
+//            NodeList nList = doc.getElementsByTagName("Module");//returns list of modules
+//            
+//            // for each module it reads the name, code and the assignment details associated to the module
+//            for (int i = 0; i < nList.getLength(); i++) {
+//                Module module = new Module();
+//                Node nNode = nList.item(i);
+//
+//                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+//                    Element eElement = (Element) nNode;
+//
+//                    String mname = eElement.getAttribute("mname");//gets module name
+//                    String code = eElement.getAttribute("code");//gets module code
+//
+//                    module.setName(mname);
+//                    module.setCode(code);
+//
+//                    profile.getModules().add(module);//adding the new module to the semester profile modules list
+//                }
+//
+//                NodeList assignmentList = nNode.getChildNodes();//gets the assignments associated to the module
+//                
+//                /*
+//                for each assignment associated to the module it gets the name,
+//                weighting,start and end date and the description
+//                */
+//                for (int j = 0; j < assignmentList.getLength(); j++) {
+//                    Node n1Node = assignmentList.item(j);
+//                    if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
+//
+//                        Element e1Element = (Element) n1Node;
+//
+//                        String name2 = e1Element.getElementsByTagName("name").item(0).getTextContent();//gets assignment name
+//                        double weighting = Double.parseDouble(e1Element.getElementsByTagName("weighting").item(0).getTextContent());//gets assignment wighting
+//                        Date start = new Date();
+//                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//                        try {
+//                            start = df.parse(e1Element.getElementsByTagName("start").item(0).getTextContent());//gets start date
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                        Date end  = new Date();
+//                        try {
+//                            end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());//gets end date
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                        String description = e1Element.getElementsByTagName("Description").item(0).getTextContent();//gets assignment description
+//
+//                        Assignment assignment = new Assignment(weighting,name2,description,start,end);
+//                        module.getAssignments().add(assignment);
+//                    }
+//                }
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+    
+    public static void UpdateStudyProfile(StudyProfile profile, File file){
         try{
             File xmlFile = file;
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -98,52 +165,51 @@ public class StudyProfile implements Serializable{
             
             // for each module it reads the name, code and the assignment details associated to the module
             for (int i = 0; i < nList.getLength(); i++) {
-                Module module = new Module();
+                //Module module = new Module();
                 Node nNode = nList.item(i);
-
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-
-                    String mname = eElement.getAttribute("mname");//gets module name
-                    String code = eElement.getAttribute("code");//gets module code
-
-                    module.setName(mname);
-                    module.setCode(code);
-
-                    profile.getModules().add(module);//adding the new module to the semester profile modules list
-                }
-
-                NodeList assignmentList = nNode.getChildNodes();//gets the assignments associated to the module
+                NodeList assignmentList;
+                    
+                ArrayList<Module> modules = new ArrayList<Module>();
+                modules = profile.getModules();
+                Element eElement = (Element) nNode;
+                //System.out.println(modules.contains(eElement.getAttribute("mname")));
                 
-                /*
-                for each assignment associated to the module it gets the name,
-                weighting,start and end date and the description
-                */
-                for (int j = 0; j < assignmentList.getLength(); j++) {
-                    Node n1Node = assignmentList.item(j);
-                    if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
+                for(Module module : modules){
+                    if(module.getName().equals(eElement.getAttribute("mname"))){
+                        assignmentList = nNode.getChildNodes();
+                        HashSet<Assignment> assignments = new HashSet<Assignment>();
+                        assignments = module.getAssignments();
+                        
+                        for (int j = 0; j < assignmentList.getLength(); j++){
+                            Node n1Node = assignmentList.item(j);
+                            
+                            if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
+                                Element e1Element = (Element) n1Node;                        
+                                for(Assignment assignment : assignments){
+                                    if(assignment.getName().equals(e1Element.getAttribute("name"))){
+                                        Date start = new Date();
 
-                        Element e1Element = (Element) n1Node;
+                                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                                        try {
+                                            start = df.parse(e1Element.getElementsByTagName("start").item(0).getTextContent());//gets start date
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                        if(!(assignment.getStart().equals(start)))
+                                            assignment.setStart(start);
 
-                        String name2 = e1Element.getElementsByTagName("name").item(0).getTextContent();//gets assignment name
-                        double weighting = Double.parseDouble(e1Element.getElementsByTagName("weighting").item(0).getTextContent());//gets assignment wighting
-                        Date start = new Date();
-                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                        try {
-                            start = df.parse(e1Element.getElementsByTagName("start").item(0).getTextContent());//gets start date
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                                        Date end  = new Date();
+                                        try {
+                                            end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());//gets end date
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                        if(!(assignment.getEnd().equals(end)))
+                                            assignment.setEnd(end);
+                                    }
+                                }
+                            }
                         }
-                        Date end  = new Date();
-                        try {
-                            end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());//gets end date
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String description = e1Element.getElementsByTagName("Description").item(0).getTextContent();//gets assignment description
-
-                        Assignment assignment = new Assignment(weighting,name2,description,start,end);
-                        module.getAssignments().add(assignment);
                     }
                 }
             }
@@ -152,18 +218,18 @@ public class StudyProfile implements Serializable{
         }
     }
     
-    
     public static void main(String argv[]) {
         StudyProfile profile = new StudyProfile();
         File hubFile = new File("HubFile.xml");
         
-        InitialiseStudyProfile(profile, hubFile);
-        for(Module module : profile.getModules()){
-            System.out.println(module);
-            for(Assignment assignment : module.getAssignments()){
-                System.out.println(assignment);
-            }
-        }
+        //InitialiseStudyProfile(profile, hubFile);
+//        for(Module module : profile.getModules()){
+//            System.out.println(module);
+//            for(Assignment assignment : module.getAssignments()){
+//                System.out.println(assignment);
+//            }
+//        }
+        UpdateStudyProfile(profile,hubFile);
         
     }
     
