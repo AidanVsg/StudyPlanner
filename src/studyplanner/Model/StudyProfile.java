@@ -93,30 +93,27 @@ public class StudyProfile implements Serializable{
 
 	NodeList nList = doc.getElementsByTagName("Module");
 
-	for (int temp = 0; temp < nList.getLength(); temp++) {
-            System.out.println(temp);
+	for (int i = 0; i < nList.getLength(); i++) {
                 Module module = new Module();
-		Node nNode = nList.item(temp);
+		Node nNode = nList.item(i);
 
 		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 			Element eElement = (Element) nNode;
 			
-			String mname = eElement.getElementsByTagName("mname").item(0).getTextContent();//module name
-			String code = eElement.getElementsByTagName("code").item(0).getTextContent();
+			String mname = eElement.getAttribute("mname");//module name
+			String code = eElement.getAttribute("code");
                         
                         module.setName(mname);
                         module.setCode(code);
 
                         profile.getModules().add(module);
 		}
-                
-		NodeList assignmentList = doc.getElementsByTagName("Assignment");
-		
-		for (int temp1 = 0; temp1 < assignmentList.getLength(); temp1++) {
+                        
+		NodeList assignmentList = nNode.getChildNodes();
+		for (int j = 0; j < assignmentList.getLength(); j++) {
 
-			Node n1Node = assignmentList.item(temp1);
-
+			Node n1Node = assignmentList.item(j);
 			if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
 
 				Element e1Element = (Element) n1Node;

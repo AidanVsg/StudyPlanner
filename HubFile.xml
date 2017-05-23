@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Semester_1>
-	<Module id="m1">
-		<mname>Software Engineering</mname>
-		<code>cmp5015</code>
+	<Module mname = "Software Engineering" code = "cmp5015">
 			<Assignment id="1">
                 <name>Design Phase</name>
 				<weighting>30</weighting>
@@ -40,9 +38,7 @@
             </Assignment>
 	</Module>
 	
-	<Module id = "m2">
-		<mname>Programming</mname>
-		<code>cmp5014y</code>
+	<Module mname = "Programming" code = "cmp5014y">
 			<Assignment id="1">
 				<name>Cheat Game in Java</name>
 				<weighting>30</weighting>
