@@ -106,4 +106,9 @@ public class Assignment extends Objective {
         this.milestones = milestones;
     }
     
+    @Override
+    public String toString(){
+        return this.getName();
+    }
+    
 }

@@ -48,7 +48,7 @@ public class StudyPlanner extends Application{
 //
 //        }
           launch(args);
-      
+          
     }
     public static void writeObject(Object obj) throws IOException{
         FileOutputStream fos = new FileOutputStream("spfile.ser");

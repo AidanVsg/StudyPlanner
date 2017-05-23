@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Semester_1>
-	<Module>
-		<name>Software Engineering</name>
-		<code>cmp5015</code>
-			<Assignment>
-                                <name>Design Phase</name>
+	<Module mname = "Software Engineering" code = "cmp5015">
+			<Assignment id="1">
+                <name>Design Phase</name>
 				<weighting>30</weighting>
 				<start>22-01-2017</start>
 				<end>22-02-2017</end>
@@ -16,9 +14,10 @@
   				Ini ally this applica on will be o ered by the School of Compu ng Sciences but support 
   				for other schools in the future should be considered.
 				</Description>
-                        </Assignment>                
-			<Assignment>
-                                <name>Implementation Phase</name>
+            </Assignment>   
+			
+			<Assignment id="2">
+                <name>Implementation Phase</name>
 				<weighting>20</weighting>
 				<start>22-05-2017</start>
 				<end>22-06-2017</end>
@@ -36,13 +35,11 @@
 				assumptions that it is based on. Use suitable UML diagrams to support your 
 				documentation.
 				</Description>
-                        </Assignment>
+            </Assignment>
 	</Module>
 	
-	<Module>
-		<name>Programming</name>
-		<code>cmp5014y</code>
-			<Assignment>
+	<Module mname = "Programming" code = "cmp5014y">
+			<Assignment id="1">
 				<name>Cheat Game in Java</name>
 				<weighting>30</weighting>
 				<start>22-02-2017</start>
@@ -55,7 +52,7 @@
 				</Description>
 			</Assignment>
 			
-			<Assignment>
+			<Assignment id="2">
 				<name>OMDB</name>
 				<weighting>20</weighting>
 				<start>15-03-2017</start>
