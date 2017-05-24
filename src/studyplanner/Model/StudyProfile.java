@@ -170,30 +170,30 @@ public class StudyProfile implements Serializable{
                     
                 ArrayList<Module> modules = new ArrayList<Module>();
                 modules = profile.getModules();
-                System.out.println("empty  " + modules.isEmpty());
+                System.out.println("modules empty  " + modules.isEmpty());
                 Element eElement = (Element) nNode;
                 //System.out.println(modules.contains(eElement.getAttribute("mname")));
                 
                 for(Module module : modules){
                     if(module.getName().equals(eElement.getAttribute("mname"))){
-                        System.out.println("perna proto if");
+                        System.out.println("passes first if");
                         assignmentList = nNode.getChildNodes();
                         HashSet<Assignment> assignments = new HashSet<Assignment>();
                         assignments = module.getAssignments();
-                        System.out.println("assignments empty" + assignments.isEmpty());
+                        System.out.println("assignments empty   " + assignments.isEmpty());
                         
                         for (int j = 0; j < assignmentList.getLength(); j++){
                             Node n1Node = assignmentList.item(j);
                             
                             if (n1Node.getNodeType() == Node.ELEMENT_NODE) {
                                 
-                                System.out.println("perna deftero if");
+                                System.out.println("passes second if");
                                 Element e1Element = (Element) n1Node;                        
                                 for(Assignment assignment : assignments){
-                                    System.out.println("name   " + e1Element.getElementsByTagName("name").item(0).getTextContent());
-                                    System.out.println("iparxi assignment   " + assignment.getName().equals(e1Element.getElementsByTagName("name").item(0).getTextContent()));
+                                    System.out.println("assignment name   " + e1Element.getElementsByTagName("name").item(0).getTextContent());
+                                    System.out.println("assignment exists   " + assignment.getName().equals(e1Element.getElementsByTagName("name").item(0).getTextContent()));
                                     if(assignment.getName().equals(e1Element.getElementsByTagName("name").item(0).getTextContent())){
-                                        System.out.println("mpeni");
+                                        System.out.println("finds assignments and gets in if");
                                         Date start = new Date();
 
                                         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -202,17 +202,26 @@ public class StudyProfile implements Serializable{
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }
-                                        if(!(assignment.getStart().equals(start)))
+                                        System.out.println("old start date   " + assignment.getStart());
+                                        if(!(assignment.getStart().equals(start))){
                                             assignment.setStart(start);
+                                        }
+                                        System.out.println("new start date   " + assignment.getStart());
+                                        
 
                                         Date end  = new Date();
+                                        
+                                        
                                         try {
                                             end = df.parse(e1Element.getElementsByTagName("end").item(0).getTextContent());//gets end date
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }
-                                        if(!(assignment.getEnd().equals(end)))
+                                        System.out.println("old end date   "  + assignment.getEnd());
+                                        if(!(assignment.getEnd().equals(end))){
                                             assignment.setEnd(end);
+                                        }
+                                        System.out.println("new end date   "  + assignment.getEnd());
                                     }
                                 }
                             }
@@ -228,7 +237,7 @@ public class StudyProfile implements Serializable{
     public static void main(String argv[]) {
         StudyProfile profile = new StudyProfile();
         File hubFile = new File("HubFile.xml");
-        
+        File hubFile2 = new File("HubFile2.xml");
         InitialiseStudyProfile(profile, hubFile);
 //        for(Module module : profile.getModules()){
 //            System.out.println(module);
@@ -236,7 +245,7 @@ public class StudyProfile implements Serializable{
 //                System.out.println(assignment);
 //            }
 //        }
-        UpdateStudyProfile(profile,hubFile);
+        UpdateStudyProfile(profile,hubFile2);
         
     }
     

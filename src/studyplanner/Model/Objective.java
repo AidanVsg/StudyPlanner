@@ -1,4 +1,6 @@
 package studyplanner.Model;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  * Class to model an Objective (e.g. a task) of the Study Planner.
@@ -22,7 +24,7 @@ public class Objective {
         this.end = null;
         this.isDone = false;    //Objective is not met by default
     }
-    
+    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     /**
      * Overloaded constructor with additional parameters.
      * @param name
@@ -32,9 +34,9 @@ public class Objective {
      */ 
     public Objective(String name, String description, Date start, Date end){
         this.name = name;
-        this.description = null;
-        this.start = new Date();
-        this.end = null;
+        this.description = description;
+        this.start = start;
+        this.end =  end;
         this.isDone = false;
     }
     
