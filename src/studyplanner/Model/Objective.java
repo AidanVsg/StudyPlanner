@@ -17,8 +17,8 @@ public class Objective {
      * Default constructor for an instance of Objective.
      */
     public Objective(){
-        this.name = null;
-        this.description = null;
+        this.name = "";
+        this.description = "";
         this.start = new Date(); //sets the start date at time of object 
                                  //creation
         this.end = null;

@@ -29,6 +29,7 @@ public class Assignment extends Objective {
     
     /**
      * Add a task to an assignment.
+     * @param task - task to be added to this assignment
      */
     public void addTask(Task task){
         tasks.add(task);
@@ -36,15 +37,10 @@ public class Assignment extends Objective {
     
     /**
      * Add a milestone to an assignment.
-     * @param tasks Certain tasks need to be done for the milestone.
-     * @param name Name of the milestone.
-     * @param description Description of the milestone.
-     * @param start Beginning date of the milestone.
-     * @param end Deadline of the milestone.
+     * @param milestone - milestone to be added
      */
-    public void addMilestone(ArrayList<Task> tasks, String name, String description,
-                    Date start, Date end){
-        milestones.add(new Milestone(tasks,name,description,start,end));
+    public void addMilestone(Milestone milestone){
+        milestones.add(milestone);
     }
     
     /*******************
@@ -93,6 +89,7 @@ public class Assignment extends Objective {
         this.milestones = milestones;
     }
     
+    @Override
      public String toString(){
          return this.getName();
 }
