@@ -1,11 +1,7 @@
 package studyplanner;
 
 import java.net.URL;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,8 +27,10 @@ public class CreateTaskViewController implements Initializable {
     
     
     @FXML ComboBox moduleComboBox, assignmentComboBox;
+    
     public void initData(StudyProfile profile){
         this.profile = profile;
+        
         moduleComboBox.getItems().addAll(profile.getModules());
         moduleComboBox.valueProperty().addListener(new ChangeListener<Module>() {
             @Override public void changed(ObservableValue ov, Module prev, Module cur) {
@@ -63,8 +61,7 @@ public class CreateTaskViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         taskDatePicker.setValue(LocalDate.now());        
     }    
-    
-    //TODO ALSO DISABLE BEING ABLE TO PICK A DATE AFTER DEADLINE
+    //TODO HOPE XML READER GETS FIXED TO REENABLE AFTER DEADLINE BLOCKER
     private void initializeDatePicker(DatePicker datePicker, Assignment assign){
         LocalDate assignDeadline = LocalDate.now().plusDays(7);
         //LocalDate assignDeadline = new java.sql.Date(assign.getEnd().getTime()).toLocalDate();
@@ -75,12 +72,8 @@ public class CreateTaskViewController implements Initializable {
                 public void updateItem(LocalDate item, boolean empty) {
                     super.updateItem(item, empty);
                     
-                    if (item.isBefore(LocalDate.now())){
-                        setDisable(true);
-                        setStyle("-fx-background-color: #ffc0cb;");   
-                    }
-                    
-                    if (item.isAfter(assignDeadline)){
+                    if (item.isBefore(LocalDate.now()) 
+                                            || item.isAfter(assignDeadline)){
                         setDisable(true);
                         setStyle("-fx-background-color: #ffc0cb;");   
                     }
