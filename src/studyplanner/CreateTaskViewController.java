@@ -55,6 +55,7 @@ public class CreateTaskViewController implements Initializable {
     @FXML private void createTaskButtonClick(){
         
     }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!MAKE SURE YOU CANT CREATE TASKS IF TODAY IS AFTER THE DEADLINE OF AN ASSIGNMENT
     public void initData(StudyProfile profile){
         stage = (Stage) createTaskWindow.getScene().getWindow();
         this.profile = profile;
@@ -73,7 +74,9 @@ public class CreateTaskViewController implements Initializable {
         assignmentComboBox.valueProperty().addListener(
             new ChangeListener<Assignment>(){
                 @Override public void changed(ObservableValue ov, Assignment prev, Assignment cur){
-                    initializeDatePicker(taskDatePicker, cur);
+                    if(cur!=null){
+                        initializeDatePicker(taskDatePicker, cur);
+                    }
                 }
             });
     }
@@ -89,11 +92,11 @@ public class CreateTaskViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         taskDatePicker.setValue(LocalDate.now());        
     }    
-    //TODO HOPE XML READER GETS FIXED TO REENABLE AFTER DEADLINE BLOCKER
+
     //YOU CAN STILL CHEAT THE BLOCK IF YOU SELECT THE DATE BEFORE YOU SELECT AN ASSIGNMENT
     private void initializeDatePicker(DatePicker datePicker, Assignment assign){
-        LocalDate assignDeadline = LocalDate.now().plusDays(7);
-        //LocalDate assignDeadline = new java.sql.Date(assign.getEnd().getTime()).toLocalDate();
+        LocalDate assignDeadline = 
+                new java.sql.Date(assign.getEnd().getTime()).toLocalDate();
         
         final Callback<DatePicker, DateCell> dayCellFactory = 
             (final DatePicker datePicker1) -> new DateCell() {
