@@ -7,9 +7,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import studyplanner.Model.Assignment;
 import studyplanner.Model.Module;
@@ -23,12 +30,33 @@ import studyplanner.Model.StudyProfile;
 public class CreateTaskViewController implements Initializable {
     private StudyProfile profile;
     
-    @FXML DatePicker taskDatePicker;
-    
-    
     @FXML ComboBox moduleComboBox, assignmentComboBox;
     
+    @FXML DatePicker taskDatePicker;
+    
+    @FXML TextField nameTextField;
+    
+    @FXML ListView dependencyListView;
+    
+    @FXML TextArea descriptionTextArea;
+    
+    @FXML TableView criteriaTableView;
+    
+    @FXML Button cancelButton, createTaskButton;
+    
+    @FXML AnchorPane createTaskWindow;
+    
+    private Stage stage;
+    
+    @FXML private void cancelButtonClick(){
+        stage.hide();
+    }
+    
+    @FXML private void createTaskButtonClick(){
+        
+    }
     public void initData(StudyProfile profile){
+        stage = (Stage) createTaskWindow.getScene().getWindow();
         this.profile = profile;
         
         moduleComboBox.getItems().addAll(profile.getModules());
@@ -62,6 +90,7 @@ public class CreateTaskViewController implements Initializable {
         taskDatePicker.setValue(LocalDate.now());        
     }    
     //TODO HOPE XML READER GETS FIXED TO REENABLE AFTER DEADLINE BLOCKER
+    //YOU CAN STILL CHEAT THE BLOCK IF YOU SELECT THE DATE BEFORE YOU SELECT AN ASSIGNMENT
     private void initializeDatePicker(DatePicker datePicker, Assignment assign){
         LocalDate assignDeadline = LocalDate.now().plusDays(7);
         //LocalDate assignDeadline = new java.sql.Date(assign.getEnd().getTime()).toLocalDate();
