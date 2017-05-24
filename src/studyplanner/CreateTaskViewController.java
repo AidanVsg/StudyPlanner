@@ -2,6 +2,9 @@ package studyplanner;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,9 +21,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import studyplanner.Model.Activity;
 import studyplanner.Model.Assignment;
+import studyplanner.Model.Criterion;
 import studyplanner.Model.Module;
 import studyplanner.Model.StudyProfile;
+import studyplanner.Model.Task;
 
 /**
  * FXML Controller class
@@ -53,7 +59,19 @@ public class CreateTaskViewController implements Initializable {
     }
     
     @FXML private void createTaskButtonClick(){
+        Assignment assignment = (Assignment)assignmentComboBox.getValue();
         
+        String phType = "Study";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        Date start = new Date();
+        Date end = java.sql.Date.valueOf(taskDatePicker.getValue());
+        Task task = new Task(phType,criteria,activityHistory, dependencies,
+        nameTextField.getText(),descriptionTextArea.getText(),
+        start, end);
+        assignment.addTask(task);
+        System.out.println(assignment.getTasks().get(0).getEnd());
     }
     //!!!!!!!!!!!!!!!!!!!!!!!!!MAKE SURE YOU CANT CREATE TASKS IF TODAY IS AFTER THE DEADLINE OF AN ASSIGNMENT
     public void initData(StudyProfile profile){
