@@ -108,6 +108,8 @@ public class Assignment extends Objective {
     
     @Override
     public String toString(){
+//        String returner = " "+ this.getName() + " " + this.getDescription() + " " + this.getWeighting() + " " + this.getStart() + " " + this.getEnd();
+//        return returner;
         return this.getName();
     }
     

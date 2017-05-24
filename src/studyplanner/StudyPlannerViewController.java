@@ -1,5 +1,6 @@
 package studyplanner;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -32,6 +33,16 @@ public class StudyPlannerViewController implements Initializable {
             content.getScene().getWindow().hide();
             showStudyProfile();
         }
+        
+        
+        //CODE TO EASE TESTING, PLEASE REMOVE AFTER PROGRAM IS LIVE++++++++++++++++++++++++++++++++++++++++
+        StudyProfile testProfile = new StudyProfile();
+        testProfile.setName("TEST PROFILE MY MAN");
+        File hubFile = new File("F:\\Documents\\NetBeansProjects\\CW 2017\\StudyPlanner\\HubFile.xml");
+        StudyProfile.InitialiseStudyProfile(testProfile, hubFile);
+        profile = testProfile;
+        showStudyProfile();
+        //TESTING CODE ENDED MY BROS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
     @FXML private void newProfileButtonAction() throws Exception{
         showCreateStudyProfile();
