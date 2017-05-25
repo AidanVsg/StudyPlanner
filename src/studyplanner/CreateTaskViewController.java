@@ -71,6 +71,7 @@ public class CreateTaskViewController implements Initializable {
         start, end);
         assignment.addTask(task);
         System.out.println(assignment.getTasks().get(0).getEnd());
+        stage.hide();
     }
     //!!!!!!!!!!!!!!!!!!!!!!!!!MAKE SURE YOU CANT CREATE TASKS IF TODAY IS AFTER THE DEADLINE OF AN ASSIGNMENT
     public void initData(StudyProfile profile){
