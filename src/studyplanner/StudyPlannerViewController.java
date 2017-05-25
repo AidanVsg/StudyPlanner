@@ -1,8 +1,11 @@
 package studyplanner;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,8 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import studyplanner.Model.StudyProfile;
@@ -26,7 +31,6 @@ public class StudyPlannerViewController implements Initializable {
     
     @FXML private ListView<StudyProfile> profileListView;
     @FXML private AnchorPane content;
-    
     
     @FXML private void loadProfileButtonAction() throws Exception{
         if(profile != null){
@@ -98,6 +102,19 @@ public class StudyPlannerViewController implements Initializable {
                 loader.<StudyProfileViewController>getController();
         controller.initData(profile);
         stage.show();
+    }
+    
+    public void openDashboard(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardView.fxml"));
+    
+        try {
+            Stage stage = new Stage();  
+            stage.setScene(new Scene ((HBox) loader.load()));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(StudyPlannerViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

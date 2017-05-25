@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="StudyPlannerFX.jar" size="27598" download="eager" />
+    <jar href="StudyPlannerFX.jar" size="44829" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="StudyPlannerFX" >
     <param name="requiredFXVersion" value="8.0+"/>
