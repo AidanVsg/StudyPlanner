@@ -17,11 +17,11 @@ public class Criterion {
      */
     public Criterion(){
         //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
-        this.name = null;
+        this.name = "";
         this.type = null;
         this.isMet = false;
         this.value = 0.0;
-        this.unitOfMeasure= null;
+        this.unitOfMeasure= "";
     }
     
     /**
