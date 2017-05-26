@@ -1,10 +1,12 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * Class to model an Activity of Study Planner.
  * @author Kiril
  */
-public class Activity {
+public class Activity implements Serializable{
+    private static final long serialVersionUID = 2L;
     private String name;                        //Name of an activity.
     private String description;                 //Description of an activity.
     private Double value;                       //Value of an activity.

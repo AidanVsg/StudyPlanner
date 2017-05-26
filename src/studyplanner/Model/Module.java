@@ -1,10 +1,12 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.HashSet;
 /**
  * Class to model a Module of the Study Planner.
  * @author Moaz
  */
-public class Module {
+public class Module implements Serializable{
+    private static final long serialVersionUID = 6L;
     private String name;                //Name for the module.
     private String code;                //Code for the module.
     HashSet<Assignment> assignments;    //Set of assignments of the module to prevent
