@@ -35,8 +35,9 @@ import studyplanner.Model.Task;
 public class CreateTaskViewController implements Initializable {
     private StudyProfile profile;
     
-    @FXML ComboBox moduleComboBox, assignmentComboBox;
-    
+    @FXML ComboBox<Module> moduleComboBox;
+    @FXML ComboBox<Assignment> assignmentComboBox;
+        
     @FXML DatePicker taskDatePicker;
     
     @FXML TextField nameTextField;
@@ -58,7 +59,7 @@ public class CreateTaskViewController implements Initializable {
     }
     
     @FXML private void createTaskButtonClick(){
-        Assignment assignment = (Assignment)assignmentComboBox.getValue();
+        Assignment assignment = assignmentComboBox.getValue();
         
         String phType = "Study";
         ArrayList<Criterion> criteria = new ArrayList<>();
@@ -100,8 +101,10 @@ public class CreateTaskViewController implements Initializable {
             });
     }
     
-    
-    
+    @FXML private void addCriterionButtonClick(){
+        
+    }
+
     /**
      * Initializes the controller class.
      * @param url
@@ -112,8 +115,9 @@ public class CreateTaskViewController implements Initializable {
         taskDatePicker.setValue(LocalDate.now());        
     }    
 
-    //YOU CAN STILL CHEAT THE BLOCK IF YOU SELECT THE DATE BEFORE YOU SELECT AN ASSIGNMENT
     private void initializeDatePicker(DatePicker datePicker, Assignment assign){
+        datePicker.setValue(LocalDate.now());
+        datePicker.setDisable(false);
         LocalDate assignDeadline = 
                 new java.sql.Date(assign.getEnd().getTime()).toLocalDate();
         
