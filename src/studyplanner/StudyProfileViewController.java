@@ -1,8 +1,11 @@
 package studyplanner;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import studyplanner.Model.StudyProfile;
+import studyplanner.Model.Task;
+import studyplanner.Model.Module;
+import studyplanner.Model.Assignment;
+import javafx.scene.control.ListView;
 
 /**
  * FXML Controller class
@@ -20,11 +27,24 @@ import studyplanner.Model.StudyProfile;
 public class StudyProfileViewController implements Initializable {
 
     @FXML private Label profileNameLabel;
+    @FXML private ListView<Task> taskListView;
     
     private StudyProfile profile;
     
     @FXML private void addTaskButtonClick() throws IOException{
         showAddTask();
+    }
+    
+      @FXML private void saveStudyProfile() throws Exception{
+        FileOutputStream fos = new FileOutputStream("sp.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(profile);
+    }
+      
+    public void taskAdded(Task task){
+        Platform.runLater(() -> {
+            this.taskListView.getItems().add(task);
+        });
     }
     
     private void showAddTask() throws IOException{
@@ -51,7 +71,15 @@ public class StudyProfileViewController implements Initializable {
         
     public void initData(StudyProfile profile){
         this.profile = profile;
+        for(Module m : profile.getModules()){
+            for(Assignment a : m.getAssignments()){
+                for(Task t : a.getTasks()){
+                    taskListView.getItems().add(t);
+                }
+            }
+        }
         profileNameLabel.setText(profile.getName());
+        
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
