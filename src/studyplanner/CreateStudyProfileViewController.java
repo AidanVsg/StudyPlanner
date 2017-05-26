@@ -78,14 +78,21 @@ public class CreateStudyProfileViewController implements Initializable {
             stage.hide();
         }    
     }
-    
+    /**
+     * Closes StudyProfileView's window
+     */
     @FXML private void cancelButtonClick(){
         stage.hide();
     }
-    
+    /**
+     * Opens new window so that user may browse to a proper hub file
+     */
     @FXML private void browseButtonClick(){
         final FileChooser fileChooser = new FileChooser();
+        //configuring FileChoser so that it is more user friendly.
         configureFileChooser(fileChooser);
+        
+        //opening new fileChooser window on this stage
         File file = fileChooser.showOpenDialog(stage);
         if(file != null) {
             dataFilePathField.setText(file.getPath());
@@ -107,7 +114,7 @@ public class CreateStudyProfileViewController implements Initializable {
      * @param fileChooser - fileChooser to be configured
      */
     private void configureFileChooser(final FileChooser fileChooser){
-        fileChooser.setTitle("Select Hub file");
+        fileChooser.setTitle("Select Hub File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("XML", "*.xml"),
                 new FileChooser.ExtensionFilter("HUB", "*.hub"),
