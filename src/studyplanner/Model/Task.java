@@ -97,4 +97,9 @@ public class Task extends Objective{
     public ArrayList<Task> getDependencies() {
         return dependentOn;
     }
+    
+    @Override
+    public String toString(){
+        return this.getName();
+    }
 }

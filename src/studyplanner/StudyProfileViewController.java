@@ -65,7 +65,7 @@ public class StudyProfileViewController implements Initializable {
         
         CreateTaskViewController controller = 
                 loader.<CreateTaskViewController>getController();
-        controller.initData(profile);
+        controller.initData(profile, this);
         stage.show();
     }
         
