@@ -1,11 +1,13 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 /**
  * Class to model an Objective of the Study Planner.
  * @author Michail
  */
-public class Assignment extends Objective { 
+public class Assignment extends Objective implements Serializable{ 
+    private static final long serialVersionUID = 3L;
     private double weighting;                   //Percentage of the assignment's worth.
     private ArrayList<Task> tasks;              //List of tasks.
     private ArrayList<Milestone> milestones;    //List of milestones.

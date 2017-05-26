@@ -22,7 +22,7 @@ public class StudyProfile implements Serializable{
     private static final long serialVersionUID = 1L;    //Serialisation ID
     private String name;                                //Name of the study prrofile
     //TODO remove static
-    static private ArrayList<Module> modules = new ArrayList<>();           //List of all modules 
+    private ArrayList<Module> modules;           //List of all modules 
     //TODO discuss moving set of profiles to another class
     HashSet<StudyProfile> profiles;                     //HashSet to prevent
                                                         //inserting duplicate 

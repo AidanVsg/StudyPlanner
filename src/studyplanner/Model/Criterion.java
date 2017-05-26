@@ -1,11 +1,13 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import studyplanner.Model.CriterionType;
 /**
  * Class to model a Criterion of the Study Planner.
  * @author Kiril
  */
-public class Criterion {
+public class Criterion implements Serializable{
+    private static final long serialVersionUID = 4L;
     private String name;             //Name of a criteria.
     private CriterionType type;       //Type of a criteria.
     private boolean isMet;           //Whether criteria is met or not.

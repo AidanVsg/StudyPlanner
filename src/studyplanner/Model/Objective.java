@@ -1,4 +1,5 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,7 +7,8 @@ import java.util.Date;
  * Class to model an Objective (e.g. a task) of the Study Planner.
  * @author Michail
  */
-public class Objective {   
+public class Objective implements Serializable{   
+    private static final long serialVersionUID = 7L;
     private String name;                //Name of this Objective.
     private String description;         //Description of this Objective.
     private Date start;                 //Beginning date of this Objective.

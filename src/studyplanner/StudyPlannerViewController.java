@@ -18,7 +18,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import studyplanner.Model.Assignment;
+import studyplanner.Model.Module;
 import studyplanner.Model.StudyProfile;
+import studyplanner.Model.Task;
 
 /**
  *
@@ -125,19 +128,23 @@ public class StudyPlannerViewController implements Initializable {
         
         FileInputStream fin = null;
 	ObjectInputStream ois = null;
+        StudyProfile test = new StudyProfile();
         
         try{                   
             fin = new FileInputStream("sp.ser");
             ois = new ObjectInputStream(fin);
                        
-            addProfileToListView((StudyProfile) ois.readObject());
+            
+            
+            test = (StudyProfile) ois.readObject();
+            
+            addProfileToListView(test);
         }
         catch(Exception e){
             System.out.println("file does not exist");
         }
-                        
         
-        
+
         profileListView.getSelectionModel().selectedItemProperty().addListener(listener);
         
         
