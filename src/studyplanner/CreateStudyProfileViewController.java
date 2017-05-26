@@ -39,11 +39,17 @@ public class CreateStudyProfileViewController implements Initializable {
     
     
     //TODO IF FILE IS BAD FOR HEALTH, MAKE SURE IT DOESNT GET LOADED
+    /**
+     * Creates a new Study Profile and closes profile creation window.
+     */
     @FXML private void createProfileButtonClick(){
-        //reset fields so that they dynamically change with each button click
+        //INPUT ERROR HANDLING~~~~~~~~~~~
+        //reset error labels so that they dynamically change if user
+        //fixes or introduces new errors after clicking the creation button
         errNameLabel.setText("");
         errDataLabel.setText("");
         
+        //flags to check if input fields are empty
         Boolean nameFieldIsEmpty = profileNameField.getText().trim().equals("");
         Boolean dataFieldIsEmpty = dataFilePathField.getText().trim().equals("");
         
@@ -53,15 +59,22 @@ public class CreateStudyProfileViewController implements Initializable {
         if(dataFieldIsEmpty){
             errDataLabel.setText("data field is empty");
         }
+        //END OF INPUT ERROR HANDLING~~~~~~~~~~~~TODO ADD MAX CHARACTER LENGTH TO NAME, MAYBE BLOCK SOME SPECIAL CHARACTERS, WRONG FILE etc.
+        
+        //if no errors are detected, then the input data is used to create a 
+        //new profile
         if(!nameFieldIsEmpty && !dataFieldIsEmpty){
+            
             StudyProfile profile = new StudyProfile();
-            
             File hubFile = new File(dataFilePathField.getText());
+            
             profile.setName(profileNameField.getText());
-            
+            //data from hubFile is added into profile
             StudyProfile.InitialiseStudyProfile(profile, hubFile);
+            //fully initialised profile is added to a list of profiles
+            //in study planner view.
+            mainController.addProfileToListView(profile);
             
-            mainController.profileAdded(profile);
             stage.hide();
         }    
     }

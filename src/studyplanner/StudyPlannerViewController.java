@@ -48,7 +48,7 @@ public class StudyPlannerViewController implements Initializable {
         showCreateStudyProfile();
     }
 
-    public void profileAdded(final StudyProfile sp) {
+    public void addProfileToListView(final StudyProfile sp) {
         Platform.runLater(() -> {
             profileListView.getItems().add(sp);
         });
