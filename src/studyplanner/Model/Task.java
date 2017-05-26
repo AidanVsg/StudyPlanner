@@ -16,7 +16,7 @@ public class Task extends Objective{
     * Default constructor for an instance of Task.
     */
     public Task(){
-        this.type = null;
+        this.type = "";
         this.criteria = new ArrayList<>();
         this.activityHistory = new ArrayList<>();
         this.dependentOn = new ArrayList<>();
