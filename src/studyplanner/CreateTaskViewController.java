@@ -2,6 +2,7 @@ package studyplanner;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -88,7 +89,13 @@ public class CreateTaskViewController implements Initializable {
                 if(assignmentComboBox.getValue() != null){
                     assignmentComboBox.setValue(null);
                 }
-                assignmentComboBox.getItems().setAll(cur.getAssignments());
+                ArrayList<Assignment> beforeDeadlineAssign = new ArrayList<>();
+                for(Assignment assign : cur.getAssignments()){
+                    if(!assign.getEnd().before(new Date())){
+                        beforeDeadlineAssign.add(assign);
+                    }
+                }
+                assignmentComboBox.getItems().setAll(beforeDeadlineAssign);
             }    
         });
         assignmentComboBox.valueProperty().addListener(
