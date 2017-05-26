@@ -18,11 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import studyplanner.Model.Assignment;
-import studyplanner.Model.Module;
 import studyplanner.Model.StudyProfile;
-import studyplanner.Model.Task;
-
 /**
  *
  * @author Doggo
