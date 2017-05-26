@@ -14,37 +14,29 @@ import javafx.stage.Stage;
 import studyplanner.Model.StudyProfile;
 
 /**
- * FXML Controller class
+ * Controller for study profile creation window.
  *
- * @author Doggo
+ * @author Michail Krugliakov 100136484
  */
 public class CreateStudyProfileViewController implements Initializable {
-    private StudyPlannerViewController mainController;
+    //reference to a study planner controller so that a newly created profile
+    //may be passed on to it and added to a Study Planner list view
+    private StudyPlannerViewController mainController;      
     
+    //shortcut fields to make accessing this controller's view's stage easier
     @FXML private AnchorPane createProfileWindow;
     private Stage stage;
     
-    @FXML private Button createProfileButton;
-    @FXML private Button cancelProfileButton;
-    @FXML private Button browseButton;
+    @FXML private Button createProfileButton; //button to create a profile
+    @FXML private Button cancelProfileButton; //button to close profile creation
+    @FXML private Button browseButton;        //button to browse to a data file  
     
-    @FXML private TextField profileNameField;
-    @FXML private TextField dataFilePathField;
+    @FXML private TextField profileNameField; //field to input profile's name   
+    @FXML private TextField dataFilePathField;//field to input path to hub file
     
-    @FXML private Label errNameLabel, errDataLabel;
+    @FXML private Label errNameLabel, errDataLabel; //labels to handle
+                                                    //user input errors
     
-    @FXML private void browseButtonClick(){
-        final FileChooser fileChooser = new FileChooser();
-        configureFileChooser(fileChooser);
-        File file = fileChooser.showOpenDialog(stage);
-        if(file != null) {
-            dataFilePathField.setText(file.getPath());
-        }
-    }
-    
-    @FXML private void cancelButtonClick(){
-        stage.hide();
-    }
     
     //TODO IF FILE IS BAD FOR HEALTH, MAKE SURE IT DOESNT GET LOADED
     @FXML private void createProfileButtonClick(){
@@ -72,6 +64,19 @@ public class CreateStudyProfileViewController implements Initializable {
             mainController.profileAdded(profile);
             stage.hide();
         }    
+    }
+    
+    @FXML private void cancelButtonClick(){
+        stage.hide();
+    }
+    
+    @FXML private void browseButtonClick(){
+        final FileChooser fileChooser = new FileChooser();
+        configureFileChooser(fileChooser);
+        File file = fileChooser.showOpenDialog(stage);
+        if(file != null) {
+            dataFilePathField.setText(file.getPath());
+        }
     }
     
     /**
