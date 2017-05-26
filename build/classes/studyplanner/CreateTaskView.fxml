@@ -56,7 +56,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TableView fx:id="criteriaTableView" layoutX="184.0" layoutY="165.0" prefHeight="176.0" prefWidth="313.0">
+      <TableView fx:id="criteriaTableView" layoutX="184.0" layoutY="165.0" prefHeight="150.0" prefWidth="313.0">
         <columns>
           <TableColumn prefWidth="156.0" text="Criterion" />
           <TableColumn prefWidth="45.0" text="Value" />
@@ -68,8 +68,9 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <ListView fx:id="dependencyListView" layoutX="184.0" layoutY="106.0" prefHeight="25.0" prefWidth="313.0" />
+      <ListView fx:id="dependencyListView" layoutX="184.0" layoutY="106.0" prefHeight="21.0" prefWidth="313.0" />
       <Button fx:id="createTaskButton" layoutX="420.0" layoutY="353.0" mnemonicParsing="false" onAction="#createTaskButtonClick" text="Create Task" />
       <Button fx:id="cancelButton" layoutX="319.0" layoutY="353.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="76.0" text="Cancel" />
+      <Button fx:id="addCriterionButton" layoutX="183.0" layoutY="315.0" mnemonicParsing="false" onAction="#addCriterionButtonClick" text="Add Criterion" />
    </children>
 </AnchorPane>
