@@ -53,8 +53,14 @@ public class CreateTaskViewController implements Initializable {
     
     private Stage stage;
     
+    private StudyProfileViewController mainController;
+    
     @FXML private void cancelButtonClick(){
         stage.hide();
+    }
+    
+    @FXML private void addCriterionButtonClick(){
+        
     }
     
     @FXML private void createTaskButtonClick(){
@@ -71,6 +77,7 @@ public class CreateTaskViewController implements Initializable {
         nameTextField.getText(),descriptionTextArea.getText(),
         start, end);
         assignment.addTask(task);
+        mainController.taskAdded(task);
         System.out.println(assignment.getTasks().get(0).getEnd());
         stage.hide();
     }
