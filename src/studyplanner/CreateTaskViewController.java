@@ -42,6 +42,7 @@ public class CreateTaskViewController implements Initializable {
     @FXML DatePicker taskDatePicker;
     
     @FXML TextField nameTextField;
+    @FXML TextField typeTextField;
     
     @FXML ListView dependencyListView;
     
@@ -62,21 +63,22 @@ public class CreateTaskViewController implements Initializable {
     @FXML private void createTaskButtonClick(){
         Assignment assignment = assignmentComboBox.getValue();
         
-        String phType = "Study";
+        String type = typeTextField.getText();
         ArrayList<Criterion> criteria = new ArrayList<>();
-        ArrayList<Task> dependencies = new ArrayList<>();
         ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
         Date start = new Date();
         Date end = java.sql.Date.valueOf(taskDatePicker.getValue());
         
-        Task task = new Task(phType,criteria,activityHistory, dependencies,
+        Task task = new Task(type,criteria,activityHistory, dependencies,
         nameTextField.getText(),descriptionTextArea.getText(),
         start, end);
+        
         assignment.addTask(task);
         System.out.println(assignment.getTasks().get(0).getEnd());
         stage.hide();
     }
-    //!!!!!!!!!!!!!!!!!!!!!!!!!MAKE SURE YOU CANT CREATE TASKS IF TODAY IS AFTER THE DEADLINE OF AN ASSIGNMENT
+    
     public void initData(StudyProfile profile){
         stage = (Stage) createTaskWindow.getScene().getWindow();
         this.profile = profile;
@@ -113,7 +115,7 @@ public class CreateTaskViewController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Initialises the controller class.
      * @param url
      * @param rb
      */
