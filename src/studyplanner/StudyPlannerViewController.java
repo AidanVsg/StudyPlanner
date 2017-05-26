@@ -1,7 +1,12 @@
 package studyplanner;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -34,7 +39,8 @@ public class StudyPlannerViewController implements Initializable {
             showStudyProfile();
         }
         
-        
+        else
+        {
         //CODE TO EASE TESTING, PLEASE REMOVE AFTER PROGRAM IS LIVE++++++++++++++++++++++++++++++++++++++++
         StudyProfile testProfile = new StudyProfile();
         testProfile.setName("TEST PROFILE MY MAN");
@@ -42,10 +48,17 @@ public class StudyPlannerViewController implements Initializable {
         StudyProfile.InitialiseStudyProfile(testProfile, hubFile);
         profile = testProfile;
         showStudyProfile();
+        }
         //TESTING CODE ENDED MY BROS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
     @FXML private void newProfileButtonAction() throws Exception{
         showCreateStudyProfile();
+    }
+    
+    @FXML private void saveStudyProfile() throws Exception{
+                FileOutputStream fos = new FileOutputStream("sp.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(profile);
     }
 
     public void addProfileToListView(final StudyProfile sp) {
@@ -78,6 +91,8 @@ public class StudyPlannerViewController implements Initializable {
         stage.show();
     }
     
+    
+    
     public void showStudyProfile() throws Exception {
         FXMLLoader loader = new FXMLLoader(
             getClass().getResource(
@@ -107,8 +122,25 @@ public class StudyPlannerViewController implements Initializable {
                 (ObservableValue<? extends StudyProfile> observable, 
                         StudyProfile oldValue, StudyProfile newValue) -> {
             profile = newValue;
-
         };
+        
+        FileInputStream fin = null;
+	ObjectInputStream ois = null;
+        
+        try{                   
+            fin = new FileInputStream("sp.ser");
+            ois = new ObjectInputStream(fin);
+                       
+            profileAdded((StudyProfile) ois.readObject());
+        }
+        catch(Exception e){
+            System.out.println("file does not exist");
+        }
+                        
+        
+        
         profileListView.getSelectionModel().selectedItemProperty().addListener(listener);
+        
+        
     }
 }
