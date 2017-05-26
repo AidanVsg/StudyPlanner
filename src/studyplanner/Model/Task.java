@@ -98,6 +98,10 @@ public class Task extends Objective{
         return dependentOn;
     }
     
+    public void setDependencies(ArrayList<Task> dependencies) {
+        this.dependentOn = dependencies;
+    }
+    
     @Override
     public String toString(){
         return this.getName();
