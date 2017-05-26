@@ -107,8 +107,7 @@ public class StudyPlannerViewController implements Initializable {
                 (ObservableValue<? extends StudyProfile> observable, 
                         StudyProfile oldValue, StudyProfile newValue) -> {
             profile = newValue;
-            System.out.println("ListView selection changed from oldValue = "
-                    + oldValue + " to newValue = " + newValue);
+
         };
         profileListView.getSelectionModel().selectedItemProperty().addListener(listener);
     }

@@ -66,6 +66,7 @@ public class CreateTaskViewController implements Initializable {
         ArrayList<Activity> activityHistory = new ArrayList<>();
         Date start = new Date();
         Date end = java.sql.Date.valueOf(taskDatePicker.getValue());
+        
         Task task = new Task(phType,criteria,activityHistory, dependencies,
         nameTextField.getText(),descriptionTextArea.getText(),
         start, end);
