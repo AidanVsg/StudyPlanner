@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -131,7 +130,7 @@ public class StudyPlannerViewController implements Initializable {
             fin = new FileInputStream("sp.ser");
             ois = new ObjectInputStream(fin);
                        
-            profileAdded((StudyProfile) ois.readObject());
+            addProfileToListView((StudyProfile) ois.readObject());
         }
         catch(Exception e){
             System.out.println("file does not exist");
