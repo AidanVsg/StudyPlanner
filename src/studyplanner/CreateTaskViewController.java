@@ -28,9 +28,8 @@ import studyplanner.Model.StudyProfile;
 import studyplanner.Model.Task;
 
 /**
- * FXML Controller class
- *
- * @author Doggo
+ * Controller for task creation window
+ * @author Michail Krugliakov 100136484
  */
 public class CreateTaskViewController implements Initializable {
     private StudyProfile profile;
@@ -87,13 +86,27 @@ public class CreateTaskViewController implements Initializable {
     
     public void initData(StudyProfile profile, 
             StudyProfileViewController mainController){
+        
         this.mainController = mainController;
         stage = (Stage) createTaskWindow.getScene().getWindow();
+        
         this.profile = profile;
         
         moduleComboBox.getItems().addAll(profile.getModules());
+    }
+
+    /**
+     * Initialises the controller class.
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        taskDatePicker.setValue(LocalDate.now());    
+        
         moduleComboBox.valueProperty().addListener(new ChangeListener<Module>() {
-            @Override public void changed(ObservableValue ov, Module prev, Module cur) {
+            @Override 
+            public void changed(ObservableValue ov, Module prev, Module cur) {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
                 if(assignmentComboBox.getValue() != null){
@@ -110,25 +123,16 @@ public class CreateTaskViewController implements Initializable {
         });
         assignmentComboBox.valueProperty().addListener(
             new ChangeListener<Assignment>(){
-                @Override public void changed(ObservableValue ov, Assignment prev, Assignment cur){
+                @Override
+                public void changed(ObservableValue ov, Assignment prev, Assignment cur){
                     if(cur!=null){
-                        initializeDatePicker(taskDatePicker, cur);
+                        updateDatePicker(taskDatePicker, cur);
                     }
                 }
             });
-    }
-
-    /**
-     * Initialises the controller class.
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        taskDatePicker.setValue(LocalDate.now());        
     }    
 
-    private void initializeDatePicker(DatePicker datePicker, Assignment assign){
+    private void updateDatePicker(DatePicker datePicker, Assignment assign){
         datePicker.setValue(LocalDate.now());
         datePicker.setDisable(false);
         LocalDate assignDeadline = 
