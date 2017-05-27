@@ -34,53 +34,59 @@ import studyplanner.Model.Task;
 public class CreateTaskViewController implements Initializable {
     private StudyProfile profile;
     
-    @FXML ComboBox<Module> moduleComboBox;
-    @FXML ComboBox<Assignment> assignmentComboBox;
+    @FXML ComboBox<Module> moduleComboBox; //module selection box
+    @FXML ComboBox<Assignment> assignmentComboBox; //assignment selection box
         
-    @FXML DatePicker taskDatePicker;
+    @FXML DatePicker taskDatePicker; //task deadline date picker
     
-    @FXML TextField nameTextField;
-    @FXML TextField typeTextField;
+    @FXML TextField nameTextField; //task name input field
+    @FXML TextField typeTextField; //task type input field
     
-    @FXML ListView dependencyListView;
+    @FXML ListView dependencyListView; //list of tasks this tasks depends on
     
-    @FXML TextArea descriptionTextArea;
+    @FXML TextArea descriptionTextArea; //description of the task
     
-    @FXML TableView criteriaTableView;
+    @FXML TableView criteriaTableView; //list of criteria to meet this task
     
-    @FXML Button cancelButton, createTaskButton;
+    @FXML Button cancelButton, createTaskButton; //buttons to close and 
+                                                 //create a new task
     
-    @FXML AnchorPane createTaskWindow;
-    
-    private Stage stage;
+    @FXML AnchorPane createTaskWindow; //shortcut fields to ease acess
+    private Stage stage;               //to this controller's view's stage
     
     private StudyProfileViewController mainController;
+                                       //controller to pass task data to
     
+    /**
+     * Closes task creation window
+     */
     @FXML private void cancelButtonClick(){
         stage.hide();
     }
-    
+    /**
+     * adds an editable criterion to criteria
+     */
     @FXML private void addCriterionButtonClick(){
         
     }
-    
+    /**
+     * checks for correctness of inputs and creates a new task in
+     * selected assignment
+     */
     @FXML private void createTaskButtonClick(){
+        //NOTE: OPTIONAL FIELDS ARE: Description, dependencies.
+        //selects assignment to add the task to
         Assignment assignment = assignmentComboBox.getValue();
-        
-        String type = typeTextField.getText();
-        ArrayList<Criterion> criteria = new ArrayList<>();
-        ArrayList<Activity> activityHistory = new ArrayList<>();
-        ArrayList<Task> dependencies = new ArrayList<>();
-        Date start = new Date();
-        Date end = java.sql.Date.valueOf(taskDatePicker.getValue());
-        
-        Task task = new Task(type,criteria,activityHistory, dependencies,
-        nameTextField.getText(),descriptionTextArea.getText(),
-        start, end);
-        
-        assignment.addTask(task);
-        mainController.taskAdded(task);
-        System.out.println(assignment.getTasks().get(0).getEnd());
+        //>>>>ADD CHECKS AND PROPER READING OF INPUT FIELDS.
+        Task task = new Task();
+        task.setName(nameTextField.getText());
+        task.setType(typeTextField.getText());
+        task.setDescription(descriptionTextArea.getText());
+        task.setStart(new Date());
+        task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
+           
+        assignment.addTask(task); //
+
         stage.hide();
     }
     
