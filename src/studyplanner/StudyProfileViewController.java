@@ -56,6 +56,7 @@ public class StudyProfileViewController implements Initializable {
         
         Stage stage = new Stage();
         stage.setTitle("New Task");
+        stage.setOnHidden(e -> updateTaskListView());
         
         stage.setScene(
             new Scene(
@@ -71,15 +72,17 @@ public class StudyProfileViewController implements Initializable {
         
     public void initData(StudyProfile profile){
         this.profile = profile;
+        updateTaskListView();
+        profileNameLabel.setText(profile.getName());
+    }
+    private void updateTaskListView(){
         for(Module m : profile.getModules()){
             for(Assignment a : m.getAssignments()){
                 for(Task t : a.getTasks()){
-                    taskListView.getItems().add(t);
+                    taskAdded(t);
                 }
             }
         }
-        profileNameLabel.setText(profile.getName());
-        
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

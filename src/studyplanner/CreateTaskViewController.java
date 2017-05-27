@@ -91,7 +91,7 @@ public class CreateTaskViewController implements Initializable {
     }
     
     public void initData(StudyProfile profile, 
-            StudyProfileViewController mainController){
+                StudyProfileViewController mainController){
         
         this.mainController = mainController;
         stage = (Stage) createTaskWindow.getScene().getWindow();
