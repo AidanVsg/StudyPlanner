@@ -14,9 +14,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -47,9 +51,12 @@ public class CreateTaskViewController implements Initializable {
     @FXML TextArea descriptionTextArea; //description of the task
     
     @FXML TableView criteriaTableView; //list of criteria to meet this task
+        @FXML TableColumn criterionName;
+        @FXML TableColumn criterionValue;
+        @FXML TableColumn criterionUOM;
     
-    @FXML Button cancelButton, createTaskButton; //buttons to close and 
-                                                 //create a new task
+    @FXML Button cancelButton, createTaskButton, addCriterionButton; 
+            //closes window    //creates a new task     //adds an empty criterion
     
     @FXML AnchorPane createTaskWindow; //shortcut fields to ease acess
     private Stage stage;               //to this controller's view's stage
@@ -67,7 +74,7 @@ public class CreateTaskViewController implements Initializable {
      * adds an editable criterion to criteria
      */
     @FXML private void addCriterionButtonClick(){
-        
+        criteriaTableView.getItems().add(new Criterion());
     }
     /**
      * checks for correctness of inputs and creates a new task in
@@ -99,6 +106,8 @@ public class CreateTaskViewController implements Initializable {
         this.profile = profile;
         
         moduleComboBox.getItems().addAll(profile.getModules());
+        
+       
     }
 
     /**
@@ -109,7 +118,7 @@ public class CreateTaskViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         taskDatePicker.setValue(LocalDate.now());    
-        
+         
         moduleComboBox.valueProperty().addListener(new ChangeListener<Module>() {
             @Override 
             public void changed(ObservableValue ov, Module prev, Module cur) {
@@ -136,7 +145,87 @@ public class CreateTaskViewController implements Initializable {
                     }
                 }
             });
-    }    
+        
+        Callback<TableColumn, TableCell> cellFactory =
+             (TableColumn p) -> new EditingCell(); 
+        
+         criterionName.setEditable(true);
+         criterionName.setCellFactory(cellFactory);
+        criterionName.setCellValueFactory(
+                new PropertyValueFactory<>("name"));
+        criterionName.setCellFactory(TextFieldTableCell.forTableColumn());
+        criterionValue.setEditable(true);
+        criterionValue.setCellValueFactory(
+                new PropertyValueFactory<Criterion, String>("value"));
+        criterionUOM.setCellValueFactory(
+                new PropertyValueFactory<Criterion, String>("unitOfMeasure"));
+    }   
+    
+    class EditingCell extends TableCell<Criterion, String> {
+ 
+        private TextField textField;
+ 
+        public EditingCell() {
+        }
+ 
+        @Override
+        public void startEdit() {
+            if (!isEmpty()) {
+                super.startEdit();
+                createTextField();
+                setText(null);
+                setGraphic(textField);
+                textField.selectAll();
+            }
+        }
+ 
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+ 
+            setText((String) getItem());
+            setGraphic(null);
+        }
+ 
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+ 
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                if (isEditing()) {
+                    if (textField != null) {
+                        textField.setText(getString());
+                    }
+                    setText(null);
+                    setGraphic(textField);
+                } else {
+                    setText(getString());
+                    setGraphic(null);
+                }
+            }
+        }
+ 
+        private void createTextField() {
+            textField = new TextField(getString());
+            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+            textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+                @Override
+                public void changed(ObservableValue<? extends Boolean> arg0, 
+                    Boolean arg1, Boolean arg2) {
+                        if (!arg2) {
+                            commitEdit(textField.getText());
+                        }
+                }
+            });
+        }
+ 
+        private String getString() {
+            return getItem() == null ? "" : getItem().toString();
+        }
+    }
 
     private void updateDatePicker(DatePicker datePicker, Assignment assign){
         datePicker.setValue(LocalDate.now());

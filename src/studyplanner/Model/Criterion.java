@@ -20,7 +20,7 @@ public class Criterion implements Serializable{
     public Criterion(){
         //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
         this.name = "";
-        this.type = null;
+        this.type = CriterionType.Boolean;
         this.isMet = false;
         this.value = 0.0;
         this.unitOfMeasure= "";
@@ -91,7 +91,13 @@ public class Criterion implements Serializable{
      * @param type Type for a criterion.
      */
     public void setType(CriterionType type) {
-        this.type = type;
+        if(this.getValue()>0 && type.equals(CriterionType.Boolean)){
+            System.out.println("Can't set Criterion with value>0 to Boolean");
+        }else if(this.getValue()==0 && type.equals(CriterionType.Value)){       //TODO MAKE NEW EXCEPTION FOR THIS STUFF 
+            System.out.println("Cant set Criterion with value=0 to Value");
+        }else{
+            this.type = type;
+        }  
     }
 
     /**
@@ -119,6 +125,11 @@ public class Criterion implements Serializable{
      * @param value Value for a criterion.
      */
     public void setValue(double value) {
+        if(value>0){
+            this.setType(CriterionType.Value);
+        }else{
+            this.setType(CriterionType.Boolean); //EXCEPTIONS NEEDED HERE AS WELL
+        }
         this.value = value;
     }
 
