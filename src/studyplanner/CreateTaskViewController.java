@@ -25,7 +25,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import studyplanner.Model.Activity;
 import studyplanner.Model.Assignment;
 import studyplanner.Model.Criterion;
 import studyplanner.Model.Module;
@@ -65,6 +64,8 @@ public class CreateTaskViewController implements Initializable {
     private StudyProfileViewController mainController;
                                        //controller to pass task data to
     
+    private int i=0;
+    
     /**
      * Closes task creation window
      */
@@ -75,7 +76,16 @@ public class CreateTaskViewController implements Initializable {
      * adds an editable criterion to criteria
      */
     @FXML private void addCriterionButtonClick(){
-        criteriaTableView.getItems().add(new Criterion());
+        i++;
+        Criterion criterion = new Criterion();
+        criterion.setName("criterion"+i);
+        if(i%2==0){
+            criterion.setValue(i/2);
+            criterion.setUnitOfMeasure("units done");
+        }else{
+            criterion.setUnitOfMeasure("done dis");
+        }
+        criteriaTableView.getItems().add(criterion);
     }
     /**
      * checks for correctness of inputs and creates a new task in
@@ -149,8 +159,8 @@ public class CreateTaskViewController implements Initializable {
         
         Callback<TableColumn, TableCell> cellFactory =
              (TableColumn p) -> new EditingCell(); 
-        criterionName.setText("FUCK");
-         criterionName.setCellFactory(cellFactory);
+        
+        criterionName.setCellFactory(cellFactory);
         criterionName.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
         criterionName.setCellFactory(TextFieldTableCell.forTableColumn());
