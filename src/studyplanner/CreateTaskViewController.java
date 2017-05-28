@@ -54,7 +54,7 @@ public class CreateTaskViewController implements Initializable {
     @FXML AnchorPane createTaskWindow; //shortcut fields to ease acess
     private Stage stage;               //to this controller's view's stage
     
-    private StudyProfileViewController mainController;
+    //private StudyProfileViewController mainController;
                                        //controller to pass task data to
     
     /**
@@ -93,7 +93,7 @@ public class CreateTaskViewController implements Initializable {
     public void initData(StudyProfile profile, 
                 StudyProfileViewController mainController){
         
-        this.mainController = mainController;
+        //this.mainController = mainController;
         stage = (Stage) createTaskWindow.getScene().getWindow();
         
         this.profile = profile;
