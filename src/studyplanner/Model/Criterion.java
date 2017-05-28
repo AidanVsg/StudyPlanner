@@ -1,14 +1,15 @@
 package studyplanner.Model;
 import java.io.Serializable;
 import java.util.ArrayList;
-import studyplanner.Model.CriterionType;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * Class to model a Criterion of the Study Planner.
  * @author Kiril
  */
 public class Criterion implements Serializable{
     private static final long serialVersionUID = 4L;
-    private String name;             //Name of a criteria.
+    final private SimpleStringProperty name;             //Name of a criteria.
     private CriterionType type;       //Type of a criteria.
     private boolean isMet;           //Whether criteria is met or not.
     private double value;            //Value of a criteria.
@@ -19,7 +20,7 @@ public class Criterion implements Serializable{
      */
     public Criterion(){
         //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
-        this.name = "";
+        this.name = new SimpleStringProperty("");
         this.type = CriterionType.Boolean;
         this.isMet = false;
         this.value = 0.0;
@@ -35,6 +36,7 @@ public class Criterion implements Serializable{
      */
     public Criterion(String name, CriterionType type, double value, String uom){
         
+        this.name = new SimpleStringProperty(name);
         if(type.equals(CriterionType.Boolean)){
             this.value = 0.0;
             this.unitOfMeasure = "";
@@ -70,14 +72,14 @@ public class Criterion implements Serializable{
      *@return Criterion name.
      */
     public String getName() {
-        return name;
+        return name.get();
     }
 
     /**
-     * @param name Name for a criterion.
+     * @param newName Name for a criterion.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String newName) {
+        this.name.set(newName);
     }
 
     /**

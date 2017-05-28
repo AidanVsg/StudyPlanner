@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -50,7 +51,7 @@ public class CreateTaskViewController implements Initializable {
     
     @FXML TextArea descriptionTextArea; //description of the task
     
-    @FXML TableView criteriaTableView; //list of criteria to meet this task
+    @FXML TableView<Criterion> criteriaTableView; //list of criteria to meet this task
         @FXML TableColumn criterionName;
         @FXML TableColumn criterionValue;
         @FXML TableColumn criterionUOM;
@@ -148,17 +149,25 @@ public class CreateTaskViewController implements Initializable {
         
         Callback<TableColumn, TableCell> cellFactory =
              (TableColumn p) -> new EditingCell(); 
-        
-         criterionName.setEditable(true);
+        criterionName.setText("FUCK");
          criterionName.setCellFactory(cellFactory);
         criterionName.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
         criterionName.setCellFactory(TextFieldTableCell.forTableColumn());
-        criterionValue.setEditable(true);
+        criterionName.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Criterion, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Criterion, String> t) {
+                    ((Criterion) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        ).setName(t.getNewValue());
+                }
+             }
+        );
         criterionValue.setCellValueFactory(
-                new PropertyValueFactory<Criterion, String>("value"));
+                new PropertyValueFactory<>("value"));
         criterionUOM.setCellValueFactory(
-                new PropertyValueFactory<Criterion, String>("unitOfMeasure"));
+                new PropertyValueFactory<>("unitOfMeasure"));
     }   
     
     class EditingCell extends TableCell<Criterion, String> {
@@ -211,13 +220,10 @@ public class CreateTaskViewController implements Initializable {
         private void createTextField() {
             textField = new TextField(getString());
             textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
-            textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
-                @Override
-                public void changed(ObservableValue<? extends Boolean> arg0, 
-                    Boolean arg1, Boolean arg2) {
-                        if (!arg2) {
-                            commitEdit(textField.getText());
-                        }
+            textField.focusedProperty().addListener(
+                (ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) -> {
+                if (!arg2) {
+                    commitEdit(textField.getText());
                 }
             });
         }
