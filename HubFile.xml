@@ -5,7 +5,7 @@
                 <name>Design Phase</name>
 				<weighting>30</weighting>
 				<start>22-01-2017</start>
-				<end>22-02-2017</end>
+				<end>22-04-2017</end>
 				<Description>UEA is always looking for ways to support students in their studies and with 
 				many of the modules and assignments requiring detailed planning, priori sa on and tracking
 				of tasks the university wants to you to develop the “Study Planner” applica on. The goal 
@@ -20,7 +20,7 @@
                 <name>Implementation Phase</name>
 				<weighting>20</weighting>
 				<start>22-04-2017</start>
-				<end>22-05-2017</end>
+				<end>22-06-2017</end>
 				<Description>Study the Study Planner (SP) requirements sheet posted on 
 				Blackboard and implement a prototype for the new SP application, based on 
 				the MoSCoW criteria detailed on the sheet. Notice that the requirements 
@@ -74,7 +74,7 @@
 				<name>VoIP</name>
 				<weighting>30</weighting>
 				<start>09-02-2017</start>
-				<end>24-02-2017</end>
+				<end>24-03-2017</end>
 				<Description>The aim of this assignment is to design, implement and evaluate a VoIP 
 				communication system to operate between two PCs in the Lewin Lab. The assignment is 
 				to be tackled in pairs – typically with one person responsible for the sender and 
@@ -102,7 +102,7 @@
 				<name>Hash Table</name>
 				<weighting> 35 </weighting>
 				<start> 01-02-2017</start>
-				<end> 15-03-2017</end>
+				<end> 15-04-2017</end>
 				<Description> Subject specific: To test your ability to design, analyse and implement algorithms.
 				Transferable skills:Describing algorithms using pseudo-code; use of mathematical notation when 
 				analysing algorithms;computer programming; use of drawing tools

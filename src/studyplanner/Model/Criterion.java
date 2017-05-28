@@ -1,11 +1,13 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import studyplanner.Model.CriterionType;
 /**
  * Class to model a Criterion of the Study Planner.
  * @author Kiril
  */
-public class Criterion {
+public class Criterion implements Serializable{
+    private static final long serialVersionUID = 4L;
     private String name;             //Name of a criteria.
     private CriterionType type;       //Type of a criteria.
     private boolean isMet;           //Whether criteria is met or not.
@@ -17,11 +19,11 @@ public class Criterion {
      */
     public Criterion(){
         //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
-        this.name = null;
-        this.type = null;
+        this.name = "";
+        this.type = CriterionType.Boolean;
         this.isMet = false;
         this.value = 0.0;
-        this.unitOfMeasure= null;
+        this.unitOfMeasure= "";
     }
     
     /**
@@ -89,7 +91,13 @@ public class Criterion {
      * @param type Type for a criterion.
      */
     public void setType(CriterionType type) {
-        this.type = type;
+        if(this.getValue()>0 && type.equals(CriterionType.Boolean)){
+            System.out.println("Can't set Criterion with value>0 to Boolean");
+        }else if(this.getValue()==0 && type.equals(CriterionType.Value)){       //TODO MAKE NEW EXCEPTION FOR THIS STUFF 
+            System.out.println("Cant set Criterion with value=0 to Value");
+        }else{
+            this.type = type;
+        }  
     }
 
     /**
@@ -117,6 +125,11 @@ public class Criterion {
      * @param value Value for a criterion.
      */
     public void setValue(double value) {
+        if(value>0){
+            this.setType(CriterionType.Value);
+        }else{
+            this.setType(CriterionType.Boolean); //EXCEPTIONS NEEDED HERE AS WELL
+        }
         this.value = value;
     }
 

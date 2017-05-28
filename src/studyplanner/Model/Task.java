@@ -1,4 +1,5 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -6,7 +7,8 @@ import java.util.Date;
  * Class to model a Task of the Study Planner.
  * @author Ioakim
  */
-public class Task extends Objective{
+public class Task extends Objective implements Serializable{
+    private static final long serialVersionUID = 8L;
     private String type;                            //Type of the task.
     private ArrayList<Criterion> criteria;          //Criteria of the task.
     private ArrayList<Activity> activityHistory;    //Activities of the task.
@@ -16,7 +18,7 @@ public class Task extends Objective{
     * Default constructor for an instance of Task.
     */
     public Task(){
-        this.type = null;
+        this.type = "";
         this.criteria = new ArrayList<>();
         this.activityHistory = new ArrayList<>();
         this.dependentOn = new ArrayList<>();
@@ -96,5 +98,14 @@ public class Task extends Objective{
      */
     public ArrayList<Task> getDependencies() {
         return dependentOn;
+    }
+    
+    public void setDependencies(ArrayList<Task> dependencies) {
+        this.dependentOn = dependencies;
+    }
+    
+    @Override
+    public String toString(){
+        return this.getName();
     }
 }

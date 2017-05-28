@@ -1,11 +1,13 @@
 package studyplanner.Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 /**
  * Class to model a Milestone of the Study Planner.
  * @author Michail
  */
-public class Milestone extends Objective{  
+public class Milestone extends Objective implements Serializable{  
+    private static final long serialVersionUID = 5L;
     private ArrayList<Task> tasks;          //Tasks that need to be done
                                             //for this Milestone to be done.
     /**
