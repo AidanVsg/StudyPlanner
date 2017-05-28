@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import studyplanner.Model.StudyProfile;
 
 
 
@@ -37,16 +38,16 @@ public class StudyPlanner extends Application{
     }
 
     public static void main(String[] args) {
-//        StudyProfile sp = new StudyProfile();
-//
-//
-//        //GanttChartView chart = new GanttChartView();
-//        try{
-//            writeObject(sp);
-//        }
-//        catch (IOException ex){
-//
-//        }
+        StudyProfile sp = new StudyProfile();
+
+
+        //GanttChartView chart = new GanttChartView();
+        try{
+            writeObject(sp);
+        }
+        catch (IOException ex){
+
+        }
           launch(args);
           
     }
@@ -55,7 +56,7 @@ public class StudyPlanner extends Application{
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(obj);
     }
-
+    
 
 
 }

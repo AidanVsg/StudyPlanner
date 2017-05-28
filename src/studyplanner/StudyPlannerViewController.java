@@ -110,7 +110,7 @@ public class StudyPlannerViewController implements Initializable {
         try {
             Stage stage = new Stage();  
             stage.setScene(new Scene ((HBox) loader.load()));
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(StudyPlannerViewController.class.getName()).log(Level.SEVERE, null, ex);
