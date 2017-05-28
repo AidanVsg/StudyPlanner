@@ -73,7 +73,7 @@ public class CreateTaskViewController implements Initializable {
         stage.hide();
     }
     /**
-     * adds an editable criterion to criteria
+     * adds an editable criterion to criteriaTableView
      */
     @FXML private void addCriterionButtonClick(){
         i++;

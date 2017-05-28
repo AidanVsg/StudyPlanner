@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,12 +32,19 @@ public class StudyProfileViewController implements Initializable {
     @FXML private ListView<Task> taskListView;
     
     private StudyProfile profile;
+    private Task selectedTask;      //task to be opened by open task button
     
     @FXML private void addTaskButtonClick() throws IOException{
         showAddTask();
     }
     
-      @FXML private void saveStudyProfile() throws Exception{
+    @FXML private void openTaskButtonClick() throws IOException{
+        if(selectedTask != null){
+            showTask();
+        }
+    }
+    
+    @FXML private void saveStudyProfile() throws Exception{
         FileOutputStream fos = new FileOutputStream("sp.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(profile);
@@ -70,6 +79,27 @@ public class StudyProfileViewController implements Initializable {
         stage.show();
     }
         
+    private void showTask() throws IOException{
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(
+                "TaskView.fxml"
+                )
+        );
+        
+        Stage stage = new Stage();
+        stage.setTitle(selectedTask.getName());
+        
+        stage.setScene(
+            new Scene(
+                (Pane) loader.load()
+            )
+        );
+        
+        TaskViewController controller = 
+                loader.<TaskViewController>getController();
+        controller.initData(profile, selectedTask);
+        stage.show();    
+    }
     public void initData(StudyProfile profile){
         this.profile = profile;
         updateTaskListView();
@@ -86,6 +116,14 @@ public class StudyProfileViewController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        ChangeListener listener = (ChangeListener<Task>) 
+                (ObservableValue<? extends Task> observable, 
+                        Task oldValue, Task newValue) -> {
+            selectedTask = newValue;
+        };
+        
+        taskListView.getSelectionModel().selectedItemProperty().addListener(listener);
         
     }    
     
