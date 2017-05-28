@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -21,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -37,23 +40,35 @@ public class DashboardViewController {
 //    private SplitPane parentPane;
     @FXML
     private Pane parentBox;
+        @FXML AnchorPane dashboardWindow; //shortcut fields to ease acess
+    private Stage stage;               //to this controller's view's stage
+    StudyProfile profile;
     
 //    public static void writeObject(Object obj) throws IOException{
 //        FileOutputStream fos = new FileOutputStream("spfile.ser");
 //        ObjectOutputStream oos = new ObjectOutputStream(fos);
 //        oos.writeObject(obj);
 //    }
-    
-    public void initialize() {
+    public void initData(StudyProfile profile, 
+                StudyProfileViewController mainController){
         
+        //this.mainController = mainController;
+        stage = (Stage) dashboardWindow.getScene().getWindow();
         
+        this.profile = profile;
         
+               
         ProgressBar pb = new ProgressBar(0.6);
         ProgressIndicator pi = new ProgressIndicator(0.6);
         
         
         parentBox.getChildren().add(pb);
-        
+    
+    }
+
+    
+    public void initialize() {
+       
     
     }
     

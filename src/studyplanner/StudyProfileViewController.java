@@ -1,5 +1,5 @@
 package studyplanner;
-
+import studyplanner.DashboardViewController;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +30,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import studyplanner.Model.Milestone;
 
 /**
@@ -55,6 +58,11 @@ public class StudyProfileViewController implements Initializable {
         showAddTask();
     }
 
+        @FXML
+    private void dashboardButtonClick() throws IOException {
+        showDashboard();
+    }
+    
     @FXML
     private void saveStudyProfile() throws Exception {
         FileOutputStream fos = new FileOutputStream("sp.ser");
@@ -96,7 +104,30 @@ public class StudyProfileViewController implements Initializable {
         controller.initData(profile, this);
         stage.show();
     }
+    
+    private void showDashboard() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "DashboardView.fxml"
+                )
+        );
 
+        Stage stage = new Stage();
+        stage.setTitle("Dashboard");
+        //stage.setOnHidden(e -> updateTaskListView());
+
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+
+        DashboardViewController controller
+                = loader.<DashboardViewController>getController();
+        controller.initData(profile, this);
+        stage.show();
+    }
+    
     public void initData(StudyProfile profile) {
         this.profile = profile;
                 taskListView.getItems().clear();
@@ -146,7 +177,7 @@ public class StudyProfileViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-;
+
     }
 
 }

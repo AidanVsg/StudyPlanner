@@ -1,14 +1,11 @@
 package studyplanner;
 
 import java.io.File;
-<<<<<<< HEAD
 import java.io.IOException;
-=======
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
->>>>>>> newMaster
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,14 +19,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-<<<<<<< HEAD
 import javafx.scene.control.Button;
-=======
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
->>>>>>> newMaster
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.ContextMenuEvent;
@@ -49,10 +43,7 @@ public class StudyPlannerViewController implements Initializable {
     
     @FXML private ListView<StudyProfile> profileListView;
     @FXML private AnchorPane content;
-<<<<<<< HEAD
-=======
     @FXML private ContextMenu cmenu;
->>>>>>> newMaster
     
     @FXML private void loadProfileButtonAction() throws Exception{
         if(profile != null){
@@ -136,7 +127,6 @@ public class StudyPlannerViewController implements Initializable {
         stage.show();
     }
     
-<<<<<<< HEAD
     public void openDashboard(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardView.fxml"));
     
@@ -149,7 +139,7 @@ public class StudyPlannerViewController implements Initializable {
             Logger.getLogger(StudyPlannerViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-=======
+
     private void setProfileListViewContextMenu(){
         cmenu = new ContextMenu();
         MenuItem i1 = new MenuItem("Delete");
@@ -181,7 +171,6 @@ public class StudyPlannerViewController implements Initializable {
         });
     }
    
->>>>>>> newMaster
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
