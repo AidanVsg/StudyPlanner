@@ -75,7 +75,7 @@ public class CreateTaskViewController implements Initializable {
      * adds an editable criterion to criteria
      */
     @FXML private void addCriterionButtonClick(){
-        criteriaTableView.getItems().add(new Criterion());
+        //criteriaTableView.getItems().add(new Criterion());
     }
     /**
      * checks for correctness of inputs and creates a new task in
@@ -94,13 +94,11 @@ public class CreateTaskViewController implements Initializable {
         task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
         
         
-        Criterion c1 = new Criterion();
-        c1.setName("Hello");
-        c1.setType(CriterionType.Boolean);
-        c1.setUnitOfMeasure("Dumb");
-        c1.setMet(true);
-        c1.setValue(0.0);
+        Criterion c1 = new Criterion("Study", 2.0, "Hours");
+        Criterion c2 = new Criterion("Workout");
+
         task.getCriteria().add(c1);
+        task.getCriteria().add(c2);
            
         assignment.addTask(task); //
 

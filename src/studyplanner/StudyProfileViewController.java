@@ -31,6 +31,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import studyplanner.Model.Criterion;
 import studyplanner.Model.Milestone;
 
 /**
@@ -42,14 +43,20 @@ public class StudyProfileViewController implements Initializable {
 
     @FXML
     private Label profileNameLabel;
+
     @FXML
     private ListView<Task> taskListView;
     @FXML
     private ListView<Assignment> assignmentListView;
     @FXML
     private ListView<Milestone> milestoneListView;
-    @FXML
-    ComboBox<Module> moduleComboBox; //module selection box
+    
+        @FXML
+    private ListView<Module> moduleListView =  new ListView<>();;
+            @FXML
+    private ListView<Criterion> criteriaListView;
+    //@FXML
+    //ComboBox<Module> moduleComboBox; //module selection box
 
     private StudyProfile profile;
 
@@ -81,6 +88,12 @@ public class StudyProfileViewController implements Initializable {
         });
     }
 
+    public void criterionAdded(Criterion criterion) {
+        Platform.runLater(() -> {
+            this.criteriaListView.getItems().add(criterion);
+        });
+    }
+    
     public void assignmentAdded(Assignment as) {
         Platform.runLater(() -> {
             this.assignmentListView.getItems().add(as);
@@ -158,7 +171,6 @@ public class StudyProfileViewController implements Initializable {
     
     public void initData(StudyProfile profile) {
         this.profile = profile;
-                taskListView.getItems().clear();
 //        ChangeListener listener = (ChangeListener<Assignment>) 
 //                (ObservableValue<? extends Assignment> observable, 
 //                        Assignment oldValue, Assignment newValue) -> {
@@ -169,9 +181,14 @@ public class StudyProfileViewController implements Initializable {
 //        };
 
         profileNameLabel.setText(profile.getName());
-        moduleComboBox.getItems().addAll(profile.getModules());
+        moduleListView.getItems().addAll(profile.getModules());
+        for(Module m : moduleListView.getItems())
+        {
+            System.out.println(m);
+        }
+        //moduleListView.getItems().addAll();
 
-        moduleComboBox.valueProperty().addListener(new ChangeListener<Module>() {
+        moduleListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Module>() {
             @Override
             public void changed(ObservableValue ov, Module prev, Module cur) {
                 //resets value to zero so that user can't create task
@@ -197,6 +214,17 @@ public class StudyProfileViewController implements Initializable {
                 }
                 for (Task t : cur.getTasks()) {
                     taskAdded(t);
+                }
+            }
+        });
+        taskListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Task>(){
+            @Override
+            public void changed(ObservableValue ov, Task prev, Task cur){
+                if(criteriaListView.getItems().size() != 0){
+                    criteriaListView.getItems().clear();
+                }
+                for(Criterion c : cur.getCriteria()){
+                    criterionAdded(c);
                 }
             }
         });

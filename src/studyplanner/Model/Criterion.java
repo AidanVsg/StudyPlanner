@@ -14,37 +14,40 @@ public class Criterion implements Serializable{
     private double value;            //Value of a criteria.
     private String unitOfMeasure;    //Unit of measure for the value.
 
+//    /**
+//     * Default constructor for an instance of Criterion.
+//     */
+//    public Criterion(){
+//        //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
+//        this.name = "";
+//        this.type = CriterionType.Boolean;
+//        this.isMet = false;
+//        this.value = 0.0;
+//        this.unitOfMeasure= "";
+//    }
+//    
     /**
-     * Default constructor for an instance of Criterion.
-     */
-    public Criterion(){
-        //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
-        this.name = "";
-        this.type = CriterionType.Boolean;
-        this.isMet = false;
-        this.value = 0.0;
-        this.unitOfMeasure= "";
-    }
-    
-    /**
-     * Overloaded constructor with additional parameters.
+     * Overloaded constructor for a criterion with type Value
      * @param name Name of a criteria.
-     * @param type Type of a criteria.
      * @param value Value of a criteria.
      * @param uom Unit of measure for the value.
      */
-    public Criterion(String name, CriterionType type, double value, String uom){
-        
-        if(type.equals(CriterionType.Boolean)){
-            this.value = 0.0;
-            this.unitOfMeasure = "";
-        }
-        else{
-            this.unitOfMeasure = uom;
-            this.value = value;
-        }
-                   
-        this.type = type;
+    public Criterion(String name, double value, String uom){
+        this.name = name;
+        this.unitOfMeasure = uom;
+        this.value = value;                   
+        this.type = CriterionType.Value;
+        this.isMet = false; //The criterion will not be met when initialised.
+
+    }
+    
+        /**
+     * Overloaded constructor for a criterion with type Boolean.
+     * @param name Name of a criteria.
+     */
+    public Criterion(String name){  
+        this.name = name;
+        this.type = CriterionType.Boolean;
         this.isMet = false; //The criterion will not be met when initialised.
 
     }
@@ -55,11 +58,25 @@ public class Criterion implements Serializable{
     public void updateTask(Task t){
         //TODO update the task that a criteria has been completed - note: could potentially move this to Task class
         ArrayList<Criterion> criteria = t.getCriteria();
-
+        
+        
         for (Criterion c:
              criteria) {
-            if(c.equals(this)) c.setMet(true);
+            if(c.equals(this)){
+                if(c.getType().equals(CriterionType.Value)){ //TODO CHANGE LOGIC HERE
+                    c.setValue(c.getValue() - this.value);
+                    if(c.getValue()<= 0.0)
+                        c.setMet(true);
+                }
+                else{
+                    c.setMet(this.isMet);
+                }                
+            }
+            t.setIsDone(c.isMet());
+           
         }
+        
+        if(t.isDone()) t.setName(t.getName() + " ✓");
     }
 
     /*******************

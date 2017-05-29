@@ -10,49 +10,50 @@
 
 <AnchorPane id="AnchorPane" fx:id="createActivityWindow" prefHeight="400.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.CreateActivityViewController">
    <children>
-      <Label layoutX="20.0" layoutY="28.0" text="Module">
+      <Label layoutX="20.0" layoutY="14.0" text="Module">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="28.0" text="Assignment">
+      <Label layoutX="21.0" layoutY="64.0" text="Assignment">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <ComboBox fx:id="moduleComboBox" layoutX="20.0" layoutY="49.0" prefWidth="150.0" />
-      <ComboBox fx:id="assignmentComboBox" layoutX="184.0" layoutY="49.0" prefHeight="21.0" prefWidth="150.0" />
-      <Label layoutX="357.0" layoutY="28.0" text="Task">
+      <ComboBox fx:id="moduleComboBox" layoutX="20.0" layoutY="37.0" prefWidth="150.0" />
+      <ComboBox fx:id="assignmentComboBox" layoutX="20.0" layoutY="85.0" prefHeight="21.0" prefWidth="150.0" />
+      <Label layoutX="22.0" layoutY="108.0" text="Task">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="nameTextField" layoutX="21.0" layoutY="106.0" promptText="Name your activity" />
-      <Label layoutX="20.0" layoutY="87.0" text="Name">
+      <TextField fx:id="nameTextField" layoutX="261.0" layoutY="85.0" promptText="E.g. Studied for, Read" />
+      <Label layoutX="265.0" layoutY="64.0" text="What you've done">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="179.0" text="Description">
+      <Label layoutX="267.0" layoutY="156.0" text="Description">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextArea fx:id="descriptionTextArea" layoutX="20.0" layoutY="200.0" prefHeight="150.0" prefWidth="150.0" promptText="write an optional description" wrapText="true" />
-      <Button fx:id="createTaskButton" layoutX="420.0" layoutY="353.0" mnemonicParsing="false" onAction="#createActivityButtonClick" text="Create Task" />
+      <TextArea fx:id="descriptionTextArea" layoutX="261.0" layoutY="177.0" prefHeight="150.0" prefWidth="150.0" promptText="write an optional description" wrapText="true" />
+      <Button fx:id="createTaskButton" layoutX="420.0" layoutY="353.0" mnemonicParsing="false" onAction="#createActivityButtonClick" text="Create Activity" />
       <Button fx:id="cancelButton" layoutX="319.0" layoutY="353.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="76.0" text="Cancel" />
-      <Label layoutX="20.0" layoutY="134.0" text="Type">
+      <ComboBox fx:id="taskComboBox" layoutX="20.0" layoutY="129.0" prefHeight="21.0" prefWidth="150.0" />
+      <ComboBox fx:id="criterionComboBox" layoutX="20.0" layoutY="177.0" prefHeight="21.0" prefWidth="150.0" />
+      <Label layoutX="23.0" layoutY="156.0" text="Criterion">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="typeTextField" layoutX="21.0" layoutY="153.0" promptText="Select your type" />
-      <ComboBox fx:id="taskComboBox" layoutX="357.0" layoutY="49.0" prefHeight="21.0" prefWidth="150.0" />
-      <ComboBox fx:id="criterionComboBox" layoutX="184.0" layoutY="106.0" prefHeight="21.0" prefWidth="150.0" />
-      <Label layoutX="184.0" layoutY="87.0" text="Criterion">
+      <TextField fx:id="criterionValue" layoutX="261.0" layoutY="129.0" promptText="E.g. 2.5 (hours), 4 (books)" />
+      <Label layoutX="265.0" layoutY="108.0" prefHeight="21.0" prefWidth="40.0" text="Value">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <Label fx:id="criterionUOM" layoutX="410.0" layoutY="129.0" prefHeight="25.0" prefWidth="121.0" text="Units" />
    </children>
 </AnchorPane>
