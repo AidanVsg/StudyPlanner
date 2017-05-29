@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.StudyProfileViewController">
+<AnchorPane id="AnchorPane" prefHeight="521.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.StudyProfileViewController">
    <children>
       <Label fx:id="profileNameLabel" layoutX="14.0" layoutY="27.0" prefHeight="34.0" prefWidth="253.0" text="\%profile_name%" textFill="#f86300">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="addTaskButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTaskButtonClick" text="Add Task">
+      <Button fx:id="addTaskButton" layoutX="17.0" layoutY="482.0" mnemonicParsing="false" onAction="#addTaskButtonClick" text="Add Task">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -41,41 +41,41 @@
             </Menu>
          </menus>
       </MenuBar>
-      <ListView fx:id="assignmentListView" layoutX="171.0" layoutY="136.0" prefHeight="217.0" prefWidth="150.0" />
-      <Button layoutX="96.0" layoutY="361.0" mnemonicParsing="false" onAction="#addActivityButtonClick" text="Add Activity">
+      <ListView fx:id="assignmentListView" layoutX="174.0" layoutY="350.0" prefHeight="124.0" prefWidth="150.0" />
+      <Button layoutX="99.0" layoutY="482.0" mnemonicParsing="false" onAction="#addActivityButtonClick" text="Add Activity">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="193.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTaskButtonClick" text="Add Milestone">
+      <Button layoutX="196.0" layoutY="482.0" mnemonicParsing="false" onAction="#addTaskButtonClick" text="Add Milestone">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="171.0" layoutY="107.0" prefHeight="17.0" prefWidth="77.0" text="Assignments">
+      <Label layoutX="174.0" layoutY="333.0" prefHeight="17.0" prefWidth="77.0" text="Assignments">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ListView fx:id="taskListView" layoutX="321.0" layoutY="136.0" prefHeight="217.0" prefWidth="150.0" />
-      <Label layoutX="321.0" layoutY="107.0" prefHeight="17.0" prefWidth="77.0" text="Tasks">
+      <ListView fx:id="taskListView" layoutX="324.0" layoutY="350.0" prefHeight="124.0" prefWidth="150.0" />
+      <Label layoutX="324.0" layoutY="333.0" prefHeight="17.0" prefWidth="77.0" text="Tasks">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="300.0" layoutY="361.0" mnemonicParsing="false" onAction="#dashboardButtonClick" text="Open Dashboard">
+      <Button layoutX="303.0" layoutY="482.0" mnemonicParsing="false" onAction="#dashboardButtonClick" text="Open Dashboard">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <ListView fx:id="moduleListView" layoutX="21.0" layoutY="136.0" prefHeight="217.0" prefWidth="150.0" />
-      <Label layoutX="21.0" layoutY="107.0" prefHeight="17.0" prefWidth="77.0" text="Modules">
+      <ListView fx:id="moduleListView" layoutX="24.0" layoutY="350.0" prefHeight="124.0" prefWidth="150.0" />
+      <Label layoutX="24.0" layoutY="333.0" prefHeight="17.0" prefWidth="77.0" text="Modules">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ListView fx:id="criteriaListView" layoutX="471.0" layoutY="136.0" prefHeight="217.0" prefWidth="150.0" />
-      <Label layoutX="471.0" layoutY="107.0" prefHeight="17.0" prefWidth="77.0" text="Criteria">
+      <ListView fx:id="criteriaListView" layoutX="474.0" layoutY="350.0" prefHeight="124.0" prefWidth="150.0" />
+      <Label layoutX="474.0" layoutY="333.0" prefHeight="17.0" prefWidth="77.0" text="Criteria">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

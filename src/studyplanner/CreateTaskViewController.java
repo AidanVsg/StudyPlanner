@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,7 +25,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import studyplanner.Model.Activity;
 import studyplanner.Model.Assignment;
 import studyplanner.Model.Criterion;
 import studyplanner.Model.CriterionType;
@@ -46,12 +46,15 @@ public class CreateTaskViewController implements Initializable {
     
     @FXML TextField nameTextField; //task name input field
     @FXML TextField typeTextField; //task type input field
+    @FXML TextField criterionNameTextField,
+                    criterionValueTextField,
+                    criterionUOMTextField;
     
     @FXML ListView dependencyListView; //list of tasks this tasks depends on
     
     @FXML TextArea descriptionTextArea; //description of the task
     
-    @FXML TableView criteriaTableView; //list of criteria to meet this task
+    @FXML TableView<Criterion> criteriaTableView; //list of criteria to meet this task
         @FXML TableColumn criterionName;
         @FXML TableColumn criterionValue;
         @FXML TableColumn criterionUOM;
@@ -64,7 +67,7 @@ public class CreateTaskViewController implements Initializable {
     
     //private StudyProfileViewController mainController;
                                        //controller to pass task data to
-    
+ 
     /**
      * Closes task creation window
      */
@@ -72,10 +75,22 @@ public class CreateTaskViewController implements Initializable {
         stage.hide();
     }
     /**
-     * adds an editable criterion to criteria
+     * adds an editable criterion to criteriaTableView
      */
     @FXML private void addCriterionButtonClick(){
-        //criteriaTableView.getItems().add(new Criterion());
+        Criterion criterion = new Criterion(criterionNameTextField.getText());
+        boolean valueTextFieldIsEmpty = criterionValueTextField.getText().trim().isEmpty();
+        boolean uomTextFieldIsEmpty = criterionUOMTextField.getText().trim().isEmpty();
+        
+        if(!valueTextFieldIsEmpty && !uomTextFieldIsEmpty){
+            criterion.setValue(Double.valueOf(criterionValueTextField.getText()));
+            criterion.setUnitOfMeasure(criterionUOMTextField.getText());
+        }
+        criteriaTableView.getItems().add(criterion);
+        
+        criterionNameTextField.setText("");
+        criterionValueTextField.setText("");
+        criterionUOMTextField.setText("");
     }
     /**
      * checks for correctness of inputs and creates a new task in
@@ -93,12 +108,9 @@ public class CreateTaskViewController implements Initializable {
         task.setStart(new Date());
         task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
         
-        
-        Criterion c1 = new Criterion("Study", 2.0, "Hours");
-        Criterion c2 = new Criterion("Workout");
 
-        task.getCriteria().add(c1);
-        task.getCriteria().add(c2);
+        task.getCriteria().addAll(criteriaTableView.getItems());
+
            
         assignment.addTask(task); //
 
@@ -157,16 +169,24 @@ public class CreateTaskViewController implements Initializable {
         Callback<TableColumn, TableCell> cellFactory =
              (TableColumn p) -> new EditingCell(); 
         
-         criterionName.setEditable(true);
-         criterionName.setCellFactory(cellFactory);
+        criterionName.setCellFactory(cellFactory);
         criterionName.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
         criterionName.setCellFactory(TextFieldTableCell.forTableColumn());
-        criterionValue.setEditable(true);
+        criterionName.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Criterion, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Criterion, String> t) {
+                    ((Criterion) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        ).setName(t.getNewValue());
+                }
+             }
+        );
         criterionValue.setCellValueFactory(
-                new PropertyValueFactory<Criterion, String>("value"));
+                new PropertyValueFactory<>("value"));
         criterionUOM.setCellValueFactory(
-                new PropertyValueFactory<Criterion, String>("unitOfMeasure"));
+                new PropertyValueFactory<>("unitOfMeasure"));
     }   
     
     class EditingCell extends TableCell<Criterion, String> {
@@ -219,13 +239,10 @@ public class CreateTaskViewController implements Initializable {
         private void createTextField() {
             textField = new TextField(getString());
             textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
-            textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
-                @Override
-                public void changed(ObservableValue<? extends Boolean> arg0, 
-                    Boolean arg1, Boolean arg2) {
-                        if (!arg2) {
-                            commitEdit(textField.getText());
-                        }
+            textField.focusedProperty().addListener(
+                (ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) -> {
+                if (!arg2) {
+                    commitEdit(textField.getText());
                 }
             });
         }

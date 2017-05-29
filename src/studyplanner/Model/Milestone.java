@@ -67,8 +67,7 @@ public class Milestone extends Objective implements Serializable{
     
     /**
      * Checks if all tasks are met in this Milestone.
-     * If they are, then isDone is set to true and end date is
-     * set as current date.
+     * If they are, then isDone is set to true
      * Otherwise, method terminates.
      */
     @Override
@@ -78,7 +77,6 @@ public class Milestone extends Objective implements Serializable{
                 return;
         }
         this.setIsDone(true);
-        this.setEnd(new Date());
     }
     //testing Milestone
 //    public static void main(String[] args){

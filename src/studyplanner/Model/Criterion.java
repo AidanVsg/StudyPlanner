@@ -1,7 +1,8 @@
 package studyplanner.Model;
 import java.io.Serializable;
 import java.util.ArrayList;
-import studyplanner.Model.CriterionType;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * Class to model a Criterion of the Study Planner.
  * @author Kiril
@@ -14,37 +15,15 @@ public class Criterion implements Serializable{
     private double value;            //Value of a criteria.
     private String unitOfMeasure;    //Unit of measure for the value.
 
-//    /**
-//     * Default constructor for an instance of Criterion.
-//     */
-//    public Criterion(){
-//        //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
-//        this.name = "";
-//        this.type = CriterionType.Boolean;
-//        this.isMet = false;
-//        this.value = 0.0;
-//        this.unitOfMeasure= "";
-//    }
-//    
-    /**
-     * Overloaded constructor for a criterion with type Value
-     * @param name Name of a criteria.
-     * @param value Value of a criteria.
-     * @param uom Unit of measure for the value.
-     */
+ 
     public Criterion(String name, double value, String uom){
-        this.name = name;
-        this.unitOfMeasure = uom;
-        this.value = value;                   
+        this.name=name;
+        this.unitOfMeasure=uom;
+        this.value=value;
         this.type = CriterionType.Value;
-        this.isMet = false; //The criterion will not be met when initialised.
-
+        this.isMet = false;
     }
     
-        /**
-     * Overloaded constructor for a criterion with type Boolean.
-     * @param name Name of a criteria.
-     */
     public Criterion(String name){  
         this.name = name;
         this.type = CriterionType.Boolean;
@@ -76,14 +55,14 @@ public class Criterion implements Serializable{
      *@return Criterion name.
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
-     * @param name Name for a criterion.
+     * @param newName Name for a criterion.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String newName) {
+        this.name=newName;
     }
 
     /**
@@ -132,9 +111,9 @@ public class Criterion implements Serializable{
      */
     public void setValue(double value) {
         if(value>0){
-            this.setType(CriterionType.Value);
+            this.type=CriterionType.Value;
         }else{
-            this.setType(CriterionType.Boolean); //EXCEPTIONS NEEDED HERE AS WELL
+            this.type=CriterionType.Boolean; //EXCEPTIONS NEEDED HERE AS WELL
         }
         this.value = value;
     }
