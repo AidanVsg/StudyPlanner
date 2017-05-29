@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="createActivityWindow" prefHeight="400.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.CreateActivityViewController">
+<AnchorPane id="AnchorPane" fx:id="createActivityWindow" prefHeight="400.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.CreateActivityViewController">
    <children>
       <Label layoutX="20.0" layoutY="14.0" text="Module">
          <font>
@@ -39,7 +39,7 @@
          </font>
       </Label>
       <TextArea fx:id="descriptionTextArea" layoutX="261.0" layoutY="177.0" prefHeight="150.0" prefWidth="150.0" promptText="write an optional description" wrapText="true" />
-      <Button fx:id="createTaskButton" layoutX="420.0" layoutY="353.0" mnemonicParsing="false" onAction="#createActivityButtonClick" text="Create Activity" />
+      <Button fx:id="createButton" layoutX="420.0" layoutY="353.0" mnemonicParsing="false" onAction="#createButtonClick" text="Create Activity" />
       <Button fx:id="cancelButton" layoutX="319.0" layoutY="353.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="76.0" text="Cancel" />
       <ComboBox fx:id="taskComboBox" layoutX="20.0" layoutY="129.0" prefHeight="21.0" prefWidth="150.0" />
       <ComboBox fx:id="criterionComboBox" layoutX="20.0" layoutY="177.0" prefHeight="21.0" prefWidth="150.0" />
