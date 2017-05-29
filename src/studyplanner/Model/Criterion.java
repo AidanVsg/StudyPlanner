@@ -16,7 +16,13 @@ public class Criterion implements Serializable{
     private String unitOfMeasure;    //Unit of measure for the value.
 
  
-    
+    public Criterion(String name, double value, String uom){
+        this.name=name;
+        this.unitOfMeasure=uom;
+        this.value=value;
+        this.type = CriterionType.Value;
+        this.isMet = false;
+    }
     
     public Criterion(String name){  
         this.name = name;
