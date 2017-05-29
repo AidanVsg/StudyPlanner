@@ -42,11 +42,10 @@ public class StudyProfileTest {
     public void testGetName() {
         System.out.println("getName");
         StudyProfile instance = new StudyProfile();
-        String expResult = "";
+        instance.setName("test name");
+        String expResult = "test name";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,51 +55,35 @@ public class StudyProfileTest {
     public void testGetModules() {
         System.out.println("getModules");
         StudyProfile instance = new StudyProfile();
-        ArrayList<Module> expResult = null;
+        instance.setName("test name");
+        
+        
+        String name = "test name";
+        String code = "test code";
+        Module module = new Module(name, code);
+        
+        ArrayList<Module> modules = new ArrayList<>();
+        modules.add(module);
+        
+        instance.getModules().add(module);
+        
+        ArrayList<Module> expResult = modules;
         ArrayList<Module> result = instance.getModules();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getProfiles method, of class StudyProfile.
-     */
-    @Test
-    public void testGetProfiles() {
-        System.out.println("getProfiles");
-        StudyProfile instance = new StudyProfile();
-        HashSet<StudyProfile> expResult = null;
-        HashSet<StudyProfile> result = instance.getProfiles();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+    
     /**
      * Test of setName method, of class StudyProfile.
      */
     @Test
     public void testSetName() {
-        System.out.println("setName");
-        String name = "";
+        System.out.println("getName");
         StudyProfile instance = new StudyProfile();
-        instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of add method, of class StudyProfile.
-     */
-    @Test
-    public void testAdd() {
-        System.out.println("add");
-        StudyProfile profiles = null;
-        StudyProfile instance = new StudyProfile();
-        instance.add(profiles);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setName("test name");
+        String expResult = "test name";
+        String result = instance.getName();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -109,50 +92,11 @@ public class StudyProfileTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        StudyProfile instance = new StudyProfile();
-        String expResult = "";
+        StudyProfile instance = new StudyProfile();        
+        instance.setName("test name");
+        
+        String expResult = "test name";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of InitialiseStudyProfile method, of class StudyProfile.
-     */
-    @Test
-    public void testInitialiseStudyProfile() {
-        System.out.println("InitialiseStudyProfile");
-        StudyProfile profile = null;
-        File file = null;
-        StudyProfile.InitialiseStudyProfile(profile, file);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of UpdateStudyProfile method, of class StudyProfile.
-     */
-    @Test
-    public void testUpdateStudyProfile() {
-        System.out.println("UpdateStudyProfile");
-        StudyProfile profile = null;
-        File file = null;
-        StudyProfile.UpdateStudyProfile(profile, file);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class StudyProfile.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] argv = null;
-        StudyProfile.main(argv);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
