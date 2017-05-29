@@ -6,9 +6,12 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import studyplanner.Model.Criterion;
 import studyplanner.Model.Milestone;
@@ -100,6 +104,8 @@ public class StudyProfileViewController implements Initializable {
             this.assignmentListView.getItems().add(as);
         });
     }
+    
+    
 
     private void showAddTask() throws IOException {
         FXMLLoader loader = new FXMLLoader(
@@ -122,6 +128,28 @@ public class StudyProfileViewController implements Initializable {
                 = loader.<CreateTaskViewController>getController();
         controller.initData(profile,selectedModule,selectedAssignment, this);
         stage.show();
+    }
+    
+    private void showTask() throws Exception{
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(
+                "TaskView.fxml"
+                )
+        );
+    
+        Stage stage = new Stage();
+        stage.setTitle(selectedTask.getName());
+        
+        stage.setScene(
+            new Scene(
+                (Pane) loader.load()
+            )
+        );
+        
+        TaskViewController controller = 
+                loader.<TaskViewController>getController();
+        controller.initData(profile, selectedTask);
+        stage.show();    
     }
     
     private void showAddActivity() throws IOException {
@@ -257,6 +285,22 @@ public class StudyProfileViewController implements Initializable {
             }
         });
 
+        taskListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent click){
+
+                if (click.getClickCount() == 2) {
+                   //Use ListView's getSelected Item
+                   selectedTask = taskListView.getSelectionModel()
+                                                            .getSelectedItem();
+                    try {
+                        showTask();
+                    } catch (Exception ex) {
+                        Logger.getLogger(StudyProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }});
     }
 
     @Override
