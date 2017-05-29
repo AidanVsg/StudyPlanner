@@ -68,8 +68,7 @@ public class TaskViewController implements Initializable {
      */
     @FXML private void addCriterionButtonClick(){
         i++;
-        Criterion criterion = new Criterion();
-        criterion.setName("criterion"+i);
+        Criterion criterion = new Criterion("criterion"+i);
         if(i%2==0){
             criterion.setValue(i/2);
             criterion.setUnitOfMeasure("units done");
