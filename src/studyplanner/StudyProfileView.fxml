@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -101,7 +102,18 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <ProgressBar fx:id="taskBar" layoutX="160.0" layoutY="56.0" prefHeight="17.0" prefWidth="113.0" progress="0.0" />
+            <ProgressBar fx:id="assignmentBar" layoutX="160.0" layoutY="28.0" prefHeight="17.0" prefWidth="113.0" progress="0.0" />
+            <Label fx:id="selectedAssignmentName" layoutX="26.0" layoutY="28.0" prefHeight="17.0" prefWidth="113.0" text="Assignment Progress" />
+            <Label fx:id="selectedTaskName" layoutX="26.0" layoutY="56.0" prefHeight="17.0" prefWidth="113.0" text="Task Progress" />
+            <Label fx:id="selectedCriterionName" layoutX="26.0" layoutY="86.0" prefHeight="17.0" prefWidth="113.0" text="Criterion Progress" />
+            <Label fx:id="criterionProgress" layoutX="160.0" layoutY="86.0" prefHeight="18.0" prefWidth="113.0" />
          </children>
       </AnchorPane>
+      <Button layoutX="302.0" layoutY="482.0" mnemonicParsing="false" onAction="#generateGanttChart" text="Generate Gantt Chart">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

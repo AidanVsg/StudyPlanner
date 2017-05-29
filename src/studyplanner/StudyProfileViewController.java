@@ -4,11 +4,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,11 +26,15 @@ import studyplanner.Model.Task;
 import studyplanner.Model.Module;
 import studyplanner.Model.Assignment;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.WindowEvent;
 import studyplanner.Model.Criterion;
+import studyplanner.Model.CriterionType;
 import studyplanner.Model.Milestone;
 
 /**
@@ -45,25 +54,44 @@ public class StudyProfileViewController implements Initializable {
     @FXML private ListView<Module> moduleListView;
             
     @FXML private ListView<Criterion> criteriaListView;
+    //@FXML
+    //ComboBox<Module> moduleComboBox; //module selection box
+    @FXML private TableView approachingTable;
+    @FXML private TableView passedTable;
+    @FXML private TableColumn approachingAssignment;
+    @FXML private TableColumn approachingDeadline;
+    @FXML private TableColumn passedAssignment;
+    @FXML private TableColumn passedDeadline;
+    @FXML private AnchorPane dashboardAnchor;
+    @FXML private ProgressBar taskBar;
+    @FXML private ProgressBar assignmentBar;
+    @FXML private Label criterionProgress;
+    @FXML private Label selectedTaskName;
+    @FXML private Label selectedCriterionName;
+    @FXML private Label selectedAssignmentName;
+    @FXML private StudyProfile profile;   
+    @FXML private Module selectedModule;   
+    @FXML private Assignment selectedAssignment;   
+    @FXML private Task selectedTask;    
+    @FXML private Criterion selectedCriterion;
+    
+    @FXML private void generateGanttChart() throws Exception{
 
-            @FXML private TableView approachingTable;
-            @FXML private TableView passedTable;
-            @FXML private TableColumn approachingAssignment;
-            @FXML private TableColumn approachingDeadline;
-            @FXML private TableColumn passedAssignment;
-            @FXML private TableColumn passedDeadline;
-            @FXML private AnchorPane dashboardAnchor;
-
-    private StudyProfile profile;
+        Stage stage = new Stage();
+        stage.setTitle("Gantt Chart");
+        //stage.setOnHidden(e -> updateTaskListView());
+        Date today = new Date();
+        LocalDate temp = LocalDate.now().plusDays(7);
+        
+        Date afterAWeek = java.sql.Date.valueOf(temp);
+        
+        GanttChartApplicationView gch = new GanttChartApplicationView();
+        Scene scene = gch.initData(selectedAssignment, today, afterAWeek);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
     
-    private Module selectedModule;
-    
-    private Assignment selectedAssignment;
-    
-    private Task selectedTask;
-    
-    private Criterion selectedCriterion;
-
     @FXML private void addTaskButtonClick() throws IOException {
         showAddTask();
     }
@@ -84,7 +112,7 @@ public class StudyProfileViewController implements Initializable {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(profile);
     }
-
+    
     public void taskAdded(Task task) {
         Platform.runLater(() -> {
             this.taskListView.getItems().add(task);
@@ -102,7 +130,42 @@ public class StudyProfileViewController implements Initializable {
             this.assignmentListView.getItems().add(as);
         });
     }
+    
+        private void updateStage(Stage stage) {
+        stage.setOnHidden(new EventHandler<WindowEvent>(){
+            @Override
+            public void handle(WindowEvent event) {
+                updateTaskList(selectedAssignment);
+                updateCriteriaList(selectedTask);
+                updateDeadlines(profile);
+                showCriteriaProgress(selectedCriterion);                   
+            }
+        });
+    }
+        
+            private void showCriteriaProgress(Criterion selectedCriterion) {
+                String text = "";
+                if(selectedCriterion == null){
+                    selectedCriterionName.setText("Criterion Progress");
+                    criterionProgress.setText("");
+                }
+                else{
+                    if(selectedCriterion.getType().equals(CriterionType.Boolean))
+                    {
+                        if(selectedCriterion.isMet()) text = " is done";
+                        else text = " is not done";
+                    }
+                    else{
+                        double progress = selectedCriterion.getValue();                    
+                        text = Double.toString(progress) + " left";
+                    }
 
+                        selectedCriterionName.setText(selectedCriterion.getName());
+                    criterionProgress.setText(text);
+                }
+                
+            }    
+        
     private void showAddTask() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -119,11 +182,60 @@ public class StudyProfileViewController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        updateStage(stage);
 
         CreateTaskViewController controller
                 = loader.<CreateTaskViewController>getController();
         controller.initData(profile,selectedModule,selectedAssignment, this);
         stage.show();
+    }
+    
+    private void updateDeadlines(StudyProfile profile) {
+        boolean allDone = true;
+        
+        approachingTable.getItems().clear();
+        passedTable.getItems().clear();
+        for(Module m : profile.getModules()){
+            for(Assignment a : m.getAssignments()){
+                
+                Date current = new Date();
+                
+                for(Task t : a.getTasks()){
+                    if(!t.isDone()) allDone = false;
+                }
+                
+                
+                    
+                if(!allDone && current.getTime() < a.getEnd().getTime())
+                    approachingTable.getItems().add(a);
+                else
+                   passedTable.getItems().add(a); 
+                
+            }
+        }
+    }
+    
+    private void showTask() throws Exception{
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(
+                "TaskView.fxml"
+                )
+        );
+    
+        Stage stage = new Stage();
+        stage.setTitle(selectedTask.getName());
+        
+        stage.setScene(
+            new Scene(
+                (Pane) loader.load()
+            )
+        );
+        updateStage(stage);
+        
+        TaskViewController controller = 
+                loader.<TaskViewController>getController();
+        controller.initData(profile, selectedTask);
+        stage.show();    
     }
     
     private void showAddMilestone() throws IOException {
@@ -164,12 +276,14 @@ public class StudyProfileViewController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-
+        updateStage(stage);
+        
         CreateActivityViewController controller
                 = loader.<CreateActivityViewController>getController();
         controller.initData(profile,selectedModule,selectedAssignment,
                             selectedTask, this);
         stage.show();
+        
     }
     
     private void showDashboard() throws IOException {
@@ -193,6 +307,56 @@ public class StudyProfileViewController implements Initializable {
                 = loader.<DashboardViewController>getController();
         controller.initData(profile, this);
         stage.show();
+    }   
+    
+    private void updateTaskList(Assignment cur){
+        if(cur == null){
+                    selectedAssignmentName.setText("Assignment Progress");
+                    assignmentBar.setProgress(0.0);
+        }
+        else{
+             int required = cur.getTasks().size();
+        int finished = 0;
+        if (taskListView.getItems().size() != 0) {
+                    taskListView.getItems().clear();
+                    criteriaListView.getItems().clear();
+                    selectedTask=null;
+                    selectedCriterion = null;
+                }
+                for (Task t : cur.getTasks()) {
+                    taskAdded(t);
+                    if(t.isDone()) finished++;
+                }
+                
+                        double progress = (double)finished/required;
+        
+                        selectedAssignmentName.setText(cur.getName());
+                        assignmentBar.setProgress(progress);
+        }
+       
+     
+    }
+    private void updateCriteriaList(Task cur){
+        if(cur == null){
+                    selectedTaskName.setText("Task Progress");
+                    taskBar.setProgress(0.0);
+        }
+        else{
+            int required = cur.getCriteria().size();
+            int finished = 0;
+            if(criteriaListView.getItems().size() != 0){
+                        criteriaListView.getItems().clear();
+                        selectedCriterion=null;
+                    }
+                    for(Criterion c : cur.getCriteria()){
+                        criterionAdded(c);
+                        if(c.isMet()) finished++;
+                    }
+
+                            double progress = (double)finished/required;
+            selectedTaskName.setText(cur.getName());
+            taskBar.setProgress(progress);
+        }
     }
     
     public void initData(StudyProfile profile) {
@@ -216,16 +380,9 @@ public class StudyProfileViewController implements Initializable {
         passedDeadline.setCellValueFactory(aDate);
         
         
-        Date current = new Date();
-        for(Module m : profile.getModules()){
-            for(Assignment a : m.getAssignments()){
-                
-                if(current.getTime() < a.getEnd().getTime()) 
-                    approachingTable.getItems().add(a);
-                else
-                    passedTable.getItems().add(a);
-            }
-        }
+
+        updateDeadlines(profile);
+        
 
         profileNameLabel.setText(profile.getName());
         moduleListView.getItems().addAll(profile.getModules());
@@ -241,7 +398,10 @@ public class StudyProfileViewController implements Initializable {
                 //with incompatible modules and assignments
                 if (assignmentListView.getItems().size() != 0) {
                     assignmentListView.getItems().clear();
+                    criteriaListView.getItems().clear();
+                    taskListView.getItems().clear();
                     selectedAssignment=null;
+                    selectedCriterion=null;
                 }
                 for (Assignment assign : cur.getAssignments()) {
                     assignmentAdded(assign);
@@ -255,13 +415,7 @@ public class StudyProfileViewController implements Initializable {
             public void changed(ObservableValue ov, Assignment prev, Assignment cur) {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
-                if (taskListView.getItems().size() != 0) {
-                    taskListView.getItems().clear();
-                    selectedTask=null;
-                }
-                for (Task t : cur.getTasks()) {
-                    taskAdded(t);
-                }
+                updateTaskList(cur);
                 
                 selectedAssignment = cur;
                 
@@ -270,17 +424,34 @@ public class StudyProfileViewController implements Initializable {
         taskListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Task>(){
             @Override
             public void changed(ObservableValue ov, Task prev, Task cur){
-                if(criteriaListView.getItems().size() != 0){
-                    criteriaListView.getItems().clear();
-                    selectedCriterion=null;
-                }
-                for(Criterion c : cur.getCriteria()){
-                    criterionAdded(c);
-                }
+                updateCriteriaList(cur);
                 selectedTask = cur;
             }
         });
+        criteriaListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Criterion>(){
+            @Override
+            public void changed(ObservableValue ov, Criterion prev, Criterion cur){
+                showCriteriaProgress(cur);
+                selectedCriterion = cur;
+            }
+        });
 
+        taskListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent click){
+
+                if (click.getClickCount() == 2) {
+                   //Use ListView's getSelected Item
+                   selectedTask = taskListView.getSelectionModel()
+                                                            .getSelectedItem();
+                    try {
+                        showTask();
+                    } catch (Exception ex) {
+                        Logger.getLogger(StudyProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }});
     }
 
     @Override
