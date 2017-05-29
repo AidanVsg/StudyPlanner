@@ -102,7 +102,7 @@ public class CreateTaskViewController implements Initializable {
      * selected assignment
      */
     @FXML private void createTaskButtonClick(){
-        //NOTE: OPTIONAL FIELDS ARE: Description, dependencies.
+        //NOTE: OPTIONAL FIELDS ARE: Description, type, dependencies.
         
         //not checking if module combo box = null because it is assumed to be null
         //if assignment is not selected
@@ -130,9 +130,11 @@ public class CreateTaskViewController implements Initializable {
         }
     }
     
-    public void initData(StudyProfile profile, 
+    public void initData(StudyProfile profile, Module module, Assignment assign,
                 StudyProfileViewController mainController){
         
+        if(module != null) moduleComboBox.setValue(module);
+        if(assign != null && !assign.getEnd().before(new Date())) assignmentComboBox.setValue(assign);
         //this.mainController = mainController;
         stage = (Stage) createTaskWindow.getScene().getWindow();
         
