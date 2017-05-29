@@ -82,6 +82,7 @@ public class CreateTaskViewController implements Initializable {
     @FXML private void addCriterionButtonClick(){
         if(!criterionNameTextField.getText().trim().isEmpty()){
             Criterion criterion = new Criterion(criterionNameTextField.getText());
+            
             boolean valueTextFieldIsEmpty = criterionValueTextField.getText().trim().isEmpty();
             boolean uomTextFieldIsEmpty = criterionUOMTextField.getText().trim().isEmpty();
 
@@ -178,91 +179,13 @@ public class CreateTaskViewController implements Initializable {
                 }
             });
         
-        Callback<TableColumn, TableCell> cellFactory =
-             (TableColumn p) -> new EditingCell(); 
-        
-        criterionName.setCellFactory(cellFactory);
         criterionName.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
-        criterionName.setCellFactory(TextFieldTableCell.forTableColumn());
-        criterionName.setOnEditCommit(
-            new EventHandler<TableColumn.CellEditEvent<Criterion, String>>() {
-                @Override
-                public void handle(TableColumn.CellEditEvent<Criterion, String> t) {
-                    ((Criterion) t.getTableView().getItems().get(
-                        t.getTablePosition().getRow())
-                        ).setName(t.getNewValue());
-                }
-             }
-        );
         criterionValue.setCellValueFactory(
                 new PropertyValueFactory<>("value"));
         criterionUOM.setCellValueFactory(
                 new PropertyValueFactory<>("unitOfMeasure"));
     }   
-    
-    class EditingCell extends TableCell<Criterion, String> {
- 
-        private TextField textField;
- 
-        public EditingCell() {
-        }
- 
-        @Override
-        public void startEdit() {
-            if (!isEmpty()) {
-                super.startEdit();
-                createTextField();
-                setText(null);
-                setGraphic(textField);
-                textField.selectAll();
-            }
-        }
- 
-        @Override
-        public void cancelEdit() {
-            super.cancelEdit();
- 
-            setText((String) getItem());
-            setGraphic(null);
-        }
- 
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
- 
-            if (empty) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                if (isEditing()) {
-                    if (textField != null) {
-                        textField.setText(getString());
-                    }
-                    setText(null);
-                    setGraphic(textField);
-                } else {
-                    setText(getString());
-                    setGraphic(null);
-                }
-            }
-        }
- 
-        private void createTextField() {
-            textField = new TextField(getString());
-            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
-            textField.focusedProperty().addListener(
-                (ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) -> {
-                if (!arg2) {
-                    commitEdit(textField.getText());
-                }
-            });
-        }
- 
-        private String getString() {
-            return getItem() == null ? "" : getItem().toString();
-        }
-    }
 
     private void updateDatePicker(DatePicker datePicker, Assignment assign){
         datePicker.setValue(LocalDate.now());
