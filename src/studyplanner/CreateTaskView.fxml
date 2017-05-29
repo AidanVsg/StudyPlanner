@@ -65,7 +65,7 @@
       <Button fx:id="createTaskButton" layoutX="417.0" layoutY="382.0" mnemonicParsing="false" onAction="#createTaskButtonClick" text="Create Task" />
       <Button fx:id="cancelButton" layoutX="328.0" layoutY="382.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="76.0" text="Cancel" />
       <Button fx:id="addCriterionButton" layoutX="412.0" layoutY="308.0" mnemonicParsing="false" onAction="#addCriterionButtonClick" text="Add Criterion" />
-      <Label layoutX="23.0" layoutY="104.0" text="Type">
+      <Label layoutX="23.0" layoutY="104.0" text="Type*">
          <font>
             <Font size="15.0" />
          </font>
@@ -79,5 +79,6 @@
             <Font size="15.0" />
          </font>
       </Label>
+      <Label fx:id="createTaskErrorLabel" layoutX="330.0" layoutY="365.0" textFill="RED" />
    </children>
 </AnchorPane>

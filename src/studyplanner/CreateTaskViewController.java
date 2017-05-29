@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -62,6 +63,7 @@ public class CreateTaskViewController implements Initializable {
     @FXML Button cancelButton, createTaskButton, addCriterionButton; 
             //closes window    //creates a new task     //adds an empty criterion
     
+    @FXML Label createTaskErrorLabel;
     @FXML AnchorPane createTaskWindow; //shortcut fields to ease acess
     private Stage stage;               //to this controller's view's stage
     
@@ -78,19 +80,21 @@ public class CreateTaskViewController implements Initializable {
      * adds an editable criterion to criteriaTableView
      */
     @FXML private void addCriterionButtonClick(){
-        Criterion criterion = new Criterion(criterionNameTextField.getText());
-        boolean valueTextFieldIsEmpty = criterionValueTextField.getText().trim().isEmpty();
-        boolean uomTextFieldIsEmpty = criterionUOMTextField.getText().trim().isEmpty();
-        
-        if(!valueTextFieldIsEmpty && !uomTextFieldIsEmpty){
-            criterion.setValue(Double.valueOf(criterionValueTextField.getText()));
-            criterion.setUnitOfMeasure(criterionUOMTextField.getText());
+        if(!criterionNameTextField.getText().trim().isEmpty()){
+            Criterion criterion = new Criterion(criterionNameTextField.getText());
+            boolean valueTextFieldIsEmpty = criterionValueTextField.getText().trim().isEmpty();
+            boolean uomTextFieldIsEmpty = criterionUOMTextField.getText().trim().isEmpty();
+
+            if(!valueTextFieldIsEmpty && !uomTextFieldIsEmpty){
+                criterion.setValue(Double.valueOf(criterionValueTextField.getText()));
+                criterion.setUnitOfMeasure(criterionUOMTextField.getText());
+            }
+            criteriaTableView.getItems().add(criterion);
+
+            criterionNameTextField.setText("");
+            criterionValueTextField.setText("");
+            criterionUOMTextField.setText("");
         }
-        criteriaTableView.getItems().add(criterion);
-        
-        criterionNameTextField.setText("");
-        criterionValueTextField.setText("");
-        criterionUOMTextField.setText("");
     }
     /**
      * checks for correctness of inputs and creates a new task in
@@ -98,23 +102,31 @@ public class CreateTaskViewController implements Initializable {
      */
     @FXML private void createTaskButtonClick(){
         //NOTE: OPTIONAL FIELDS ARE: Description, dependencies.
-        //selects assignment to add the task to
-        Assignment assignment = assignmentComboBox.getValue();
-        //>>>>ADD CHECKS AND PROPER READING OF INPUT FIELDS.
-        Task task = new Task();
-        task.setName(nameTextField.getText());
-        task.setType(typeTextField.getText());
-        task.setDescription(descriptionTextArea.getText());
-        task.setStart(new Date());
-        task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
         
+        //not checking if module combo box = null because it is assumed to be null
+        //if assignment is not selected
+        if(
+            assignmentComboBox.getValue() == null
+            ||nameTextField.getText().trim().isEmpty()
+            ||criteriaTableView.getItems().isEmpty()
+          ){
+            createTaskErrorLabel.setText("Mandatory fields are empty");
+        }else{
+            //selects assignment to add the task to
+            Assignment assignment = assignmentComboBox.getValue();
+            //>>>>ADD CHECKS AND PROPER READING OF INPUT FIELDS.
+            Task task = new Task();
+            task.setName(nameTextField.getText());
+            task.setType(typeTextField.getText());
+            task.setDescription(descriptionTextArea.getText());
+            task.setStart(new Date());
+            task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
+            task.getCriteria().addAll(criteriaTableView.getItems());
 
-        task.getCriteria().addAll(criteriaTableView.getItems());
+            assignment.addTask(task); 
 
-           
-        assignment.addTask(task); //
-
-        stage.hide();
+            stage.hide();
+        }
     }
     
     public void initData(StudyProfile profile, 
