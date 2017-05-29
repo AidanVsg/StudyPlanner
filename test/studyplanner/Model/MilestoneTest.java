@@ -1,6 +1,7 @@
 package studyplanner.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,12 +40,18 @@ public class MilestoneTest {
     @Test
     public void testGetTasks() {
         System.out.println("getTasks");
-        Milestone instance = new Milestone();
-        ArrayList<Task> expResult = null;
+        
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone instance = new Milestone(tasks, name, description, start, end);
+        
+        ArrayList<Task> expResult = tasks;
         ArrayList<Task> result = instance.getTasks();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -52,12 +59,21 @@ public class MilestoneTest {
      */
     @Test
     public void testSetTasks() {
-        System.out.println("setTasks");
-        ArrayList<Task> tasks = null;
-        Milestone instance = new Milestone();
-        instance.setTasks(tasks);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone instance = new Milestone(tasks, name, description, start, end);
+        
+        ArrayList<Task> tasks2 = new ArrayList<>();
+        instance.setTasks(tasks2);
+        
+        
+        ArrayList<Task> expResult = tasks2;
+        ArrayList<Task> result = instance.getTasks();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -66,13 +82,30 @@ public class MilestoneTest {
     @Test
     public void testAddTask() {
         System.out.println("addTask");
-        Task task = null;
-        Milestone instance = new Milestone();
-        boolean expResult = false;
+        
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone instance = new Milestone(tasks, name, description, start, end);
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String tname = "test name";
+        String tdescription = "test description";
+        Date tstart = new Date();
+        Date tend = new Date();
+        
+        Task task = new Task(type, criteria, activityHistory, dependencies, tname, tdescription, tstart, tend);
+        
+        
+        boolean expResult = true;
         boolean result = instance.addTask(task);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -81,13 +114,30 @@ public class MilestoneTest {
     @Test
     public void testRemoveTask() {
         System.out.println("removeTask");
-        Task task = null;
-        Milestone instance = new Milestone();
-        boolean expResult = false;
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone instance = new Milestone(tasks, name, description, start, end);
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String tname = "test name";
+        String tdescription = "test description";
+        Date tstart = new Date();
+        Date tend = new Date();
+        
+        Task task = new Task(type, criteria, activityHistory, dependencies, tname, tdescription, tstart, tend);
+        
+        instance.addTask(task);
+        
+        boolean expResult = true;
         boolean result = instance.removeTask(task);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -96,10 +146,33 @@ public class MilestoneTest {
     @Test
     public void testUpdate() {
         System.out.println("update");
-        Milestone instance = new Milestone();
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone instance = new Milestone(tasks, name, description, start, end);
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String tname = "test name";
+        String tdescription = "test description";
+        Date tstart = new Date();
+        Date tend = new Date();
+        
+        Task task = new Task(type, criteria, activityHistory, dependencies, tname, tdescription, tstart, tend);
+        
+        instance.addTask(task);
+        
         instance.update();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        boolean expResult = false;
+        boolean result = instance.getTasks().get(0).isDone();
+        
+        assertEquals(expResult, result);
     }
     
 }
