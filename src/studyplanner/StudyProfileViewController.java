@@ -21,6 +21,10 @@ import studyplanner.Model.Task;
 import studyplanner.Model.Module;
 import studyplanner.Model.Assignment;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import studyplanner.Model.Criterion;
 import studyplanner.Model.Milestone;
 
@@ -43,6 +47,13 @@ public class StudyProfileViewController implements Initializable {
     @FXML private ListView<Criterion> criteriaListView;
     //@FXML
     //ComboBox<Module> moduleComboBox; //module selection box
+                @FXML private TableView approachingTable;
+            @FXML private TableView passedTable;
+            @FXML private TableColumn approachingAssignment;
+            @FXML private TableColumn approachingDeadline;
+            @FXML private TableColumn passedAssignment;
+            @FXML private TableColumn passedDeadline;
+            @FXML private AnchorPane dashboardAnchor;
 
     private StudyProfile profile;
     
@@ -171,6 +182,27 @@ public class StudyProfileViewController implements Initializable {
 //                milestoneListView.getItems().setAll(newValue.getMilestones());
 //        };
 
+        PropertyValueFactory<Assignment,String> aName = new PropertyValueFactory<>("name");
+        PropertyValueFactory<Assignment,Date> aDate = new PropertyValueFactory<>("end");
+        
+        approachingAssignment.setCellValueFactory(aName);
+        approachingDeadline.setCellValueFactory(aDate);
+        
+        passedAssignment.setCellValueFactory(aName);
+        passedDeadline.setCellValueFactory(aDate);
+        
+        
+        Date current = new Date();
+        for(Module m : profile.getModules()){
+            for(Assignment a : m.getAssignments()){
+                
+                if(current.getTime() < a.getEnd().getTime()) 
+                    approachingTable.getItems().add(a);
+                else
+                    passedTable.getItems().add(a);
+            }
+        }
+
         profileNameLabel.setText(profile.getName());
         moduleListView.getItems().addAll(profile.getModules());
         for(Module m : moduleListView.getItems())
@@ -233,3 +265,4 @@ public class StudyProfileViewController implements Initializable {
     }
 
 }
+
