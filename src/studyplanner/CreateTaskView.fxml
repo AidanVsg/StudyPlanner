@@ -31,7 +31,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <DatePicker fx:id="taskDatePicker" disable="true" editable="false" layoutX="359.0" layoutY="21.0" prefHeight="25.0" prefWidth="150.0" />
+      <DatePicker fx:id="dueDatePicker" disable="true" editable="false" layoutX="359.0" layoutY="21.0" prefHeight="25.0" prefWidth="150.0" />
       <TextField fx:id="nameTextField" layoutX="24.0" layoutY="76.0" promptText="Name you task" />
       <Label layoutX="23.0" layoutY="57.0" text="Name">
          <font>
@@ -62,7 +62,7 @@
          </font>
       </Label>
       <ListView fx:id="dependencyListView" layoutX="187.0" layoutY="76.0" prefHeight="21.0" prefWidth="313.0" />
-      <Button fx:id="createTaskButton" layoutX="417.0" layoutY="382.0" mnemonicParsing="false" onAction="#createTaskButtonClick" text="Create Task" />
+      <Button fx:id="createButton" layoutX="417.0" layoutY="382.0" mnemonicParsing="false" onAction="#createButtonClick" text="Create Task" />
       <Button fx:id="cancelButton" layoutX="328.0" layoutY="382.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="76.0" text="Cancel" />
       <Button fx:id="addCriterionButton" layoutX="412.0" layoutY="308.0" mnemonicParsing="false" onAction="#addCriterionButtonClick" text="Add Criterion" />
       <Label layoutX="23.0" layoutY="104.0" text="Type*">

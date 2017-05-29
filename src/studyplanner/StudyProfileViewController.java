@@ -45,9 +45,8 @@ public class StudyProfileViewController implements Initializable {
     @FXML private ListView<Module> moduleListView;
             
     @FXML private ListView<Criterion> criteriaListView;
-    //@FXML
-    //ComboBox<Module> moduleComboBox; //module selection box
-                @FXML private TableView approachingTable;
+
+            @FXML private TableView approachingTable;
             @FXML private TableView passedTable;
             @FXML private TableColumn approachingAssignment;
             @FXML private TableColumn approachingDeadline;
