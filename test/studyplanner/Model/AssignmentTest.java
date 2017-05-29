@@ -1,6 +1,7 @@
 package studyplanner.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,11 +40,29 @@ public class AssignmentTest {
     @Test
     public void testAddTask() {
         System.out.println("addTask");
-        Task task = null;
-        Assignment instance = null;
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task task = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        
         instance.addTask(task);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Task expResult = instance.getTasks().get(0);
+        assertEquals(expResult, task);
     }
 
     /**
@@ -52,11 +71,28 @@ public class AssignmentTest {
     @Test
     public void testAddMilestone() {
         System.out.println("addMilestone");
-        Milestone milestone = null;
-        Assignment instance = null;
+        
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone milestone = new Milestone(tasks, name, description, start, end);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
         instance.addMilestone(milestone);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Milestone expResult = instance.getMilestones().get(0);
+        
+        assertEquals(expResult, milestone);
+        
     }
 
     /**
@@ -65,12 +101,19 @@ public class AssignmentTest {
     @Test
     public void testGetWeighting() {
         System.out.println("getWeighting");
-        Assignment instance = null;
-        double expResult = 0.0;
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        double expResult = 30;
+        
         double result = instance.getWeighting();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0);
+        
     }
 
     /**
@@ -79,11 +122,20 @@ public class AssignmentTest {
     @Test
     public void testSetWeighting() {
         System.out.println("setWeighting");
-        double weighting = 0.0;
-        Assignment instance = null;
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
         instance.setWeighting(weighting);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        double result = instance.getWeighting();
+        double expResult = weighting;
+        
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -92,12 +144,33 @@ public class AssignmentTest {
     @Test
     public void testGetTasks() {
         System.out.println("getTasks");
-        Assignment instance = null;
-        ArrayList<Task> expResult = null;
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task task = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        instance.addTask(task);
+        
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(task);
+        
+        ArrayList<Task> expResult = tasks;
         ArrayList<Task> result = instance.getTasks();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -106,11 +179,34 @@ public class AssignmentTest {
     @Test
     public void testSetTasks() {
         System.out.println("setTasks");
-        ArrayList<Task> tasks = null;
-        Assignment instance = null;
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task task = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(task);
+        
         instance.setTasks(tasks);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        ArrayList<Task> expResult = tasks;
+        ArrayList<Task> result = instance.getTasks();
+        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -119,12 +215,30 @@ public class AssignmentTest {
     @Test
     public void testGetMilestones() {
         System.out.println("getMilestones");
-        Assignment instance = null;
-        ArrayList<Milestone> expResult = null;
+        
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone milestone = new Milestone(tasks, name, description, start, end);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        instance.addMilestone(milestone);
+        
+        ArrayList<Milestone> milestones = new ArrayList<>();
+        milestones.add(milestone);
+        
+        ArrayList<Milestone> expResult = milestones;
         ArrayList<Milestone> result = instance.getMilestones();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -133,11 +247,32 @@ public class AssignmentTest {
     @Test
     public void testSetMilestones() {
         System.out.println("setMilestones");
-        ArrayList<Milestone> milestones = null;
-        Assignment instance = null;
+        
+        ArrayList<Task> tasks = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Milestone milestone = new Milestone(tasks, name, description, start, end);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        
+        
+        ArrayList<Milestone> milestones = new ArrayList<>();
+        milestones.add(milestone);
+        
         instance.setMilestones(milestones);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        ArrayList<Milestone> expResult = milestones;
+        ArrayList<Milestone> result = instance.getMilestones();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -146,12 +281,18 @@ public class AssignmentTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Assignment instance = null;
-        String expResult = "";
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment instance = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        
+        String expResult = aName;
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

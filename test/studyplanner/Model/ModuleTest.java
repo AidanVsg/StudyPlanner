@@ -1,5 +1,6 @@
 package studyplanner.Model;
 
+import java.util.Date;
 import java.util.HashSet;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -39,12 +40,14 @@ public class ModuleTest {
     @Test
     public void testGetName() {
         System.out.println("getName");
-        Module instance = new Module();
-        String expResult = "";
+        
+        String name = "test name";
+        String code = "test code";
+        Module instance = new Module(name, code);
+        
+        String expResult = name;
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -53,12 +56,14 @@ public class ModuleTest {
     @Test
     public void testGetCode() {
         System.out.println("getCode");
-        Module instance = new Module();
-        String expResult = "";
+        
+        String name = "test name";
+        String code = "test code";
+        Module instance = new Module(name, code);
+        
+        String expResult = code;
         String result = instance.getCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -67,12 +72,26 @@ public class ModuleTest {
     @Test
     public void testGetAssignments() {
         System.out.println("getAssignments");
-        Module instance = new Module();
-        HashSet<Assignment> expResult = null;
+        
+        String name = "test name";
+        String code = "test code";
+        Module instance = new Module(name, code);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment assignment = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        HashSet<Assignment> assignments = new HashSet<>();
+        assignments.add(assignment);
+        
+        instance.getAssignments().add(assignment);
+        
+        HashSet<Assignment> expResult = assignments;
         HashSet<Assignment> result = instance.getAssignments();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -81,11 +100,17 @@ public class ModuleTest {
     @Test
     public void testSetName() {
         System.out.println("setName");
-        String name = "";
-        Module instance = new Module();
-        instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String name = "test name";
+        String code = "test code";
+        Module instance = new Module(name, code);
+        String name2 = "test name";
+        instance.setName(name2);
+        
+        String expResult = name2;
+        String result = instance.getName();
+        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -94,11 +119,18 @@ public class ModuleTest {
     @Test
     public void testSetCode() {
         System.out.println("setCode");
-        String code = "";
-        Module instance = new Module();
-        instance.setCode(code);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String name = "test name";
+        String code = "test code";
+        Module instance = new Module(name, code);
+        
+        String code2 = "test code";
+        instance.setCode(code2);
+        
+        String expResult = code2;
+        String result = instance.getCode();
+        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -107,11 +139,22 @@ public class ModuleTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-        Assignment assignment = null;
-        Module instance = new Module();
+        
+        String name = "test name";
+        String code = "test code";
+        Module instance = new Module(name, code);
+        
+        double weighting = 30;
+        String aName = "test name";
+        String aDescription = "test description";
+        Date aStart = new Date();
+        Date aEnd = new Date();
+        
+        Assignment assignment = new Assignment(weighting, aName, aDescription, aStart, aEnd);
+        
         instance.add(assignment);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assert(instance.getAssignments().contains(assignment));
     }
 
     /**
@@ -120,12 +163,14 @@ public class ModuleTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Module instance = new Module();
-        String expResult = "";
+                
+        String name = "test name";
+        String code = "test code";
+        Module instance = new Module(name, code);
+        
+        String expResult = name;
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

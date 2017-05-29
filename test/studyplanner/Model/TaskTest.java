@@ -1,6 +1,7 @@
 package studyplanner.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,12 +40,21 @@ public class TaskTest {
     @Test
     public void testGetType() {
         System.out.println("getType");
-        Task instance = new Task();
-        String expResult = "";
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        String expResult = type;
         String result = instance.getType();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -52,12 +62,23 @@ public class TaskTest {
      */
     @Test
     public void testSetType() {
-        System.out.println("setType");
-        String type = "";
-        Task instance = new Task();
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        type ="test";
         instance.setType(type);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String expResult = type;
+        String result = instance.getType();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -66,12 +87,29 @@ public class TaskTest {
     @Test
     public void testGetCriteria() {
         System.out.println("getCriteria");
-        Task instance = new Task();
-        ArrayList<Criterion> expResult = null;
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        String cName = "test name";
+        Criterion criterion = new Criterion(cName);
+        
+        ArrayList<Criterion> criteriatest = new ArrayList<>();
+        criteriatest.add(criterion);
+        
+        instance.getCriteria().add(criterion);
+        
+        ArrayList<Criterion> expResult = criteriatest;
         ArrayList<Criterion> result = instance.getCriteria();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -80,11 +118,29 @@ public class TaskTest {
     @Test
     public void testSetCriteria() {
         System.out.println("setCriteria");
-        ArrayList<Criterion> criteria = null;
-        Task instance = new Task();
-        instance.setCriteria(criteria);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        String cName = "test name";
+        Criterion criterion = new Criterion(cName);
+        
+        ArrayList<Criterion> criteriatest = new ArrayList<>();
+        criteriatest.add(criterion);
+        
+        instance.setCriteria(criteriatest);
+        
+        ArrayList<Criterion> expResult = criteriatest;
+        ArrayList<Criterion> result = instance.getCriteria();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -93,12 +149,30 @@ public class TaskTest {
     @Test
     public void testGetActivityHistory() {
         System.out.println("getActivityHistory");
-        Task instance = new Task();
-        ArrayList<Activity> expResult = null;
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        String aname = "test name";
+        String desc = "test description";
+        Double value = 2.0;
+        Activity activity = new Activity(aname,  desc,  value);
+        ArrayList<Activity> activityHistoryTest = new ArrayList<>();
+        activityHistoryTest.add(activity);
+        
+        instance.getActivityHistory().add(activity);
+        
+        ArrayList<Activity> expResult = activityHistoryTest;
         ArrayList<Activity> result = instance.getActivityHistory();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -107,11 +181,30 @@ public class TaskTest {
     @Test
     public void testSetActivityHistory() {
         System.out.println("setActivityHistory");
-        ArrayList<Activity> activityHistory = null;
-        Task instance = new Task();
-        instance.setActivityHistory(activityHistory);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        String aname = "test name";
+        String desc = "test description";
+        Double value = 2.0;
+        Activity activity = new Activity(aname,  desc,  value);
+        ArrayList<Activity> activityHistoryTest = new ArrayList<>();
+        activityHistoryTest.add(activity);
+        
+        instance.setActivityHistory(activityHistoryTest);
+        
+        ArrayList<Activity> expResult = activityHistoryTest;
+        ArrayList<Activity> result = instance.getActivityHistory();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -120,12 +213,26 @@ public class TaskTest {
     @Test
     public void testGetDependencies() {
         System.out.println("getDependencies");
-        Task instance = new Task();
-        ArrayList<Task> expResult = null;
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        ArrayList<Task> dependenciesTest = new ArrayList<>();
+        dependenciesTest.add(instance);
+        
+        instance.getDependencies().add(instance);
+        
+        ArrayList<Task> expResult = dependenciesTest;
         ArrayList<Task> result = instance.getDependencies();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -134,11 +241,26 @@ public class TaskTest {
     @Test
     public void testSetDependencies() {
         System.out.println("setDependencies");
-        ArrayList<Task> dependencies = null;
-        Task instance = new Task();
-        instance.setDependencies(dependencies);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        ArrayList<Task> dependenciesTest = new ArrayList<>();
+        dependenciesTest.add(instance);
+        
+        instance.setDependencies(dependenciesTest);
+        
+        ArrayList<Task> expResult = dependenciesTest;
+        ArrayList<Task> result = instance.getDependencies();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -147,12 +269,21 @@ public class TaskTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Task instance = new Task();
-        String expResult = "";
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task instance = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        String expResult = name;
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

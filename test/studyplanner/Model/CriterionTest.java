@@ -1,5 +1,7 @@
 package studyplanner.Model;
 
+import java.util.ArrayList;
+import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,11 +40,30 @@ public class CriterionTest {
     @Test
     public void testUpdateTask() {
         System.out.println("updateTask");
-        Task t = null;
-        Criterion instance = null;
-        instance.updateTask(t);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String type = " ";
+        ArrayList<Criterion> criteria = new ArrayList<>();
+        ArrayList<Activity> activityHistory = new ArrayList<>();
+        ArrayList<Task> dependencies = new ArrayList<>();
+        String name = "test name";
+        String description = "test description";
+        Date start = new Date();
+        Date end = new Date();
+        
+        Task task = new Task(type, criteria, activityHistory, dependencies, name, description, start, end);
+        
+        String cName = "test name";
+        Criterion instance = new Criterion(cName);
+        
+        task.getCriteria().add(instance);
+        
+        instance.updateTask(task);
+        
+        boolean expResult = false;
+        boolean result = task.isDone();
+        
+        assertEquals(expResult,result);
+        
     }
 
     /**
@@ -51,12 +72,13 @@ public class CriterionTest {
     @Test
     public void testGetName() {
         System.out.println("getName");
-        Criterion instance = null;
-        String expResult = "";
+        
+        String cName = "test name";
+        Criterion instance = new Criterion(cName);
+        
+        String expResult = cName;
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -65,11 +87,15 @@ public class CriterionTest {
     @Test
     public void testSetName() {
         System.out.println("setName");
-        String name = "";
-        Criterion instance = null;
-        instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String initName = "initialise name";
+        String cName = "test name";
+        Criterion instance = new Criterion(initName);
+        instance.setName(cName);
+        
+        String expResult = cName;
+        String result = instance.getName();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -78,12 +104,13 @@ public class CriterionTest {
     @Test
     public void testGetType() {
         System.out.println("getType");
-        Criterion instance = null;
-        CriterionType expResult = null;
+        
+        String cName = "test name";
+        Criterion instance = new Criterion(cName);
+        
+        CriterionType expResult = CriterionType.Boolean;
         CriterionType result = instance.getType();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -92,11 +119,18 @@ public class CriterionTest {
     @Test
     public void testSetType() {
         System.out.println("setType");
-        CriterionType type = null;
-        Criterion instance = null;
+        CriterionType type = CriterionType.Boolean;
+        
+        String cName = "test name";
+        Criterion instance = new Criterion(cName);
+        
         instance.setType(type);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        CriterionType expResult = type;
+        CriterionType result = instance.getType();
+        
+        assertEquals(expResult, result);
+        
     }
 
     /**
@@ -105,12 +139,11 @@ public class CriterionTest {
     @Test
     public void testIsMet() {
         System.out.println("isMet");
-        Criterion instance = null;
+        String cName = "test name";
+        Criterion instance = new Criterion(cName);
         boolean expResult = false;
         boolean result = instance.isMet();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -119,11 +152,13 @@ public class CriterionTest {
     @Test
     public void testSetMet() {
         System.out.println("setMet");
-        boolean met = false;
-        Criterion instance = null;
+        boolean met = true;
+        String cName = "test name";
+        Criterion instance = new Criterion(cName);
         instance.setMet(met);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean expResult = true;
+        boolean result = instance.isMet();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -132,12 +167,15 @@ public class CriterionTest {
     @Test
     public void testGetValue() {
         System.out.println("getValue");
-        Criterion instance = null;
-        double expResult = 0.0;
+        
+        String name = "test name";
+        String uom = "test uom";
+        double value = 3;
+        
+        Criterion instance = new Criterion(name, value, uom);
+        double expResult = value;
         double result = instance.getValue();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -146,11 +184,17 @@ public class CriterionTest {
     @Test
     public void testSetValue() {
         System.out.println("setValue");
-        double value = 0.0;
-        Criterion instance = null;
-        instance.setValue(value);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String name = "test name";
+        String uom = "test uom";
+        double value = 3;
+        
+        Criterion instance = new Criterion(name, value, uom);
+        double testValue = 4;
+        instance.setValue(testValue);
+        
+        double expResult = testValue;
+        double result = instance.getValue();
+        assertEquals(expResult, result, 0.0);
     }
 
     /**
@@ -159,12 +203,14 @@ public class CriterionTest {
     @Test
     public void testGetUnitOfMeasure() {
         System.out.println("getUnitOfMeasure");
-        Criterion instance = null;
-        String expResult = "";
+        String name = "test name";
+        String uom = "test uom";
+        double value = 3;
+        
+        Criterion instance = new Criterion(name, value, uom);
+        String expResult = uom;
         String result = instance.getUnitOfMeasure();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -173,11 +219,19 @@ public class CriterionTest {
     @Test
     public void testSetUnitOfMeasure() {
         System.out.println("setUnitOfMeasure");
-        String unitOfMeasure = "";
-        Criterion instance = null;
+        String name = "test name";
+        String uom = "test uom";
+        double value = 3;
+        
+        Criterion instance = new Criterion(name, value, uom);
+        
+        String unitOfMeasure = "uom test";
         instance.setUnitOfMeasure(unitOfMeasure);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        String expResult = unitOfMeasure;
+        String result = instance.getUnitOfMeasure();
+        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -186,12 +240,18 @@ public class CriterionTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Criterion instance = null;
-        String expResult = "";
+        
+        System.out.println("setUnitOfMeasure");
+        String name = "test name";
+        String uom = "test uom";
+        double value = 3;
+        
+        Criterion instance = new Criterion(name, value, uom);
+        
+        String expResult = name;
         String result = instance.toString();
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
