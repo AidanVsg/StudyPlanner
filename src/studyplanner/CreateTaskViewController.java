@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import studyplanner.Model.Assignment;
 import studyplanner.Model.Criterion;
+import studyplanner.Model.CriterionType;
 import studyplanner.Model.Module;
 import studyplanner.Model.StudyProfile;
 import studyplanner.Model.Task;
@@ -77,8 +78,7 @@ public class CreateTaskViewController implements Initializable {
      */
     @FXML private void addCriterionButtonClick(){
         i++;
-        Criterion criterion = new Criterion();
-        criterion.setName("criterion"+i);
+        Criterion criterion = new Criterion("criterion"+i);
         if(i%2==0){
             criterion.setValue(i/2);
             criterion.setUnitOfMeasure("units done");
@@ -102,6 +102,13 @@ public class CreateTaskViewController implements Initializable {
         task.setDescription(descriptionTextArea.getText());
         task.setStart(new Date());
         task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
+        
+        
+        Criterion c1 = new Criterion("Study", 2.0, "Hours");
+        Criterion c2 = new Criterion("Workout");
+
+        task.getCriteria().add(c1);
+        task.getCriteria().add(c2);
            
         assignment.addTask(task); //
 

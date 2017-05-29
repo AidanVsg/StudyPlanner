@@ -1,6 +1,7 @@
 package studyplanner;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -18,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,6 +28,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -124,6 +127,19 @@ public class StudyPlannerViewController implements Initializable {
         stage.show();
     }
     
+    public void openDashboard(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardView.fxml"));
+    
+        try {
+            Stage stage = new Stage();  
+            stage.setScene(new Scene ((HBox) loader.load()));
+            stage.setResizable(true);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(StudyPlannerViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void setProfileListViewContextMenu(){
         cmenu = new ContextMenu();
         MenuItem i1 = new MenuItem("Delete");

@@ -15,38 +15,12 @@ public class Criterion implements Serializable{
     private double value;            //Value of a criteria.
     private String unitOfMeasure;    //Unit of measure for the value.
 
-    /**
-     * Default constructor for an instance of Criterion.
-     */
-    public Criterion(){
-        //TODO put checks in place for unexpected behaviour - make error message shown in GUI and program not terminate
-        this.name = new SimpleStringProperty("");
-        this.type = CriterionType.Boolean;
-        this.isMet = false;
-        this.value = 0.0;
-        this.unitOfMeasure= "";
-    }
+ 
     
-    /**
-     * Overloaded constructor with additional parameters.
-     * @param name Name of a criteria.
-     * @param type Type of a criteria.
-     * @param value Value of a criteria.
-     * @param uom Unit of measure for the value.
-     */
-    public Criterion(String name, CriterionType type, double value, String uom){
-        
-        this.name = new SimpleStringProperty(name);
-        if(type.equals(CriterionType.Boolean)){
-            this.value = 0.0;
-            this.unitOfMeasure = "";
-        }
-        else{
-            this.unitOfMeasure = uom;
-            this.value = value;
-        }
-                   
-        this.type = type;
+    
+    public Criterion(String name){  
+        this.name = name;
+        this.type = CriterionType.Boolean;
         this.isMet = false; //The criterion will not be met when initialised.
 
     }
@@ -57,11 +31,14 @@ public class Criterion implements Serializable{
     public void updateTask(Task t){
         //TODO update the task that a criteria has been completed - note: could potentially move this to Task class
         ArrayList<Criterion> criteria = t.getCriteria();
-
+        
+        boolean allDone = true;
         for (Criterion c:
              criteria) {
-            if(c.equals(this)) c.setMet(true);
+            if(!c.isMet()) allDone = false;    
         }
+        t.setIsDone(allDone);
+        if(t.isDone()) t.setName(t.getName() + " ✓");
     }
 
     /*******************
@@ -147,5 +124,10 @@ public class Criterion implements Serializable{
      */
     public void setUnitOfMeasure(String unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
+    }
+    
+        @Override
+     public String toString(){
+         return this.getName();
     }
 }

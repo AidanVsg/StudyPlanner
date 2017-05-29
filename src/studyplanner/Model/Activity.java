@@ -41,8 +41,15 @@ public class Activity implements Serializable{
      * @param c A criterion to update
      */
     public void updateCriterion(Criterion c){
-
-        c.setMet(true);
+        if(c.getType().equals(CriterionType.Boolean)){
+            c.setMet(true);
+        }else
+        {
+            c.setValue(c.getValue() - this.getValue());
+            if(c.getValue() <= 0.0) c.setMet(true);
+        }
+        
+        if(c.isMet()) c.setName(c.getName() + " ✓");
         //TODO check if the method has to do something besides setting boolean isMet
     }
 
