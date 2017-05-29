@@ -66,7 +66,7 @@ public abstract class CreateObjectiveViewController extends CreateViewController
             });
     }
     
-    private void updateDatePicker(DatePicker datePicker, Assignment assign){
+    protected void updateDatePicker(DatePicker datePicker, Assignment assign){
         datePicker.setValue(LocalDate.now());
         datePicker.setDisable(false);
         LocalDate assignDeadline = 

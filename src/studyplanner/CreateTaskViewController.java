@@ -2,24 +2,17 @@ package studyplanner;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 import studyplanner.Model.Assignment;
 import studyplanner.Model.Criterion;
 import studyplanner.Model.Module;
@@ -33,6 +26,7 @@ import studyplanner.Model.Task;
 public class CreateTaskViewController 
         extends CreateObjectiveViewController 
         implements Initializable {
+    
     @FXML TextField typeTextField; //task type input field
     @FXML TextField criterionNameTextField,
                     criterionValueTextField,

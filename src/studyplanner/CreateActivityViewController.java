@@ -28,15 +28,16 @@ import studyplanner.Model.Task;
 
 /**
  * Controller for task creation window
- * @author Michail Krugliakov 100136484
+ * @author Michail Krugliakov 100136484, Kiril Chomaniuk
  */
-public class CreateActivityViewController implements Initializable {
+public class CreateActivityViewController 
+        extends CreateViewController 
+        implements Initializable {
+    
     private StudyProfile profile;
     private Task selectedTask;
 
     
-    @FXML ComboBox<Module> moduleComboBox; //module selection box
-    @FXML ComboBox<Assignment> assignmentComboBox; //assignment selection box
     @FXML ComboBox<Task> taskComboBox; //assignment selection box   
     @FXML ComboBox<Criterion> criterionComboBox;
       
@@ -44,29 +45,18 @@ public class CreateActivityViewController implements Initializable {
     @FXML Label criterionUOM;
     @FXML TextField nameTextField; //task name input field
     
-    @FXML TextArea descriptionTextArea; //description of the task
+    @FXML Button addCriterionButton; 
+                 //adds an empty criterion
     
+   
     
-    @FXML Button cancelButton, createActivityButton, addCriterionButton; 
-            //closes window    //creates a new task     //adds an empty criterion
-    
-    @FXML AnchorPane createActivityWindow; //shortcut fields to ease acess
-    private Stage stage;               //to this controller's view's stage
-    
-    //private StudyProfileViewController mainController;
-                                       //controller to pass task data to
-    
-    /**
-     * Closes task creation window
-     */
-    @FXML private void cancelButtonClick(){
-        stage.hide();
-    }
+
     /**
      * checks for correctness of inputs and creates a new task in
      * selected assignment
      */
-    @FXML private void createActivityButtonClick(){
+    @Override
+    @FXML void createButtonClick(){
         Activity activity = new Activity();
            
         
@@ -85,8 +75,8 @@ public class CreateActivityViewController implements Initializable {
         if(module!=null) moduleComboBox.setValue(module);
         if(assign!=null) assignmentComboBox.setValue(assign);
         if(task!=null) taskComboBox.setValue(task);
-        //this.mainController = mainController;
-        stage = (Stage) createActivityWindow.getScene().getWindow();
+
+        stage = this.fetchStage();
         
         this.profile = profile;
         
@@ -103,13 +93,32 @@ public class CreateActivityViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
          
-        moduleComboBox.valueProperty().addListener(new ChangeListener<Module>() {
+        addChangeListeners(moduleComboBox,assignmentComboBox,taskComboBox,
+                           criterionComboBox);
+        Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
+        TextFormatter<Double> textFormatter = new TextFormatter<Double>(new DoubleStringConverter(), 0.0, change
+        -> {
+            String newText = change.getControlNewText();
+            if (validDoubleText.matcher(newText).matches()) return change;
+            else return null;
+            
+        });
+        criterionValue.setTextFormatter(textFormatter);
+        textFormatter.valueProperty().addListener((obs, oldValue, newValue) ->
+        {
+            criterionValue.setText(newValue.toString());
+        });
+    }   
+    
+    public void addChangeListeners(ComboBox modules, ComboBox assignments,
+                                   ComboBox tasks, ComboBox criteria){
+        modules.valueProperty().addListener(new ChangeListener<Module>() {
             @Override 
             public void changed(ObservableValue ov, Module prev, Module cur) {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
-                if(assignmentComboBox.getValue() != null){
-                    assignmentComboBox.setValue(null);
+                if(assignments.getValue() != null){
+                    assignments.setValue(null);
                 }
                 ArrayList<Assignment> beforeDeadlineAssign = new ArrayList<>();
                 for(Assignment assign : cur.getAssignments()){
@@ -117,37 +126,37 @@ public class CreateActivityViewController implements Initializable {
                         beforeDeadlineAssign.add(assign);
                     }
                 }
-                assignmentComboBox.getItems().setAll(beforeDeadlineAssign);
+                assignments.getItems().setAll(beforeDeadlineAssign);
             }    
         });
-        assignmentComboBox.valueProperty().addListener(
+        assignments.valueProperty().addListener(
             new ChangeListener<Assignment>(){
                 @Override
                 public void changed(ObservableValue ov, Assignment prev, Assignment cur){
-                    if(taskComboBox.getValue() != null){
-                        taskComboBox.setValue(null);
+                    if(tasks.getValue() != null){
+                        tasks.setValue(null);
                     }
                     for (Task t : cur.getTasks()){
                         if(!t.isDone())
-                            taskComboBox.getItems().add(t);
+                            tasks.getItems().add(t);
                     }
                 }
             });
-        taskComboBox.valueProperty().addListener(
+        tasks.valueProperty().addListener(
                 new ChangeListener<Task>(){
                     @Override
                     public void changed(ObservableValue ov, Task prev, Task cur){
                         selectedTask = cur;
-                        if(criterionComboBox.getValue() != null){
-                            criterionComboBox.setValue(null);
+                        if(criteria.getValue() != null){
+                            criteria.setValue(null);
                         }
                         for (Criterion c : cur.getCriteria()){
                             if(!c.isMet())
-                                criterionComboBox.getItems().add(c);
+                                criteria.getItems().add(c);
                         }
                     }
                 });
-        criterionComboBox.valueProperty().addListener(
+        criteria.valueProperty().addListener(
                 new ChangeListener<Criterion>(){
                     @Override
                     public void changed(ObservableValue ov, Criterion prev, Criterion cur){
@@ -163,26 +172,5 @@ public class CreateActivityViewController implements Initializable {
                         //criterionType = cur.getType();
                     }
                 });
-        Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
-        TextFormatter<Double> textFormatter = new TextFormatter<Double>(new DoubleStringConverter(), 0.0, change
-        -> {
-            String newText = change.getControlNewText();
-            if (validDoubleText.matcher(newText).matches()) return change;
-            else return null;
-            
-        });
-        criterionValue.setTextFormatter(textFormatter);
-        textFormatter.valueProperty().addListener((obs, oldValue, newValue) ->
-        {
-            criterionValue.setText(newValue.toString());
-        });
-//        criterionValue.textProperty().addListener(new ChangeListener<String>() {
-//        @Override
-//        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//            if (!newValue.matches("^[0-9][.][0-9]")) {
-//                criterionValue.setText(newValue.replaceAll("[^\\d]", ""));
-//            }
-//        }
-//    });
-    }   
+    }
 }
