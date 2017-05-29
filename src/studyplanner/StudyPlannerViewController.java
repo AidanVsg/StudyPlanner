@@ -7,17 +7,28 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import studyplanner.Model.StudyProfile;
 /**
  *
@@ -29,7 +40,7 @@ public class StudyPlannerViewController implements Initializable {
     
     @FXML private ListView<StudyProfile> profileListView;
     @FXML private AnchorPane content;
-    
+    @FXML private ContextMenu cmenu;
     
     @FXML private void loadProfileButtonAction() throws Exception{
         if(profile != null){
@@ -113,6 +124,38 @@ public class StudyPlannerViewController implements Initializable {
         stage.show();
     }
     
+    private void setProfileListViewContextMenu(){
+        cmenu = new ContextMenu();
+        MenuItem i1 = new MenuItem("Delete");
+        i1.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                profileListView.getItems().remove(profile);
+            }
+        });
+        MenuItem i2 = new MenuItem("Save");
+        i2.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                try {
+                    saveStudyProfile();
+                } catch (Exception ex) {
+                    Logger.getLogger(StudyPlannerViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        cmenu.getItems().addAll(i1,i2);
+        profileListView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+ 
+            @Override
+            public void handle(ContextMenuEvent event) {
+ 
+                cmenu.show(profileListView, event.getScreenX(), event.getScreenY());
+            }
+        });
+    }
+   
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -124,23 +167,21 @@ public class StudyPlannerViewController implements Initializable {
         
         FileInputStream fin = null;
 	ObjectInputStream ois = null;
-        StudyProfile test = new StudyProfile();
+        //StudyProfile test = new StudyProfile();
         
         try{                   
             fin = new FileInputStream("sp.ser");
             ois = new ObjectInputStream(fin);
                        
             
-            
-            test = (StudyProfile) ois.readObject();
-            
-            addProfileToListView(test);
+            addProfileToListView((StudyProfile) ois.readObject());
         }
         catch(Exception e){
             System.out.println("file does not exist");
         }
         
-
+        setProfileListViewContextMenu();
+        
         profileListView.getSelectionModel().selectedItemProperty().addListener(listener);
         
         
