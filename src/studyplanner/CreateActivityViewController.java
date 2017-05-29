@@ -1,7 +1,6 @@
 package studyplanner;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -12,21 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
 import studyplanner.Model.Activity;
 import studyplanner.Model.Assignment;
@@ -88,9 +78,13 @@ public class CreateActivityViewController implements Initializable {
         stage.hide();
     }
     
-    public void initData(StudyProfile profile, 
+    public void initData(StudyProfile profile, Module module,
+                Assignment assign, Task task,
                 StudyProfileViewController mainController){
         
+        if(module!=null) moduleComboBox.setValue(module);
+        if(assign!=null) assignmentComboBox.setValue(assign);
+        if(task!=null) taskComboBox.setValue(task);
         //this.mainController = mainController;
         stage = (Stage) createActivityWindow.getScene().getWindow();
         

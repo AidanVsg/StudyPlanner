@@ -1,24 +1,18 @@
 package studyplanner;
-import studyplanner.DashboardViewController;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -31,7 +25,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import studyplanner.Model.Criterion;
 import studyplanner.Model.Milestone;
 
@@ -42,50 +35,49 @@ import studyplanner.Model.Milestone;
  */
 public class StudyProfileViewController implements Initializable {
 
-    @FXML
-    private Label profileNameLabel;
+    @FXML private Label profileNameLabel;
 
-    @FXML
-    private ListView<Task> taskListView;
-    @FXML
-    private ListView<Assignment> assignmentListView;
-    @FXML
-    private ListView<Milestone> milestoneListView;
+    @FXML private ListView<Task> taskListView;
+    @FXML private ListView<Assignment> assignmentListView;
+    @FXML private ListView<Milestone> milestoneListView;
     
-        @FXML
-    private ListView<Module> moduleListView =  new ListView<>();;
-            @FXML
-    private ListView<Criterion> criteriaListView;
+    
+    @FXML private ListView<Module> moduleListView;
             
-            @FXML private TableView approachingTable;
+    @FXML private ListView<Criterion> criteriaListView;
+    //@FXML
+    //ComboBox<Module> moduleComboBox; //module selection box
+                @FXML private TableView approachingTable;
             @FXML private TableView passedTable;
             @FXML private TableColumn approachingAssignment;
             @FXML private TableColumn approachingDeadline;
             @FXML private TableColumn passedAssignment;
             @FXML private TableColumn passedDeadline;
             @FXML private AnchorPane dashboardAnchor;
-    //@FXML
-    //ComboBox<Module> moduleComboBox; //module selection box
 
     private StudyProfile profile;
+    
+    private Module selectedModule;
+    
+    private Assignment selectedAssignment;
+    
+    private Task selectedTask;
+    
+    private Criterion selectedCriterion;
 
-    @FXML
-    private void addTaskButtonClick() throws IOException {
+    @FXML private void addTaskButtonClick() throws IOException {
         showAddTask();
     }
     
-    @FXML
-    private void addActivityButtonClick() throws IOException {
+    @FXML private void addActivityButtonClick() throws IOException {
         showAddActivity();
     }
 
-        @FXML
-    private void dashboardButtonClick() throws IOException {
+    @FXML private void dashboardButtonClick() throws IOException {
         showDashboard();
     }
     
-    @FXML
-    private void saveStudyProfile() throws Exception {
+    @FXML private void saveStudyProfile() throws Exception {
         FileOutputStream fos = new FileOutputStream("sp.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(profile);
@@ -128,7 +120,7 @@ public class StudyProfileViewController implements Initializable {
 
         CreateTaskViewController controller
                 = loader.<CreateTaskViewController>getController();
-        controller.initData(profile, this);
+        controller.initData(profile,selectedModule,selectedAssignment, this);
         stage.show();
     }
     
@@ -151,7 +143,8 @@ public class StudyProfileViewController implements Initializable {
 
         CreateActivityViewController controller
                 = loader.<CreateActivityViewController>getController();
-        controller.initData(profile, this);
+        controller.initData(profile,selectedModule,selectedAssignment,
+                            selectedTask, this);
         stage.show();
     }
     
@@ -180,35 +173,15 @@ public class StudyProfileViewController implements Initializable {
     
     public void initData(StudyProfile profile) {
         this.profile = profile;
-//        try{
-//            FXMLLoader loader = new FXMLLoader(
-//                getClass().getResource(
-//                        "DashboardView.fxml"
-//                )
-//            );
-//
-//        //Stage stage = new Stage();
-//        //stage.setTitle("New Task");
-//        //stage.setOnHidden(e -> updateTaskListView());       
-//        //DashboardViewController controller
-//        //        = loader.<DashboardViewController>getController();
-//        loader.load();
-//        DashboardViewController controller = loader.getController();
-//        
-//        controller.initData(profile, this);
-//            approachingTable = controller.getApproachingTable();
-//            passedTable = controller.getPassedTable();
-//            approachingAssignment = controller.getApproachingAssignment();
-//            approachingDeadline = controller.getApproachingDeadline();
-//            passedAssignment = controller.getPassedAssignment();
-//            passedDeadline = controller.getPassedDeadline();
-//            //dashboardAnchor = controller.getDashboardAnchor();
-//        //stage.show();
-//        }
-//        catch (Exception e){
-//            System.out.println(e);
-//                    
-//        }
+//        ChangeListener listener = (ChangeListener<Assignment>) 
+//                (ObservableValue<? extends Assignment> observable, 
+//                        Assignment oldValue, Assignment newValue) -> {
+//            if(newValue.getTasks().size() != 0)
+//                taskListView.getItems().setAll(newValue.getTasks());
+//            if(newValue.getMilestones().size() != 0)
+//                milestoneListView.getItems().setAll(newValue.getMilestones());
+//        };
+
         PropertyValueFactory<Assignment,String> aName = new PropertyValueFactory<>("name");
         PropertyValueFactory<Assignment,Date> aDate = new PropertyValueFactory<>("end");
         
@@ -229,35 +202,27 @@ public class StudyProfileViewController implements Initializable {
                     passedTable.getItems().add(a);
             }
         }
-//        ChangeListener listener = (ChangeListener<Assignment>) 
-//                (ObservableValue<? extends Assignment> observable, 
-//                        Assignment oldValue, Assignment newValue) -> {
-//            if(newValue.getTasks().size() != 0)
-//                taskListView.getItems().setAll(newValue.getTasks());
-//            if(newValue.getMilestones().size() != 0)
-//                milestoneListView.getItems().setAll(newValue.getMilestones());
-//        };
 
         profileNameLabel.setText(profile.getName());
         moduleListView.getItems().addAll(profile.getModules());
-        //for(Module m : moduleListView.getItems())
-        //{
-        //    System.out.println(m);
-        //}
-        //moduleListView.getItems().addAll();
+        for(Module m : moduleListView.getItems())
+        {
+            System.out.println();
+        }
 
         moduleListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Module>() {
             @Override
             public void changed(ObservableValue ov, Module prev, Module cur) {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
-                //assignmentListView = new ListView<>();
-                if (!assignmentListView.getItems().isEmpty()) {
+                if (assignmentListView.getItems().size() != 0) {
                     assignmentListView.getItems().clear();
+                    selectedAssignment=null;
                 }
                 for (Assignment assign : cur.getAssignments()) {
                     assignmentAdded(assign);
                 }
+                selectedModule = cur;
             }
         });
         
@@ -266,24 +231,29 @@ public class StudyProfileViewController implements Initializable {
             public void changed(ObservableValue ov, Assignment prev, Assignment cur) {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
-                //assignmentListView = new ListView<>();
-                if (!taskListView.getItems().isEmpty()) {
+                if (taskListView.getItems().size() != 0) {
                     taskListView.getItems().clear();
+                    selectedTask=null;
                 }
                 for (Task t : cur.getTasks()) {
                     taskAdded(t);
                 }
+                
+                selectedAssignment = cur;
+                
             }
         });
         taskListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Task>(){
             @Override
             public void changed(ObservableValue ov, Task prev, Task cur){
-                if(!criteriaListView.getItems().isEmpty()){
+                if(criteriaListView.getItems().size() != 0){
                     criteriaListView.getItems().clear();
+                    selectedCriterion=null;
                 }
                 for(Criterion c : cur.getCriteria()){
                     criterionAdded(c);
                 }
+                selectedTask = cur;
             }
         });
 
@@ -291,8 +261,8 @@ public class StudyProfileViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
+
     }
 
 }
+
