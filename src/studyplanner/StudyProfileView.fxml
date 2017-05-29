@@ -110,5 +110,10 @@
             <Label fx:id="criterionProgress" layoutX="160.0" layoutY="86.0" prefHeight="18.0" prefWidth="113.0" />
          </children>
       </AnchorPane>
+      <Button layoutX="302.0" layoutY="482.0" mnemonicParsing="false" onAction="#generateGanttChart" text="Generate Gantt Chart">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

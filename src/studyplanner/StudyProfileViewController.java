@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -73,6 +74,23 @@ public class StudyProfileViewController implements Initializable {
     @FXML private Assignment selectedAssignment;   
     @FXML private Task selectedTask;    
     @FXML private Criterion selectedCriterion;
+    
+    @FXML private void generateGanttChart() throws Exception{
+
+        Stage stage = new Stage();
+        stage.setTitle("Gantt Chart");
+        //stage.setOnHidden(e -> updateTaskListView());
+        Date today = new Date();
+        LocalDate temp = LocalDate.now().plusDays(7);
+        
+        Date afterAWeek = java.sql.Date.valueOf(temp);
+        
+        GanttChartApplicationView gch = new GanttChartApplicationView();
+        Scene scene = gch.initData(selectedAssignment, today, afterAWeek);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
     
     @FXML private void addTaskButtonClick() throws IOException {
         showAddTask();

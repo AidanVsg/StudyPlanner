@@ -31,11 +31,11 @@ import javafx.scene.Cursor;
 public class GanttChartApplicationView extends Application {
 
 
-    private void showGanttChart(Assignment a, Date firstDateToShow, Date lastDateToShow)
+    public Scene initData(Assignment a, Date firstDateToShow, Date lastDateToShow)
     {
-        Stage stage = new Stage();
+        //Stage stage = new Stage();
         
-         stage.setTitle("Gantt Chart");
+        // stage.setTitle("Gantt Chart");
      
         //Assignment game = new Assignment(0.6,"Game","Make a game",new GregorianCalendar(2017,4,5,15,00,00).getTime(), new GregorianCalendar(2017,4,25,15,00,00).getTime());
 
@@ -94,11 +94,9 @@ public class GanttChartApplicationView extends Application {
         chart.getStylesheets().add(getClass().getResource("GanttChartView.css").toExternalForm());
 
 
-        Scene scene  = new Scene(chart,800,600);
+        return new Scene(chart,800,600);
         
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+
     }
 
 
