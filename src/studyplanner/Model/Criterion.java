@@ -59,23 +59,12 @@ public class Criterion implements Serializable{
         //TODO update the task that a criteria has been completed - note: could potentially move this to Task class
         ArrayList<Criterion> criteria = t.getCriteria();
         
-        
+        boolean allDone = true;
         for (Criterion c:
              criteria) {
-            if(c.equals(this)){
-                if(c.getType().equals(CriterionType.Value)){ //TODO CHANGE LOGIC HERE
-                    c.setValue(c.getValue() - this.value);
-                    if(c.getValue()<= 0.0)
-                        c.setMet(true);
-                }
-                else{
-                    c.setMet(this.isMet);
-                }                
-            }
-            t.setIsDone(c.isMet());
-           
+            if(!c.isMet()) allDone = false;    
         }
-        
+        t.setIsDone(allDone);
         if(t.isDone()) t.setName(t.getName() + " ✓");
     }
 
