@@ -47,8 +47,8 @@ public class TaskViewController implements Initializable {
         @FXML TableColumn criterionValue;
         @FXML TableColumn criterionUOM;
     
-    @FXML Button cancelButton, updatesTaskButton, addCriterionButton; 
-            //closes window    //updates a task     //adds an empty criterion
+    @FXML Button cancelButton, updatesTaskButton;
+            //closes window    //updates a task  
     
     @FXML AnchorPane createTaskWindow; //shortcut fields to ease acess
     private Stage stage;               //to this controller's view's stage
@@ -63,20 +63,7 @@ public class TaskViewController implements Initializable {
     @FXML private void cancelButtonClick(){
         stage.hide();
     }
-    /**
-     * adds an editable criterion to criteriaTableView
-     */
-    @FXML private void addCriterionButtonClick(){
-        i++;
-        Criterion criterion = new Criterion("criterion"+i);
-        if(i%2==0){
-            criterion.setValue(i/2);
-            criterion.setUnitOfMeasure("units done");
-        }else{
-            criterion.setUnitOfMeasure("done dis");
-        }
-        criteriaTableView.getItems().add(criterion);
-    }
+
     /**
      * checks for correctness of inputs and creates a new task in
      * selected assignment

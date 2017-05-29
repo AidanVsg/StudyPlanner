@@ -68,7 +68,6 @@
       <ListView fx:id="dependencyListView" layoutX="190.0" layoutY="197.0" prefHeight="21.0" prefWidth="313.0" />
       <Button fx:id="updateTaskButton" layoutX="426.0" layoutY="444.0" mnemonicParsing="false" onAction="#updateTaskButtonClick" text="Update Task" />
       <Button fx:id="cancelButton" layoutX="325.0" layoutY="444.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="76.0" text="Cancel" />
-      <Button fx:id="addCriterionButton" layoutX="189.0" layoutY="406.0" mnemonicParsing="false" onAction="#addCriterionButtonClick" text="Add Criterion" />
       <Label layoutX="26.0" layoutY="225.0" text="Type">
          <font>
             <Font size="15.0" />

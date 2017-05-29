@@ -111,9 +111,9 @@ public class Criterion implements Serializable{
      */
     public void setValue(double value) {
         if(value>0){
-            this.setType(CriterionType.Value);
+            this.type=CriterionType.Value;
         }else{
-            this.setType(CriterionType.Boolean); //EXCEPTIONS NEEDED HERE AS WELL
+            this.type=CriterionType.Boolean; //EXCEPTIONS NEEDED HERE AS WELL
         }
         this.value = value;
     }

@@ -46,6 +46,9 @@ public class CreateTaskViewController implements Initializable {
     
     @FXML TextField nameTextField; //task name input field
     @FXML TextField typeTextField; //task type input field
+    @FXML TextField criterionNameTextField,
+                    criterionValueTextField,
+                    criterionUOMTextField;
     
     @FXML ListView dependencyListView; //list of tasks this tasks depends on
     
@@ -64,9 +67,7 @@ public class CreateTaskViewController implements Initializable {
     
     //private StudyProfileViewController mainController;
                                        //controller to pass task data to
-    
-    private int i=0;
-    
+ 
     /**
      * Closes task creation window
      */
@@ -77,15 +78,19 @@ public class CreateTaskViewController implements Initializable {
      * adds an editable criterion to criteriaTableView
      */
     @FXML private void addCriterionButtonClick(){
-        i++;
-        Criterion criterion = new Criterion("criterion"+i);
-        if(i%2==0){
-            criterion.setValue(i/2);
-            criterion.setUnitOfMeasure("units done");
-        }else{
-            criterion.setUnitOfMeasure("done dis");
+        Criterion criterion = new Criterion(criterionNameTextField.getText());
+        boolean valueTextFieldIsEmpty = criterionValueTextField.getText().trim().isEmpty();
+        boolean uomTextFieldIsEmpty = criterionUOMTextField.getText().trim().isEmpty();
+        
+        if(!valueTextFieldIsEmpty && !uomTextFieldIsEmpty){
+            criterion.setValue(Double.valueOf(criterionValueTextField.getText()));
+            criterion.setUnitOfMeasure(criterionUOMTextField.getText());
         }
         criteriaTableView.getItems().add(criterion);
+        
+        criterionNameTextField.setText("");
+        criterionValueTextField.setText("");
+        criterionUOMTextField.setText("");
     }
     /**
      * checks for correctness of inputs and creates a new task in
@@ -103,12 +108,9 @@ public class CreateTaskViewController implements Initializable {
         task.setStart(new Date());
         task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
         
-        
-        Criterion c1 = new Criterion("Study", 2.0, "Hours");
-        Criterion c2 = new Criterion("Workout");
 
-        task.getCriteria().add(c1);
-        task.getCriteria().add(c2);
+        task.getCriteria().addAll(criteriaTableView.getItems());
+
            
         assignment.addTask(task); //
 
