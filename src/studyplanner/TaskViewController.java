@@ -1,6 +1,7 @@
 package studyplanner;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -86,13 +87,13 @@ public class TaskViewController implements Initializable {
         //selects assignment to add the task to
         Assignment assignment;
         //>>>>ADD CHECKS AND PROPER READING OF INPUT FIELDS.
-        Task task = new Task();
+        
         task.setName(nameTextField.getText());
         task.setType(typeTextField.getText());
         task.setDescription(descriptionTextArea.getText());
-        task.setStart(new Date());
-        task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
 
+        task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
+        task.setCriteria((ArrayList<Criterion>) criteriaTableView.getItems());
         stage.hide();
     }
     public void initData(StudyProfile profile, Task task){
