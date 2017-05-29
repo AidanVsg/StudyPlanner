@@ -33,7 +33,7 @@ import studyplanner.Model.Task;
 public class CreateActivityViewController implements Initializable {
     private StudyProfile profile;
     private Task selectedTask;
-    private CriterionType criterionType;
+
     
     @FXML ComboBox<Module> moduleComboBox; //module selection box
     @FXML ComboBox<Assignment> assignmentComboBox; //assignment selection box

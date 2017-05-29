@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="521.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.StudyProfileViewController">
+<AnchorPane id="AnchorPane" prefHeight="521.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.StudyProfileViewController">
    <children>
       <Label fx:id="profileNameLabel" layoutX="14.0" layoutY="27.0" prefHeight="34.0" prefWidth="253.0" text="\%profile_name%" textFill="#f86300">
          <font>
