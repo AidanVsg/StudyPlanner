@@ -30,6 +30,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import studyplanner.Model.Criterion;
 import studyplanner.Model.Milestone;
@@ -55,6 +56,14 @@ public class StudyProfileViewController implements Initializable {
     private ListView<Module> moduleListView =  new ListView<>();;
             @FXML
     private ListView<Criterion> criteriaListView;
+            
+            @FXML private TableView approachingTable;
+            @FXML private TableView passedTable;
+            @FXML private TableColumn approachingAssignment;
+            @FXML private TableColumn approachingDeadline;
+            @FXML private TableColumn passedAssignment;
+            @FXML private TableColumn passedDeadline;
+            @FXML private AnchorPane dashboardAnchor;
     //@FXML
     //ComboBox<Module> moduleComboBox; //module selection box
 
@@ -171,6 +180,55 @@ public class StudyProfileViewController implements Initializable {
     
     public void initData(StudyProfile profile) {
         this.profile = profile;
+//        try{
+//            FXMLLoader loader = new FXMLLoader(
+//                getClass().getResource(
+//                        "DashboardView.fxml"
+//                )
+//            );
+//
+//        //Stage stage = new Stage();
+//        //stage.setTitle("New Task");
+//        //stage.setOnHidden(e -> updateTaskListView());       
+//        //DashboardViewController controller
+//        //        = loader.<DashboardViewController>getController();
+//        loader.load();
+//        DashboardViewController controller = loader.getController();
+//        
+//        controller.initData(profile, this);
+//            approachingTable = controller.getApproachingTable();
+//            passedTable = controller.getPassedTable();
+//            approachingAssignment = controller.getApproachingAssignment();
+//            approachingDeadline = controller.getApproachingDeadline();
+//            passedAssignment = controller.getPassedAssignment();
+//            passedDeadline = controller.getPassedDeadline();
+//            //dashboardAnchor = controller.getDashboardAnchor();
+//        //stage.show();
+//        }
+//        catch (Exception e){
+//            System.out.println(e);
+//                    
+//        }
+        PropertyValueFactory<Assignment,String> aName = new PropertyValueFactory<>("name");
+        PropertyValueFactory<Assignment,Date> aDate = new PropertyValueFactory<>("end");
+        
+        approachingAssignment.setCellValueFactory(aName);
+        approachingDeadline.setCellValueFactory(aDate);
+        
+        passedAssignment.setCellValueFactory(aName);
+        passedDeadline.setCellValueFactory(aDate);
+        
+        
+        Date current = new Date();
+        for(Module m : profile.getModules()){
+            for(Assignment a : m.getAssignments()){
+                
+                if(current.getTime() < a.getEnd().getTime()) 
+                    approachingTable.getItems().add(a);
+                else
+                    passedTable.getItems().add(a);
+            }
+        }
 //        ChangeListener listener = (ChangeListener<Assignment>) 
 //                (ObservableValue<? extends Assignment> observable, 
 //                        Assignment oldValue, Assignment newValue) -> {
@@ -182,10 +240,10 @@ public class StudyProfileViewController implements Initializable {
 
         profileNameLabel.setText(profile.getName());
         moduleListView.getItems().addAll(profile.getModules());
-        for(Module m : moduleListView.getItems())
-        {
-            System.out.println(m);
-        }
+        //for(Module m : moduleListView.getItems())
+        //{
+        //    System.out.println(m);
+        //}
         //moduleListView.getItems().addAll();
 
         moduleListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Module>() {
@@ -194,7 +252,7 @@ public class StudyProfileViewController implements Initializable {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
                 //assignmentListView = new ListView<>();
-                if (assignmentListView.getItems().size() != 0) {
+                if (!assignmentListView.getItems().isEmpty()) {
                     assignmentListView.getItems().clear();
                 }
                 for (Assignment assign : cur.getAssignments()) {
@@ -209,7 +267,7 @@ public class StudyProfileViewController implements Initializable {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
                 //assignmentListView = new ListView<>();
-                if (taskListView.getItems().size() != 0) {
+                if (!taskListView.getItems().isEmpty()) {
                     taskListView.getItems().clear();
                 }
                 for (Task t : cur.getTasks()) {
@@ -220,7 +278,7 @@ public class StudyProfileViewController implements Initializable {
         taskListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Task>(){
             @Override
             public void changed(ObservableValue ov, Task prev, Task cur){
-                if(criteriaListView.getItems().size() != 0){
+                if(!criteriaListView.getItems().isEmpty()){
                     criteriaListView.getItems().clear();
                 }
                 for(Criterion c : cur.getCriteria()){
@@ -233,7 +291,8 @@ public class StudyProfileViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
+        
     }
 
 }
