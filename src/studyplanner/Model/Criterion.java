@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Criterion implements Serializable{
     private static final long serialVersionUID = 4L;
-    final private SimpleStringProperty name;             //Name of a criteria.
+    private String name;             //Name of a criteria.
     private CriterionType type;       //Type of a criteria.
     private boolean isMet;           //Whether criteria is met or not.
     private double value;            //Value of a criteria.
@@ -55,14 +55,14 @@ public class Criterion implements Serializable{
      *@return Criterion name.
      */
     public String getName() {
-        return name.get();
+        return this.name;
     }
 
     /**
      * @param newName Name for a criterion.
      */
     public void setName(String newName) {
-        this.name.set(newName);
+        this.name=newName;
     }
 
     /**
