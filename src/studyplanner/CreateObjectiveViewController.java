@@ -4,6 +4,6 @@ package studyplanner;
  *
  * @author Doggo
  */
-public class CreateObjectiveViewController {
+public class CreateObjectiveViewController extends CreateViewController{
     
 }
