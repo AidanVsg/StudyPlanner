@@ -57,6 +57,11 @@ public class StudyProfileViewController implements Initializable {
     private void addTaskButtonClick() throws IOException {
         showAddTask();
     }
+    
+    @FXML
+    private void addActivityButtonClick() throws IOException {
+        showAddActivity();
+    }
 
         @FXML
     private void dashboardButtonClick() throws IOException {
@@ -101,6 +106,29 @@ public class StudyProfileViewController implements Initializable {
 
         CreateTaskViewController controller
                 = loader.<CreateTaskViewController>getController();
+        controller.initData(profile, this);
+        stage.show();
+    }
+    
+    private void showAddActivity() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "CreateActivityView.fxml"
+                )
+        );
+
+        Stage stage = new Stage();
+        stage.setTitle("New Activity");
+        //stage.setOnHidden(e -> updateTaskListView());
+
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+
+        CreateActivityViewController controller
+                = loader.<CreateActivityViewController>getController();
         controller.initData(profile, this);
         stage.show();
     }

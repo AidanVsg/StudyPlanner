@@ -94,5 +94,5 @@ public class Assignment extends Objective implements Serializable{
     @Override
      public String toString(){
          return this.getName();
-}
+    }
 }

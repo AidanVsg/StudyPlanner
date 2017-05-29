@@ -27,14 +27,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import studyplanner.Model.Assignment;
+import studyplanner.Model.Module;
 import studyplanner.Model.StudyProfile;
+import studyplanner.Model.Task;
 import studyplanner.StudyPlanner;
 
 /**
  *
  * @author Doggo
  */
-public class DashboardViewController {
+public class DashboardViewController implements Initializable{
     
 //    @FXML
 //    private SplitPane parentPane;
@@ -42,7 +45,7 @@ public class DashboardViewController {
     private Pane parentBox;
         @FXML AnchorPane dashboardWindow; //shortcut fields to ease acess
     private Stage stage;               //to this controller's view's stage
-    StudyProfile profile;
+    private StudyProfile profile;
     
 //    public static void writeObject(Object obj) throws IOException{
 //        FileOutputStream fos = new FileOutputStream("spfile.ser");
@@ -56,20 +59,31 @@ public class DashboardViewController {
         stage = (Stage) dashboardWindow.getScene().getWindow();
         
         this.profile = profile;
-        
                
-        ProgressBar pb = new ProgressBar(0.6);
-        ProgressIndicator pi = new ProgressIndicator(0.6);
+        
+        Module m = profile.getModules().get(0);
+        int taskNum = m.getAssignments().size();
+        int finished = 0;
+            for(Assignment a : m.getAssignments()){
+                for(Task t : a.getTasks()){
+                    if(t.isDone()) finished++;
+                }
+            }
+            
+        double progress = (double)finished/taskNum;
+        
+        ProgressBar pb = new ProgressBar(progress);
+        //ProgressIndicator pi = new ProgressIndicator(0.6);
         
         
         parentBox.getChildren().add(pb);
+
     
     }
 
-    
-    public void initialize() {
-       
-    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+ 
     }
     
     

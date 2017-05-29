@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.StudyProfileViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studyplanner.StudyProfileViewController">
    <children>
       <Label fx:id="profileNameLabel" layoutX="14.0" layoutY="27.0" prefHeight="34.0" prefWidth="253.0" text="\%profile_name%" textFill="#f86300">
          <font>
@@ -46,13 +42,13 @@
             </Menu>
          </menus>
       </MenuBar>
-      <ListView fx:id="assignmentListView" layoutX="19.0" layoutY="114.0" prefHeight="239.0" prefWidth="188.0" />
-      <Button fx:id="addTaskButton1" layoutX="96.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTaskButtonClick" text="Add Activity">
+      <ListView fx:id="assignmentListView" layoutX="19.0" layoutY="136.0" prefHeight="217.0" prefWidth="150.0" />
+      <Button layoutX="96.0" layoutY="361.0" mnemonicParsing="false" onAction="#addActivityButtonClick" text="Add Activity">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="addTaskButton2" layoutX="193.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTaskButtonClick" text="Add Milestone">
+      <Button layoutX="193.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTaskButtonClick" text="Add Milestone">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -63,13 +59,13 @@
          </font>
       </Label>
       <ComboBox fx:id="moduleComboBox" layoutX="21.0" layoutY="72.0" prefWidth="150.0" />
-      <ListView fx:id="taskListView" layoutX="214.0" layoutY="114.0" prefHeight="239.0" prefWidth="188.0" />
-      <Label layoutX="214.0" layoutY="97.0" prefHeight="17.0" prefWidth="77.0" text="Tasks">
+      <ListView fx:id="taskListView" layoutX="182.0" layoutY="136.0" prefHeight="217.0" prefWidth="150.0" />
+      <Label layoutX="182.0" layoutY="97.0" prefHeight="17.0" prefWidth="77.0" text="Tasks">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="addTaskButton21" layoutX="300.0" layoutY="361.0" mnemonicParsing="false" onAction="#dashboardButtonClick" text="Open Dashboard">
+      <Button layoutX="300.0" layoutY="361.0" mnemonicParsing="false" onAction="#dashboardButtonClick" text="Open Dashboard">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

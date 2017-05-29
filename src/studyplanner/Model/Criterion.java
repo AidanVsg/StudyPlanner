@@ -146,4 +146,9 @@ public class Criterion implements Serializable{
     public void setUnitOfMeasure(String unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
     }
+    
+        @Override
+     public String toString(){
+         return this.getName();
+    }
 }

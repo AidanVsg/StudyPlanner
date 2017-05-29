@@ -27,7 +27,6 @@ import javafx.util.Callback;
 import studyplanner.Model.Activity;
 import studyplanner.Model.Assignment;
 import studyplanner.Model.Criterion;
-import studyplanner.Model.CriterionType;
 import studyplanner.Model.Module;
 import studyplanner.Model.StudyProfile;
 import studyplanner.Model.Task;
@@ -36,12 +35,14 @@ import studyplanner.Model.Task;
  * Controller for task creation window
  * @author Michail Krugliakov 100136484
  */
-public class CreateTaskViewController implements Initializable {
+public class CreateActivityViewController implements Initializable {
     private StudyProfile profile;
     
     @FXML ComboBox<Module> moduleComboBox; //module selection box
     @FXML ComboBox<Assignment> assignmentComboBox; //assignment selection box
-        
+    @FXML ComboBox<Task> taskComboBox; //assignment selection box   
+    @FXML ComboBox<Criterion> criterionComboBox;
+       
     @FXML DatePicker taskDatePicker; //task deadline date picker
     
     @FXML TextField nameTextField; //task name input field
@@ -56,10 +57,10 @@ public class CreateTaskViewController implements Initializable {
         @FXML TableColumn criterionValue;
         @FXML TableColumn criterionUOM;
     
-    @FXML Button cancelButton, createTaskButton, addCriterionButton; 
+    @FXML Button cancelButton, createActivityButton, addCriterionButton; 
             //closes window    //creates a new task     //adds an empty criterion
     
-    @FXML AnchorPane createTaskWindow; //shortcut fields to ease acess
+    @FXML AnchorPane createActivityWindow; //shortcut fields to ease acess
     private Stage stage;               //to this controller's view's stage
     
     //private StudyProfileViewController mainController;
@@ -72,38 +73,16 @@ public class CreateTaskViewController implements Initializable {
         stage.hide();
     }
     /**
-     * adds an editable criterion to criteria
-     */
-    @FXML private void addCriterionButtonClick(){
-        criteriaTableView.getItems().add(new Criterion());
-    }
-    /**
      * checks for correctness of inputs and creates a new task in
      * selected assignment
      */
-    @FXML private void createTaskButtonClick(){
-        //NOTE: OPTIONAL FIELDS ARE: Description, dependencies.
-        //selects assignment to add the task to
-        Assignment assignment = assignmentComboBox.getValue();
-        //>>>>ADD CHECKS AND PROPER READING OF INPUT FIELDS.
-        Task task = new Task();
-        task.setName(nameTextField.getText());
-        task.setType(typeTextField.getText());
-        task.setDescription(descriptionTextArea.getText());
-        task.setStart(new Date());
-        task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
-        
-        
-        Criterion c1 = new Criterion();
-        c1.setName("Hello");
-        c1.setType(CriterionType.Boolean);
-        c1.setUnitOfMeasure("Dumb");
-        c1.setMet(true);
-        c1.setValue(0.0);
-        task.getCriteria().add(c1);
+    @FXML private void createActivityButtonClick(){
+        Activity activity = new Activity();
            
-        assignment.addTask(task); //
-
+        activity.setName(nameTextField.getText()); //
+        activity.setDescription(descriptionTextArea.getText());
+        activity.setValue(0.0);
+        activity.updateCriterion(criterionComboBox.getValue());
         stage.hide();
     }
     
@@ -111,7 +90,7 @@ public class CreateTaskViewController implements Initializable {
                 StudyProfileViewController mainController){
         
         //this.mainController = mainController;
-        stage = (Stage) createTaskWindow.getScene().getWindow();
+        stage = (Stage) createActivityWindow.getScene().getWindow();
         
         this.profile = profile;
         
@@ -126,8 +105,7 @@ public class CreateTaskViewController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        taskDatePicker.setValue(LocalDate.now());    
+    public void initialize(URL url, ResourceBundle rb) {  
          
         moduleComboBox.valueProperty().addListener(new ChangeListener<Module>() {
             @Override 
@@ -150,25 +128,27 @@ public class CreateTaskViewController implements Initializable {
             new ChangeListener<Assignment>(){
                 @Override
                 public void changed(ObservableValue ov, Assignment prev, Assignment cur){
-                    if(cur!=null){
-                        updateDatePicker(taskDatePicker, cur);
+                    if(taskComboBox.getValue() != null){
+                        taskComboBox.setValue(null);
+                    }
+                    for (Task t : cur.getTasks()){
+                        taskComboBox.getItems().add(t);
                     }
                 }
             });
-        
-        Callback<TableColumn, TableCell> cellFactory =
-             (TableColumn p) -> new EditingCell(); 
-        
-         criterionName.setEditable(true);
-         criterionName.setCellFactory(cellFactory);
-        criterionName.setCellValueFactory(
-                new PropertyValueFactory<>("name"));
-        criterionName.setCellFactory(TextFieldTableCell.forTableColumn());
-        criterionValue.setEditable(true);
-        criterionValue.setCellValueFactory(
-                new PropertyValueFactory<Criterion, String>("value"));
-        criterionUOM.setCellValueFactory(
-                new PropertyValueFactory<Criterion, String>("unitOfMeasure"));
+        taskComboBox.valueProperty().addListener(
+                new ChangeListener<Task>(){
+                    @Override
+                    public void changed(ObservableValue ov, Task prev, Task cur){
+                        if(criterionComboBox.getValue() != null){
+                            criterionComboBox.setValue(null);
+                        }
+                        for (Criterion c : cur.getCriteria()){
+                            criterionComboBox.getItems().add(c);
+                        }
+                    }
+                });
+
     }   
     
     class EditingCell extends TableCell<Criterion, String> {
