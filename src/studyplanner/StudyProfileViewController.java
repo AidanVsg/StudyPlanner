@@ -321,15 +321,17 @@ public class StudyProfileViewController implements Initializable {
     }
     
     private void updateMilestoneList(StudyProfile profile){
-        milestoneListView.getItems().clear();
-        profile.getModules().forEach((Module m) -> {
-            m.getAssignments().forEach((Assignment a) -> {
-                for(Milestone mileS : a.getMilestones()){
-                    mileS.update();
-                    this.milestoneAdded(mileS);
-                }
+        if(milestoneListView != null){
+            milestoneListView.getItems().clear();
+            profile.getModules().forEach((Module m) -> {
+                m.getAssignments().forEach((Assignment a) -> {
+                    for(Milestone mileS : a.getMilestones()){
+                        mileS.update();
+                        this.milestoneAdded(mileS);
+                    }
+                });
             });
-        });
+        }
     }
     private void updateDeadlines(StudyProfile profile) {
         boolean allDone = true;
