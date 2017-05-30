@@ -137,12 +137,20 @@ public class StudyProfile implements Serializable{
         }
     }
     /**
-     * Checks whether FXML file is able to initialize study profile
+     * Checks whether XML file is able to initialize study profile
      * @param profile
      * @return 
      */
-    public boolean isValid(File FXMLFile){
-        return false;
+    public boolean isValid(StudyProfile profile, File file){
+        InitialiseStudyProfile(profile, file);
+        boolean result = false;
+        if(!profile.getModules().isEmpty()){
+            if(!profile.getModules().get(0).getAssignments().isEmpty())
+                result = true;
+        }else{
+            result = false;
+        }
+        return result;
     }
     public static void updateStudyProfile(StudyProfile profile, File file){
         try{
