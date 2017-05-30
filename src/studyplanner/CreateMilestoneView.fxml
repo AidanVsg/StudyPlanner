@@ -69,5 +69,10 @@
          </font>
       </Label>
       <ListView fx:id="addedTaskListView" layoutX="312.0" layoutY="100.0" prefHeight="93.0" prefWidth="94.0" />
+      <Label layoutX="187.0" layoutY="216.0" text="hold Ctrl to select multiple tasks">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

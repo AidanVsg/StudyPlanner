@@ -95,15 +95,6 @@ public class CreateMilestoneViewController
     public void initialize(URL url, ResourceBundle rb) {
         this.addChangeListeners(moduleComboBox, assignmentComboBox);
         taskListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        taskListView.setOnMouseClicked(new EventHandler<Event>() {
-
-                    @Override
-                    public void handle(Event event) {
-                        ObservableList<Task> selectedItems =  
-                                taskListView.getSelectionModel().getSelectedItems();
-                    }
-
-                });
     }    
     
     @Override
