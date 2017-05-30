@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
@@ -23,6 +24,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -41,7 +43,7 @@ public class StudyPlannerViewController implements Initializable {
     @FXML private AnchorPane content;
     @FXML private ContextMenu cmenu;
     
-    int profileNumber = 0;
+    private static int profileNumber = 0;
     
     @FXML private void loadProfileButtonAction() throws Exception{
         if(profile != null){
@@ -79,16 +81,10 @@ public class StudyPlannerViewController implements Initializable {
     }
         
     @FXML private void saveStudyProfile() throws Exception{
-        File f;
-        String filestring;
+        //File f;
+        String filestring = "sp" + profile.getName() + ".ser";
 
-        while(true){
-            
-            filestring = "sp" + ++profileNumber + ".ser";
-            f = new File(filestring);
-            if(!f.exists()) break;
-        }
-                FileOutputStream fos = new FileOutputStream(filestring);
+        FileOutputStream fos = new FileOutputStream(filestring);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(profile);
     }
@@ -159,14 +155,27 @@ public class StudyPlannerViewController implements Initializable {
             Logger.getLogger(StudyPlannerViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void setProfileListViewContextMenu(){
+        
         cmenu = new ContextMenu();
         MenuItem i1 = new MenuItem("Delete");
         i1.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event){
+                StudyProfile temp;
+                temp = profile;
                 profileListView.getItems().remove(profile);
+                
+                File f = new File("sp" + temp.getName() + ".ser");
+                    f.delete();
+                //try{
+                    
+                //}
+                //catch(Exception e){
+                //    System.out.println(e);
+                //}
+
             }
         });
         MenuItem i2 = new MenuItem("Save");
@@ -223,6 +232,7 @@ public class StudyPlannerViewController implements Initializable {
                         StudyProfile oldValue, StudyProfile newValue) -> {
             profile = newValue;
         };
+       
         
         FileInputStream fin = null;
 	ObjectInputStream ois = null;
@@ -230,24 +240,43 @@ public class StudyPlannerViewController implements Initializable {
         
         int num = 0;
         
-        while(true){
-            try{                   
-            fin = new FileInputStream("sp" + ++num + ".ser");
-            ois = new ObjectInputStream(fin);
+       
+        try{ 
+                 File dir = new File(System.getProperty("user.dir"));
+                File[] files = dir.listFiles(new FilenameFilter(){
+                    @Override
+                    public boolean accept(File dir, String name){
+                        return name.toLowerCase().endsWith(".ser");
+                    }
+                });
+        if(files.length != 0){
+            for (File f : files){
+                fin = new FileInputStream(f.getName());
+                ois = new ObjectInputStream(fin);
                        
             
-            addProfileToListView((StudyProfile) ois.readObject());
+                addProfileToListView((StudyProfile) ois.readObject());
+            }
+        }
+            
         }
         catch(Exception e){
             System.out.println("file does not exist");
-            break;
-        }
         }
         
-        
-        setProfileListViewContextMenu();
         
         profileListView.getSelectionModel().selectedItemProperty().addListener(listener);
+        setProfileListViewContextMenu();
+        
+
+
+//        profileListView.getOnContextMenuRequested(new EventHandler<MouseEvent>() {  
+//            @Override
+//            public void handle(MouseEvent event) {
+//                profileListView.getSelectionModel().getSelectedItem();
+//            }
+//        });
+        //profileListView.getOnContextMenuRequested()
         
         
     }

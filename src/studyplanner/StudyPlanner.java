@@ -43,12 +43,12 @@ public class StudyPlanner extends Application{
 
 
         //GanttChartView chart = new GanttChartView();
-        try{
-            writeObject(sp);
-        }
-        catch (IOException ex){
-
-        }
+        //try{
+            //writeObject(sp);
+        //}
+        //catch (IOException ex){
+                
+        //}
           launch(args);
           
     }

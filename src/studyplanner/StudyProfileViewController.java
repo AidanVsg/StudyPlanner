@@ -84,7 +84,7 @@ public class StudyProfileViewController implements Initializable {
     @FXML private Milestone selectedMilestone;
     @FXML private Criterion selectedCriterion;
     
-    private int profileNumber = 0;
+    private static int profileNumber = 0;
     
     @FXML private void generateGanttChart() throws Exception{
 
