@@ -1,4 +1,9 @@
 /*
+ * https://bitbucket.org/sco0ter/extfx/downloads/ - reference
+ * Usage of the code is done via the creation of the Gantt Chart. 
+ */
+
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2013, Christian Schudt

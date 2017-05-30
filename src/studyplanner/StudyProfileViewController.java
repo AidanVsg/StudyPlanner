@@ -83,7 +83,7 @@ public class StudyProfileViewController implements Initializable {
         //stage.setOnHidden(e -> updateTaskListView());
        
         
-        GanttChartApplicationView gch = new GanttChartApplicationView();
+        GanttChartController gch = new GanttChartController();
         
         
         gch.firstInit(selectedAssignment, stage);

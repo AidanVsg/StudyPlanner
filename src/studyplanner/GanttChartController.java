@@ -32,7 +32,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
-public class GanttChartApplicationView extends Application {
+public class GanttChartController extends Application {
 
     Button prev = new Button("Previous Week");
     Button next = new Button("Next Week");
@@ -131,7 +131,7 @@ public class GanttChartApplicationView extends Application {
 
         chart.setTitle(a.getName());
         chart.setLegendVisible(false);
-        chart.setBlockHeight( 25); //sets depth of block
+        chart.setRectangleHeight( 25); //sets depth of block
 
         double x = 3.0;
         
