@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -12,8 +11,6 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,6 +121,7 @@ public class StudyProfileViewController implements Initializable {
             this.taskListView.getItems().add(task);
         });
     }
+    
     public void milestoneAdded(Milestone milestone){
         Platform.runLater(() -> {
             this.milestoneListView.getItems().add(milestone);
@@ -142,40 +140,30 @@ public class StudyProfileViewController implements Initializable {
         });
     }
     
-        private void updateStage(Stage stage) {
-        stage.setOnHidden(new EventHandler<WindowEvent>(){
-            @Override
-            public void handle(WindowEvent event) {
-                updateTaskList(selectedAssignment);
-                updateCriteriaList(selectedTask);
-                updateDeadlines(profile);
-                showCriteriaProgress(selectedCriterion);                   
-            }
-        });
-    }
         
-            private void showCriteriaProgress(Criterion selectedCriterion) {
-                String text = "";
-                if(selectedCriterion == null){
-                    selectedCriterionName.setText("Criterion Progress");
-                    criterionProgress.setText("");
-                }
-                else{
-                    if(selectedCriterion.getType().equals(CriterionType.Boolean))
-                    {
-                        if(selectedCriterion.isMet()) text = " is done";
-                        else text = " is not done";
-                    }
-                    else{
-                        double progress = selectedCriterion.getValue();                    
-                        text = Double.toString(progress) + " left";
-                    }
+        
+    private void showCriteriaProgress(Criterion selectedCriterion) {
+        String text = "";
+        if(selectedCriterion == null){
+            selectedCriterionName.setText("Criterion Progress");
+            criterionProgress.setText("");
+        }
+        else{
+            if(selectedCriterion.getType().equals(CriterionType.Boolean))
+            {
+                if(selectedCriterion.isMet()) text = " is done";
+                else text = " is not done";
+            }
+            else{
+                double progress = selectedCriterion.getValue();                    
+                text = Double.toString(progress) + " left";
+            }
 
-                        selectedCriterionName.setText(selectedCriterion.getName());
-                    criterionProgress.setText(text);
-                }
-                
-            }    
+                selectedCriterionName.setText(selectedCriterion.getName());
+            criterionProgress.setText(text);
+        }
+
+    }    
         
     private void showAddTask() throws IOException {
         FXMLLoader loader = new FXMLLoader(
@@ -199,31 +187,6 @@ public class StudyProfileViewController implements Initializable {
                 = loader.<CreateTaskViewController>getController();
         controller.initData(profile,selectedModule,selectedAssignment, this);
         stage.show();
-    }
-    
-    private void updateDeadlines(StudyProfile profile) {
-        boolean allDone = true;
-        
-        approachingTable.getItems().clear();
-        passedTable.getItems().clear();
-        for(Module m : profile.getModules()){
-            for(Assignment a : m.getAssignments()){
-                
-                Date current = new Date();
-                
-                for(Task t : a.getTasks()){
-                    if(!t.isDone()) allDone = false;
-                }
-                
-                
-                    
-                if(!allDone && current.getTime() < a.getEnd().getTime())
-                    approachingTable.getItems().add(a);
-                else
-                   passedTable.getItems().add(a); 
-                
-            }
-        }
     }
     
     private void showTask() throws Exception{
@@ -341,7 +304,44 @@ public class StudyProfileViewController implements Initializable {
                 = loader.<DashboardViewController>getController();
         controller.initData(profile, this);
         stage.show();
-    }   
+    }  
+    
+    private void updateStage(Stage stage) {
+        stage.setOnHidden(new EventHandler<WindowEvent>(){
+            @Override
+            public void handle(WindowEvent event) {
+                updateTaskList(selectedAssignment);
+                updateCriteriaList(selectedTask);
+                updateDeadlines(profile);
+                showCriteriaProgress(selectedCriterion);                   
+            }
+        });
+    }
+    
+    private void updateDeadlines(StudyProfile profile) {
+        boolean allDone = true;
+        
+        approachingTable.getItems().clear();
+        passedTable.getItems().clear();
+        for(Module m : profile.getModules()){
+            for(Assignment a : m.getAssignments()){
+                
+                Date current = new Date();
+                
+                for(Task t : a.getTasks()){
+                    if(!t.isDone()) allDone = false;
+                }
+                
+                
+                    
+                if(!allDone && current.getTime() < a.getEnd().getTime())
+                    approachingTable.getItems().add(a);
+                else
+                   passedTable.getItems().add(a); 
+                
+            }
+        }
+    }
     
     private void updateTaskList(Assignment cur){
         if(cur == null){
