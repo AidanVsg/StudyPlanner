@@ -70,9 +70,11 @@ public class StudyProfileViewController implements Initializable {
     @FXML private Label selectedCriterionName;
     @FXML private Label selectedAssignmentName;
     @FXML private StudyProfile profile;   
+    
     @FXML private Module selectedModule;   
     @FXML private Assignment selectedAssignment;   
     @FXML private Task selectedTask;    
+    @FXML private Milestone selectedMilestone;
     @FXML private Criterion selectedCriterion;
     
     @FXML private void generateGanttChart() throws Exception{
@@ -116,6 +118,11 @@ public class StudyProfileViewController implements Initializable {
     public void taskAdded(Task task) {
         Platform.runLater(() -> {
             this.taskListView.getItems().add(task);
+        });
+    }
+    public void milestoneAdded(Milestone milestone){
+        Platform.runLater(() -> {
+            this.milestoneListView.getItems().add(milestone);
         });
     }
 
@@ -260,6 +267,29 @@ public class StudyProfileViewController implements Initializable {
         stage.show();
     }
     
+    private void showMilestone() throws Exception{
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(
+                "MilestoneView.fxml"
+                )
+        );
+    
+        Stage stage = new Stage();
+        stage.setTitle(selectedMilestone.getName());
+        
+        stage.setScene(
+            new Scene(
+                (Pane) loader.load()
+            )
+        );
+        updateStage(stage);
+        
+        MilestoneViewController controller = 
+                loader.<MilestoneViewController>getController();
+        controller.initData(profile, selectedMilestone);
+        stage.show();    
+    }
+    
     private void showAddActivity() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -317,7 +347,7 @@ public class StudyProfileViewController implements Initializable {
         else{
              int required = cur.getTasks().size();
         int finished = 0;
-        if (taskListView.getItems().size() != 0) {
+        if ( !taskListView.getItems().isEmpty()) {
                     taskListView.getItems().clear();
                     criteriaListView.getItems().clear();
                     selectedTask=null;
@@ -344,7 +374,7 @@ public class StudyProfileViewController implements Initializable {
         else{
             int required = cur.getCriteria().size();
             int finished = 0;
-            if(criteriaListView.getItems().size() != 0){
+            if(!criteriaListView.getItems().isEmpty()){
                         criteriaListView.getItems().clear();
                         selectedCriterion=null;
                     }
@@ -396,7 +426,7 @@ public class StudyProfileViewController implements Initializable {
             public void changed(ObservableValue ov, Module prev, Module cur) {
                 //resets value to zero so that user can't create task
                 //with incompatible modules and assignments
-                if (assignmentListView.getItems().size() != 0) {
+                if (!assignmentListView.getItems().isEmpty()) {
                     assignmentListView.getItems().clear();
                     criteriaListView.getItems().clear();
                     taskListView.getItems().clear();
@@ -436,6 +466,20 @@ public class StudyProfileViewController implements Initializable {
             }
         });
 
+        milestoneListView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 2) {
+                   //Use ListView's getSelected Item
+                   selectedMilestone = milestoneListView.getSelectionModel()
+                                                            .getSelectedItem();
+                    try {
+                        showMilestone();
+                    } catch (Exception ex) {
+                        Logger.getLogger(StudyProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }});
         taskListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
