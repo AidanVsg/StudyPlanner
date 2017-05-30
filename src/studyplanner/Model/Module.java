@@ -16,8 +16,8 @@ public class Module implements Serializable{
      * Default constructor for this Module.
      */
     public Module(){
-        this.name = null;
-        this.code = null;
+        this.name = "";
+        this.code = "";
         this.assignments = new HashSet<>();
     }
     

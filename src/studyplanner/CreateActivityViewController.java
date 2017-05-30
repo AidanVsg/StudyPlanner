@@ -49,7 +49,7 @@ public class CreateActivityViewController
                  //adds an empty criterion
     
    
-    
+  
 
     /**
      * checks for correctness of inputs and creates a new task in
@@ -65,6 +65,7 @@ public class CreateActivityViewController
         activity.updateCriterion(criterionComboBox.getValue());
         activity.setName(nameTextField.getText()); //
         criterionComboBox.getValue().updateTask(selectedTask);
+
         stage.hide();
     }
     

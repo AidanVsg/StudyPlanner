@@ -107,6 +107,8 @@ public class CreateMilestoneViewController
                 if(assignments.getValue() != null){
                     assignments.setValue(null);
                 }
+                taskListView.getItems().clear();
+                addedTaskListView.getItems().clear();
                 ArrayList<Assignment> beforeDeadlineAssign = new ArrayList<>();
                 for(Assignment assign : cur.getAssignments()){
                     if(!assign.getEnd().before(new Date())){
@@ -123,6 +125,11 @@ public class CreateMilestoneViewController
                         updateDatePicker(dueDatePicker, cur);
                         taskListView.getItems().setAll(cur.getTasks());
                     }
+                    else
+                    {
+                        taskListView.getItems().clear();
+                        addedTaskListView.getItems().clear();
+                    }                       
                 }
             });
     }
