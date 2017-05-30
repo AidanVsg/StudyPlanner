@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -82,13 +83,16 @@ public class StudyProfileViewController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Gantt Chart");
         //stage.setOnHidden(e -> updateTaskListView());
-        Date today = new Date();
-        LocalDate temp = LocalDate.now().plusDays(7);
+       
         
-        Date afterAWeek = java.sql.Date.valueOf(temp);
+        GanttChartController gch = new GanttChartController();
         
-        GanttChartApplicationView gch = new GanttChartApplicationView();
-        Scene scene = gch.initData(selectedAssignment, today, afterAWeek);
+        
+        gch.firstInit(selectedAssignment, stage);
+        gch.setPrevious(selectedAssignment, stage);
+        gch.setNext(selectedAssignment, stage);
+        Scene scene = gch.getScene();
+        
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
