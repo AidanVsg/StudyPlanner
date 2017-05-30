@@ -141,11 +141,12 @@ public class StudyProfile implements Serializable{
      * @param profile
      * @return 
      */
-    public boolean isValid(StudyProfile profile, File file){
-        InitialiseStudyProfile(profile, file);
+    public static boolean isValid(File file){
+        StudyProfile phProfile = new StudyProfile();
+        InitialiseStudyProfile(phProfile, file);
         boolean result = false;
-        if(!profile.getModules().isEmpty()){
-            if(!profile.getModules().get(0).getAssignments().isEmpty())
+        if(!phProfile.getModules().isEmpty()){
+            if(!phProfile.getModules().get(0).getAssignments().isEmpty())
                 result = true;
         }else{
             result = false;

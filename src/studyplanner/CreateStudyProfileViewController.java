@@ -94,7 +94,7 @@ public class CreateStudyProfileViewController implements Initializable {
         
         //opening new fileChooser window on this stage
         File file = fileChooser.showOpenDialog(stage);
-        if(file != null) {
+        if(file != null && StudyProfile.isValid(file)) {
             dataFilePathField.setText(file.getPath());
         }
     }
