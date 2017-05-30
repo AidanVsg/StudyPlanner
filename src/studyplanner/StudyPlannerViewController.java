@@ -211,8 +211,7 @@ public class StudyPlannerViewController implements Initializable {
         fileChooser.setTitle("Select Hub File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("XML", "*.xml"),
-                new FileChooser.ExtensionFilter("HUB", "*.hub"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
+                new FileChooser.ExtensionFilter("HUB", "*.hub")
             );
     }
     
