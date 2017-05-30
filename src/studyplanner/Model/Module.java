@@ -7,6 +7,9 @@ import java.util.HashSet;
  */
 public class Module implements Serializable{
     private static final long serialVersionUID = 6L;
+    private Double timeSpentStudying;
+
+
     private String name;                //Name for the module.
     private String code;                //Code for the module.
     HashSet<Assignment> assignments;    //Set of assignments of the module to prevent
@@ -16,8 +19,8 @@ public class Module implements Serializable{
      * Default constructor for this Module.
      */
     public Module(){
-        this.name = null;
-        this.code = null;
+        this.name = "";
+        this.code = "";
         this.assignments = new HashSet<>();
     }
     
@@ -35,6 +38,22 @@ public class Module implements Serializable{
     /*******************
      * GET/SET METHODS *
      *******************/
+    
+    /**
+     * 
+     * @return 
+     */
+        public Double getTimeSpentStudying() {
+        return timeSpentStudying;
+    }
+
+    /**
+     * 
+     * @param timeSpentStudying 
+     */
+    public void setTimeSpentStudying(Double timeSpentStudying) {
+        this.timeSpentStudying = timeSpentStudying;
+    }
     
     /**
      * @return The name of this module.

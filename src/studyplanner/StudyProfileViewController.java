@@ -77,6 +77,7 @@ public class StudyProfileViewController implements Initializable {
     @FXML private Task selectedTask;    
     @FXML private Milestone selectedMilestone;
     @FXML private Criterion selectedCriterion;
+    @FXML private Label moduleStudyTime;
     
     @FXML private void generateGanttChart() throws Exception{
 
@@ -395,6 +396,7 @@ public class StudyProfileViewController implements Initializable {
     
     public void initData(StudyProfile profile) {
         this.profile = profile;
+        milestoneListView = new ListView<>();
 //        ChangeListener listener = (ChangeListener<Assignment>) 
 //                (ObservableValue<? extends Assignment> observable, 
 //                        Assignment oldValue, Assignment newValue) -> {
@@ -441,6 +443,7 @@ public class StudyProfileViewController implements Initializable {
                     assignmentAdded(assign);
                 }
                 selectedModule = cur;
+                moduleStudyTime.setText("Time spent studying " + cur.getName() + ": "+ Double.toString(cur.getTimeSpentStudying()));
             }
         });
         
