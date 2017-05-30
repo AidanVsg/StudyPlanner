@@ -2,7 +2,7 @@ package studyplanner;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -73,13 +73,19 @@ public class TaskViewController implements Initializable {
         //selects assignment to add the task to
         Assignment assignment;
         //>>>>ADD CHECKS AND PROPER READING OF INPUT FIELDS.
-        
+        List<Criterion> addedCriteriaList = criteriaTableView.getItems();
+            ArrayList<Criterion> addedCriteriaArrayList;
+            if (addedCriteriaList instanceof ArrayList<?>) {
+                addedCriteriaArrayList = (ArrayList<Criterion>) addedCriteriaList;
+            } else {
+                addedCriteriaArrayList = new ArrayList<>(addedCriteriaList);
+            }
         task.setName(nameTextField.getText());
         task.setType(typeTextField.getText());
         task.setDescription(descriptionTextArea.getText());
 
         task.setEnd(java.sql.Date.valueOf(taskDatePicker.getValue()));
-        task.setCriteria((ArrayList<Criterion>) criteriaTableView.getItems());
+        task.setCriteria(addedCriteriaArrayList);
         stage.hide();
     }
     public void initData(StudyProfile profile, Task task){
