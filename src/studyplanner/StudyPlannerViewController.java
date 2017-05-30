@@ -48,18 +48,6 @@ public class StudyPlannerViewController implements Initializable {
             content.getScene().getWindow().hide();
             showStudyProfile();
         }
-        
-//        else
-//        {
-//        //CODE TO EASE TESTING, PLEASE REMOVE AFTER PROGRAM IS LIVE++++++++++++++++++++++++++++++++++++++++
-//        StudyProfile testProfile = new StudyProfile();
-//        testProfile.setName("TEST PROFILE MY MAN");
-//        File hubFile = new File("HubFile.xml");
-//        StudyProfile.InitialiseStudyProfile(testProfile, hubFile);
-//        profile = testProfile;
-//        showStudyProfile();
-//        }
-        //TESTING CODE ENDED MY BROS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
     @FXML private void newProfileButtonAction() throws Exception{
         showCreateStudyProfile();
@@ -74,7 +62,6 @@ public class StudyPlannerViewController implements Initializable {
         File file = fileChooser.showOpenDialog((Stage) content.getScene().getWindow());
         if(file != null) {
             StudyProfile.updateStudyProfile(profile, file);
-            saveStudyProfile();
         }
     }
         

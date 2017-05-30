@@ -42,9 +42,9 @@ import studyplanner.Model.CriterionType;
 import studyplanner.Model.Milestone;
 
 /**
- * FXML Controller class
+ * FXML controller for a study profile view
  *
- * @author Doggo
+ * @author Michail Krugliakov, Kiril Chomaniuk
  */
 public class StudyProfileViewController implements Initializable {
 
@@ -59,15 +59,12 @@ public class StudyProfileViewController implements Initializable {
     @FXML private ListView<Module> moduleListView;
             
     @FXML private ListView<Criterion> criteriaListView;
-    //@FXML
-    //ComboBox<Module> moduleComboBox; //module selection box
     @FXML private TableView approachingTable;
     @FXML private TableView passedTable;
     @FXML private TableColumn approachingAssignment;
     @FXML private TableColumn approachingDeadline;
     @FXML private TableColumn passedAssignment;
     @FXML private TableColumn passedDeadline;
-    @FXML private AnchorPane dashboardAnchor;
     @FXML private ProgressBar taskBar;
     @FXML private ProgressBar assignmentBar;
     @FXML private ProgressBar milestoneBar;
@@ -90,11 +87,8 @@ public class StudyProfileViewController implements Initializable {
 
         Stage stage = new Stage();
         stage.setTitle("Gantt Chart");
-        //stage.setOnHidden(e -> updateTaskListView());
-       
         
         GanttChartController gch = new GanttChartController();
-        
         
         gch.firstInit(selectedAssignment, stage);
         gch.setPrevious(selectedAssignment, stage);
