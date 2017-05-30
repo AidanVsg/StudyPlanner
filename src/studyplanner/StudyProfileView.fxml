@@ -109,14 +109,14 @@
             <Label fx:id="selectedCriterionName" layoutX="26.0" layoutY="86.0" prefHeight="17.0" prefWidth="113.0" text="Criterion Progress" />
             <Label fx:id="criterionProgress" layoutX="160.0" layoutY="86.0" prefHeight="18.0" prefWidth="113.0" />
 
-            <ListView fx:id="milestoneListView" layoutX="14.0" layoutY="159.0" prefHeight="63.0" prefWidth="200.0" />
-            <Label layoutX="14.0" layoutY="142.0" prefHeight="17.0" prefWidth="77.0" text="Milestones">
+            <Label fx:id="moduleStudyTime" layoutX="42.0" layoutY="125.0" prefHeight="34.0" prefWidth="237.0" />
+
+            <ListView fx:id="milestoneListView" layoutX="14.0" layoutY="184.0" prefHeight="63.0" prefWidth="200.0" />
+            <Label layoutX="14.0" layoutY="167.0" prefHeight="17.0" prefWidth="77.0" text="Milestones">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="selectedMilestoneName" layoutX="14.0" layoutY="232.0" prefHeight="17.0" prefWidth="113.0" text="Milestone Progress" />
-            <ProgressBar fx:id="milestoneBar" layoutX="129.0" layoutY="231.0" prefHeight="17.0" prefWidth="113.0" progress="0.0" />
 
          </children>
       </AnchorPane>

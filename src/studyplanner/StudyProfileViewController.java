@@ -63,12 +63,10 @@ public class StudyProfileViewController implements Initializable {
     @FXML private AnchorPane dashboardAnchor;
     @FXML private ProgressBar taskBar;
     @FXML private ProgressBar assignmentBar;
-    @FXML private ProgressBar milestoneBar;
     @FXML private Label criterionProgress;
     @FXML private Label selectedTaskName;
     @FXML private Label selectedCriterionName;
     @FXML private Label selectedAssignmentName;
-    @FXML private Label selectedMilestoneName;
     @FXML private StudyProfile profile;   
     
     @FXML private Module selectedModule;   
@@ -429,13 +427,6 @@ public class StudyProfileViewController implements Initializable {
 
         profileNameLabel.setText(profile.getName());
         moduleListView.getItems().addAll(profile.getModules());
-        for(Module m : profile.getModules()){
-            for(Assignment a : m.getAssignments()){
-                for(Milestone ms : a.getMilestones()){
-                    milestoneListView.getItems().add(ms);
-                }
-            }
-        }
         
         moduleListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Module>() {
             @Override
@@ -479,19 +470,6 @@ public class StudyProfileViewController implements Initializable {
             public void changed(ObservableValue ov, Criterion prev, Criterion cur){
                 showCriteriaProgress(cur);
                 selectedCriterion = cur;
-            }
-        });
-        milestoneListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Milestone>(){
-            @Override
-            public void changed(ObservableValue ov, Milestone prev, Milestone cur){
-                selectedMilestone = cur;
-                //boolean allDone = true;
-                int done = 0;
-                for(Task t : cur.getTasks()){
-                    if(t.isDone()) done++;
-                }
-                selectedMilestoneName.setText(selectedMilestone.getName());
-                milestoneBar.setProgress((double)done/cur.getTasks().size());
             }
         });
 

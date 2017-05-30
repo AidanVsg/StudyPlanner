@@ -15,7 +15,6 @@ import studyplanner.Model.StudyProfile;
 
 public class StudyPlanner extends Application{
     
-    
     @Override
     public void start(Stage stage) throws Exception {
         
@@ -53,7 +52,7 @@ public class StudyPlanner extends Application{
           
     }
     public static void writeObject(Object obj) throws IOException{
-        FileOutputStream fos = new FileOutputStream("deprecated.ser");
+        FileOutputStream fos = new FileOutputStream("spfile.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(obj);
     }

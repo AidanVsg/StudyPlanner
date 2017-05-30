@@ -45,8 +45,6 @@ public class StudyPlannerViewController implements Initializable {
     @FXML private AnchorPane content;
     @FXML private ContextMenu cmenu;
     
-    int profileNumber = 0;
-    
     @FXML private void loadProfileButtonAction() throws Exception{
         if(profile != null){
             content.getScene().getWindow().hide();
@@ -70,16 +68,7 @@ public class StudyPlannerViewController implements Initializable {
     }
     
     @FXML private void saveStudyProfile() throws Exception{
-        File f;
-        String filestring;
-
-        while(true){
-            
-            filestring = "sp" + ++profileNumber + ".ser";
-            f = new File(filestring);
-            if(!f.exists()) break;
-        }
-                FileOutputStream fos = new FileOutputStream(filestring);
+                FileOutputStream fos = new FileOutputStream("sp.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(profile);
     }
@@ -196,11 +185,8 @@ public class StudyPlannerViewController implements Initializable {
 	ObjectInputStream ois = null;
         //StudyProfile test = new StudyProfile();
         
-        int num = 0;
-        
-        while(true){
-            try{                   
-            fin = new FileInputStream("sp" + ++num + ".ser");
+        try{                   
+            fin = new FileInputStream("sp.ser");
             ois = new ObjectInputStream(fin);
                        
             
@@ -208,10 +194,7 @@ public class StudyPlannerViewController implements Initializable {
         }
         catch(Exception e){
             System.out.println("file does not exist");
-            break;
         }
-        }
-        
         
         setProfileListViewContextMenu();
         
