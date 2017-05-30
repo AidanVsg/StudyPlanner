@@ -20,8 +20,8 @@
 			<Assignment id="2">
                 <name>Implementation Phase</name>
 				<weighting>20</weighting>
-				<start>22-04-2017</start>
-				<end>30-05-2017</end>
+				<start>22-05-2017</start>
+				<end>30-06-2017</end>
 				<Description>Study the Study Planner (SP) requirements sheet posted on 
 				Blackboard and implement a prototype for the new SP application, based on 
 				the MoSCoW criteria detailed on the sheet. Notice that the requirements 
@@ -43,8 +43,8 @@
 			<Assignment id="1">
 				<name>Cheat Game in Java</name>
 				<weighting>30</weighting>
-				<start>22-02-2017</start>
-				<end>22-03-2017</end>
+				<start>22-06-2017</start>
+				<end>22-07-2017</end>
 				<Description>This coursework involves you designing and implementing a 
 				simulation of a card game called Cheat. You will first implement general 
 				classes that could be used in any card game, then implement players for 
@@ -56,8 +56,8 @@
 			<Assignment id="2">
 				<name>OMDB</name>
 				<weighting>20</weighting>
-				<start>15-03-2017</start>
-				<end>22-04-2017</end>
+				<start>15-06-2017</start>
+				<end>22-07-2017</end>
 				<Description>The aim of this assignment is for the student to gain experience 
 				in the design and implementation of a simple application in the C programming 
 				language. This will involve use of most of the basic language constructs, 
@@ -74,8 +74,8 @@
 			<Assignment>
 				<name>VoIP</name>
 				<weighting>30</weighting>
-				<start>09-02-2017</start>
-				<end>07-03-2017</end>
+				<start>09-06-2017</start>
+				<end>07-07-2017</end>
 				<Description>The aim of this assignment is to design, implement and evaluate a VoIP 
 				communication system to operate between two PCs in the Lewin Lab. The assignment is 
 				to be tackled in pairs – typically with one person responsible for the sender and 
@@ -87,8 +87,8 @@
 			<Assignment>
 				<name>Monitoring Internet Performance</name>
 				<weighting>30</weighting>
-				<start>09-03-2017</start>
-				<end>11-05-2017</end>
+				<start>09-06-2017</start>
+				<end>11-07-2017</end>
 				<Description>In this assignment, you will perform a number of measurements over the 
 				‘real Internet’ using tools such as traceroute, ping, and wget (FTP). The first stage
 				of the assignment involves measuring routing stability, packet loss, round trip time (RTT),
@@ -102,8 +102,8 @@
 			<Assignment>
 				<name>Hash Table</name>
 				<weighting> 35 </weighting>
-				<start> 01-02-2017</start>
-				<end> 15-03-2017</end>
+				<start> 01-06-2017</start>
+				<end> 15-07-2017</end>
 				<Description> Subject specific: To test your ability to design, analyse and implement algorithms.
 				Transferable skills:Describing algorithms using pseudo-code; use of mathematical notation when 
 				analysing algorithms;computer programming; use of drawing tools

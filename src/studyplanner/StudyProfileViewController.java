@@ -1,9 +1,11 @@
 package studyplanner;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -11,11 +13,13 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -24,10 +28,12 @@ import studyplanner.Model.Task;
 import studyplanner.Model.Module;
 import studyplanner.Model.Assignment;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.WindowEvent;
@@ -42,6 +48,7 @@ import studyplanner.Model.Milestone;
  */
 public class StudyProfileViewController implements Initializable {
 
+    private ContextMenu cmenu;
     @FXML private Label profileNameLabel;
 
     @FXML private ListView<Task> taskListView;
@@ -76,6 +83,8 @@ public class StudyProfileViewController implements Initializable {
     @FXML private Task selectedTask;    
     @FXML private Milestone selectedMilestone;
     @FXML private Criterion selectedCriterion;
+    
+    private int profileNumber = 0;
     
     @FXML private void generateGanttChart() throws Exception{
 
@@ -113,7 +122,16 @@ public class StudyProfileViewController implements Initializable {
     }
     
     @FXML private void saveStudyProfile() throws Exception {
-        FileOutputStream fos = new FileOutputStream("sp.ser");
+        File f;
+        String filestring;
+
+        while(true){
+            
+            filestring = "sp" + ++profileNumber + ".ser";
+            f = new File(filestring);
+            if(!f.exists()) break;
+        }
+                FileOutputStream fos = new FileOutputStream(filestring);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(profile);
     }
@@ -166,6 +184,34 @@ public class StudyProfileViewController implements Initializable {
         }
 
     }    
+    
+    private void contextMenuDelete(ListView<?> lv, Object object){
+        cmenu = new ContextMenu();
+        MenuItem i1 = new MenuItem("Delete");
+        i1.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                lv.getItems().remove(object);
+                if(object instanceof Task){
+                    ArrayList<Task> tasks = selectedAssignment.getTasks();
+                    tasks.remove((Task) object);
+                }
+                if(object instanceof Criterion){
+                    ArrayList<Criterion> criteria = selectedTask.getCriteria();
+                    criteria.remove((Criterion) object);
+                }
+            }
+        });
+        cmenu.getItems().add(i1);
+        lv.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+ 
+            @Override
+            public void handle(ContextMenuEvent event) {
+ 
+                cmenu.show(lv, event.getScreenX(), event.getScreenY());
+            }
+        });
+    }
         
     private void showAddTask() throws IOException {
         FXMLLoader loader = new FXMLLoader(
@@ -452,6 +498,7 @@ public class StudyProfileViewController implements Initializable {
                 for (Assignment assign : cur.getAssignments()) {
                     assignmentAdded(assign);
                 }
+                //contextMenuDelete(moduleListView, cur);
                 selectedModule = cur;
             }
         });
@@ -463,6 +510,7 @@ public class StudyProfileViewController implements Initializable {
                 //with incompatible modules and assignments
                 updateTaskList(cur);
                 
+                //contextMenuDelete(assignmentListView, cur);
                 selectedAssignment = cur;
                 
             }
@@ -471,6 +519,7 @@ public class StudyProfileViewController implements Initializable {
             @Override
             public void changed(ObservableValue ov, Task prev, Task cur){
                 updateCriteriaList(cur);
+                contextMenuDelete(taskListView, cur);
                 selectedTask = cur;
             }
         });
@@ -478,6 +527,7 @@ public class StudyProfileViewController implements Initializable {
             @Override
             public void changed(ObservableValue ov, Criterion prev, Criterion cur){
                 showCriteriaProgress(cur);
+                contextMenuDelete(criteriaListView, cur);
                 selectedCriterion = cur;
             }
         });
@@ -490,6 +540,7 @@ public class StudyProfileViewController implements Initializable {
                 for(Task t : cur.getTasks()){
                     if(t.isDone()) done++;
                 }
+                contextMenuDelete(milestoneListView, cur);
                 selectedMilestoneName.setText(selectedMilestone.getName());
                 milestoneBar.setProgress((double)done/cur.getTasks().size());
             }

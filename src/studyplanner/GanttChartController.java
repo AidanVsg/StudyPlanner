@@ -36,6 +36,9 @@ public class GanttChartController extends Application {
 
     Button prev = new Button("Previous Week");
     Button next = new Button("Next Week");
+    
+    ArrayList<String> colours = new ArrayList<>();
+    Random rand = new Random();
     Scene scene;
     AnchorPane global;
     //Scene scene = initData(selectedAssignment, , );
@@ -74,7 +77,13 @@ public class GanttChartController extends Application {
     
     public void firstInit(Assignment selectedAssignment,Stage stage)
     {
+        colours.add("status-red");
+        colours.add("status-green");
+        colours.add("status-blue");
+        colours.add("status-yellow");
+        colours.add("status-orange");
         initData(selectedAssignment, java.sql.Date.valueOf(today), java.sql.Date.valueOf(afterAWeek));
+        
     }
     
     public void setNext(Assignment selectedAssignment,Stage stage){
@@ -82,30 +91,12 @@ public class GanttChartController extends Application {
         next.setLayoutX(500);
         next.setLayoutY(575);
     }
+    
 
     public void initData(Assignment a, Date firstDateToShow, Date lastDateToShow)
     {
         global = new AnchorPane();
-        //Stage stage = new Stage();
         
-        // stage.setTitle("Gantt Chart");
-     
-        //Assignment game = new Assignment(0.6,"Game","Make a game",new GregorianCalendar(2017,4,5,15,00,00).getTime(), new GregorianCalendar(2017,4,25,15,00,00).getTime());
-
-        //Task task1 = new Task();
-        //task1.setName("Reading");
-        //task1.setStart(new GregorianCalendar(2017,4,10,00,00,00).getTime());
-        //task1.setEnd(new GregorianCalendar(2017,4,12,00,00,00).getTime());
-        
-        //Task task2 = new Task();
-        //task2.setName("Smoke a joint");
-        //task2.setStart(new GregorianCalendar(2017,4,9,00,00,00).getTime());
-        //task2.setEnd(new GregorianCalendar(2017,4,10,00,00,00).getTime());
-        
-        //game.addTask(task1);
-        //game.addTask(task2);
-        
-        //final DateAxis xAxis = new DateAxis(new GregorianCalendar(2017,4,9,00,00,00).getTime(),new GregorianCalendar(2017,4,16,00,00,00).getTime());
         final DateAxis xAxis = new DateAxis(firstDateToShow,lastDateToShow);
         final CategoryAxis yAxis = new CategoryAxis();
         
@@ -115,11 +106,7 @@ public class GanttChartController extends Application {
         xAxis.setTickLabelGap(3);
 
         xAxis.setTickLabelRotation(90);
-
-
-        //xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(dates)));
         xAxis.setTickLabelRotation(90);
- //       xAxis.setLowerBound(DateAxis);
 
         xAxis.setSide(Side.TOP);
         
@@ -127,19 +114,28 @@ public class GanttChartController extends Application {
         yAxis.setTickLabelFill(Color.CHOCOLATE);
         yAxis.setTickLabelGap(10);
         
-        //yAxis.setCategories(FXCollections.<String>observableArrayList(tasknames));
 
         chart.setTitle(a.getName());
         chart.setLegendVisible(false);
-        chart.setRectangleHeight( 25); //sets depth of block
+        chart.setRectangleHeight( 25); 
 
         double x = 3.0;
         
+        XYChart.Series msSeries = new XYChart.Series();
+        for(Milestone ms : a.getMilestones()){
+             msSeries.getData().add(new XYChart.Data(ms.getEnd(), "Milestones", new ChartRectangle(5.0,"status-black")));
+        }
+       
+        
+        chart.getData().add(msSeries);
+        
         for (Task t : a.getTasks())
         {
+            int num = rand.nextInt(colours.size());
+            
             double time = (t.getEnd().getTime() - t.getStart().getTime())/3600000;
             XYChart.Series series = new XYChart.Series();
-            series.getData().add(new XYChart.Data(t.getStart(), t.getName(), new ChartRectangle(time*x,"status-red")));
+            series.getData().add(new XYChart.Data(t.getStart(), t.getName(), new ChartRectangle(time*x,colours.get(num))));
             chart.getData().add(series);
         }
         
@@ -152,16 +148,6 @@ public class GanttChartController extends Application {
         global.getChildren().addAll(chart,prev, next);
         scene = new Scene(global, 650, 650);
     }
-
-
-   // @Override public void start(Stage stage) {
-      
-       
-   // }
-
-    //public static void main(String[] args) {
-        //launch(args);
-    //}
 
     @Override
     public void start(Stage primaryStage) throws Exception {
