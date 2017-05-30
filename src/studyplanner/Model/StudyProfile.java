@@ -10,10 +10,14 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.DOMException;
+import org.xml.sax.SAXException;
 /**
  * Class to model the Study Profile of the Planner.
  * @author Moaz
@@ -23,17 +27,13 @@ public class StudyProfile implements Serializable{
     private String name;                                //Name of the study prrofile
     //TODO remove static
     private ArrayList<Module> modules;           //List of all modules 
-    //TODO discuss moving set of profiles to another class
-    HashSet<StudyProfile> profiles;                     //HashSet to prevent
-                                                        //inserting duplicate 
-                                                        //StudyProfile Objects
+   
     /**
      * Default constructor for an instance of Study Profile.
      */
     public StudyProfile(){
-        this.name = null;
+        this.name = "";
         this.modules = new ArrayList<>();
-        this.profiles = new HashSet<>();
     }
     
     /*******************
@@ -55,25 +55,10 @@ public class StudyProfile implements Serializable{
     }
     
     /**
-     * @return A set of profiles.
-     */
-    public HashSet<StudyProfile> getProfiles(){
-        return profiles;
-    }
-    
-    /**
      * @param name Name for a Study Profile.
      */
     public void setName(String name) {
         this.name = name;
-    }
-    
-    /**
-     * add method to add study profile to profiles set
-     * @param profiles
-     */
-    public void add(StudyProfile profiles) {
-        this.profiles.add(profiles);
     }
 
     @Override
@@ -168,7 +153,7 @@ public class StudyProfile implements Serializable{
                 Node nNode = nList.item(i);
                 NodeList assignmentList;
                     
-                ArrayList<Module> modules = new ArrayList<Module>();
+                ArrayList<Module> modules = new ArrayList<>();
                 modules = profile.getModules();
                 System.out.println("modules empty  " + modules.isEmpty());
                 Element eElement = (Element) nNode;
@@ -178,7 +163,7 @@ public class StudyProfile implements Serializable{
                     if(module.getName().equals(eElement.getAttribute("mname"))){
                         System.out.println("passes first if");
                         assignmentList = nNode.getChildNodes();
-                        HashSet<Assignment> assignments = new HashSet<Assignment>();
+                        HashSet<Assignment> assignments = new HashSet<>();
                         assignments = module.getAssignments();
                         System.out.println("assignments empty   " + assignments.isEmpty());
                         
@@ -229,25 +214,8 @@ public class StudyProfile implements Serializable{
                     }
                 }
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (IOException | ParserConfigurationException | DOMException | SAXException e){
         }
     }
-    
-    public static void main(String argv[]) {
-        StudyProfile profile = new StudyProfile();
-        File hubFile = new File("HubFile.xml");
-        File hubFile2 = new File("HubFile2.xml");
-        InitialiseStudyProfile(profile, hubFile);
-//        for(Module module : profile.getModules()){
-//            System.out.println(module);
-//            for(Assignment assignment : module.getAssignments()){
-//                System.out.println(assignment);
-//            }
-//        }
-        UpdateStudyProfile(profile,hubFile2);
-        
-    }
-    
 }
 
