@@ -5,18 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import studyplanner.Model.Activity;
 import studyplanner.Model.Assignment;
@@ -33,7 +30,7 @@ import studyplanner.Model.Task;
 public class CreateActivityViewController 
         extends CreateViewController 
         implements Initializable {
-    
+    private final int MAX_NAME_LENGTH = 30;
     private StudyProfile profile;
     private Task selectedTask;
 
@@ -45,10 +42,6 @@ public class CreateActivityViewController
     @FXML Label criterionUOM;
     @FXML TextField nameTextField; //task name input field
     
-    @FXML Button addCriterionButton; 
-                 //adds an empty criterion
-    
-   
   
 
     /**
@@ -59,7 +52,6 @@ public class CreateActivityViewController
     @FXML void createButtonClick(){
         Activity activity = new Activity();
            
-        
         activity.setDescription(descriptionTextArea.getText());
         activity.setValue(Double.parseDouble(criterionValue.getText()));
         activity.updateCriterion(criterionComboBox.getValue());
@@ -96,6 +88,7 @@ public class CreateActivityViewController
          
         addChangeListeners(moduleComboBox,assignmentComboBox,taskComboBox,
                            criterionComboBox);
+        addTextFieldRestrictionChangeListeners(nameTextField, criterionValue);
         Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
         TextFormatter<Double> textFormatter = new TextFormatter<Double>(new DoubleStringConverter(), 0.0, change
         -> {
@@ -173,5 +166,35 @@ public class CreateActivityViewController
                         //criterionType = cur.getType();
                     }
                 });
+    }
+    /**
+     * restricts changes to limit length of name and disallow negative numbers
+     * in value
+     * @param nameTextField
+     * @param criterionValue 
+     */
+    public void addTextFieldRestrictionChangeListeners(TextField nameTextField,
+            TextField criterionValue){
+            nameTextField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if(newValue.length()>MAX_NAME_LENGTH)
+                    ((StringProperty)observable).setValue(oldValue);
+                });
+            criterionValue.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if(isDouble (newValue)){
+                        if(Double.parseDouble(newValue)<0)
+                            ((StringProperty)observable).setValue(oldValue);
+                    }
+                });
+    }
+    
+    boolean isDouble(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
