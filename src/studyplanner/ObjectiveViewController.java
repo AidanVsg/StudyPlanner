@@ -2,6 +2,7 @@ package studyplanner;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import studyplanner.Model.Objective;
@@ -14,13 +15,16 @@ public abstract class ObjectiveViewController extends ViewController{
     
     @FXML protected Button cancelButton, updateButton;
     @FXML protected TextArea descriptionTextArea;
-    @FXML protected TextField startDateTextField, endDateTextField;
+    @FXML protected TextField startDateTextField;
+    @FXML protected DatePicker endDatePicker;
     
     public void initializeViewFromObjective(Objective objective){
         nameTextField.setText(objective.getName());
         descriptionTextArea.setText(objective.getDescription());
         startDateTextField.setText(objective.getStart().toString());
-        endDateTextField.setText(objective.getEnd().toString());
+        endDatePicker.setValue(
+                new java.sql.Date(objective.getEnd().getTime()).toLocalDate());
+         
     }
     /**
      * Hides this controller's view window if stage is initialized

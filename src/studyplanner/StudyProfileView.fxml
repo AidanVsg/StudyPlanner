@@ -108,7 +108,16 @@
             <Label fx:id="selectedTaskName" layoutX="26.0" layoutY="56.0" prefHeight="17.0" prefWidth="113.0" text="Task Progress" />
             <Label fx:id="selectedCriterionName" layoutX="26.0" layoutY="86.0" prefHeight="17.0" prefWidth="113.0" text="Criterion Progress" />
             <Label fx:id="criterionProgress" layoutX="160.0" layoutY="86.0" prefHeight="18.0" prefWidth="113.0" />
-            <Label fx:id="moduleStudyTime" layoutX="44.0" layoutY="153.0" prefHeight="34.0" prefWidth="237.0" />
+
+            <Label fx:id="moduleStudyTime" layoutX="42.0" layoutY="125.0" prefHeight="34.0" prefWidth="237.0" />
+
+            <ListView fx:id="milestoneListView" layoutX="14.0" layoutY="184.0" prefHeight="63.0" prefWidth="200.0" />
+            <Label layoutX="14.0" layoutY="167.0" prefHeight="17.0" prefWidth="77.0" text="Milestones">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+
          </children>
       </AnchorPane>
       <Button layoutX="302.0" layoutY="482.0" mnemonicParsing="false" onAction="#generateGanttChart" text="Generate Gantt Chart">

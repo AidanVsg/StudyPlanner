@@ -61,13 +61,11 @@ public class CreateActivityViewController
            
         
         activity.setDescription(descriptionTextArea.getText());
-        Double activityValue = Double.parseDouble(criterionValue.getText());
-        activity.setValue(activityValue);
+        activity.setValue(Double.parseDouble(criterionValue.getText()));
         activity.updateCriterion(criterionComboBox.getValue());
         activity.setName(nameTextField.getText()); //
         criterionComboBox.getValue().updateTask(selectedTask);
-        Module m = (Module) moduleComboBox.getValue();
-        m.setTimeSpentStudying(m.getTimeSpentStudying()+activityValue);
+
         stage.hide();
     }
     
