@@ -179,7 +179,7 @@ public class StudyProfileViewController implements Initializable {
 
     }    
     
-    private void contextMenuDelete(ListView<?> lv, Object object){
+    private void contextMenuFunction(ListView<?> lv, Object object){
         cmenu = new ContextMenu();
         MenuItem i1 = new MenuItem("Delete");
         i1.setOnAction(new EventHandler<ActionEvent>(){
@@ -196,7 +196,30 @@ public class StudyProfileViewController implements Initializable {
                 }
             }
         });
-        cmenu.getItems().add(i1);
+        MenuItem i2 = new MenuItem("Show");
+        i2.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                lv.getItems().remove(object);
+                if(object instanceof Task){
+                    try {
+                        selectedTask = (Task) object;
+                        showTask();
+                    } catch (Exception ex) {
+                        Logger.getLogger(StudyProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if(object instanceof Milestone){
+                    try {
+                        selectedMilestone = (Milestone) object;
+                        showMilestone();
+                    } catch (Exception ex) {
+                        Logger.getLogger(StudyProfileViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+        cmenu.getItems().addAll(i1, i2);
         lv.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
  
             @Override
@@ -513,7 +536,7 @@ public class StudyProfileViewController implements Initializable {
             @Override
             public void changed(ObservableValue ov, Task prev, Task cur){
                 updateCriteriaList(cur);
-                contextMenuDelete(taskListView, cur);
+                contextMenuFunction(taskListView, cur);
                 selectedTask = cur;
             }
         });
@@ -521,7 +544,7 @@ public class StudyProfileViewController implements Initializable {
             @Override
             public void changed(ObservableValue ov, Criterion prev, Criterion cur){
                 showCriteriaProgress(cur);
-                contextMenuDelete(criteriaListView, cur);
+                contextMenuFunction(criteriaListView, cur);
                 selectedCriterion = cur;
             }
         });
@@ -534,7 +557,7 @@ public class StudyProfileViewController implements Initializable {
                 for(Task t : cur.getTasks()){
                     if(t.isDone()) done++;
                 }
-                contextMenuDelete(milestoneListView, cur);
+                contextMenuFunction(milestoneListView, cur);
                 selectedMilestoneName.setText(selectedMilestone.getName());
                 milestoneBar.setProgress((double)done/cur.getTasks().size());
             }
