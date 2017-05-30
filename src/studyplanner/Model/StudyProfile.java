@@ -136,7 +136,14 @@ public class StudyProfile implements Serializable{
             e.printStackTrace();
         }
     }
-    
+    /**
+     * Checks whether FXML file is able to initialize study profile
+     * @param profile
+     * @return 
+     */
+    public boolean isValid(File FXMLFile){
+        return false;
+    }
     public static void UpdateStudyProfile(StudyProfile profile, File file){
         try{
             File xmlFile = file;
