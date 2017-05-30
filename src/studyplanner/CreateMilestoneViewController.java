@@ -3,6 +3,7 @@ package studyplanner;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,12 +52,21 @@ public class CreateMilestoneViewController
             //selects assignment to add the milestone to
             Assignment assignment = (Assignment) assignmentComboBox.getValue();
             //>>>>ADD CHECKS AND PROPER READING OF INPUT FIELDS.
+            
+            List<Task> addedTasksList = addedTaskListView.getItems();
+            ArrayList<Task> addedTasksArrayList;
+            if (addedTasksList instanceof ArrayList<?>) {
+                addedTasksArrayList = (ArrayList<Task>) addedTasksList;
+            } else {
+                addedTasksArrayList = new ArrayList<>(addedTasksList);
+            }
             Milestone milestone = new Milestone();
             milestone.setName(nameTextField.getText());
             milestone.setDescription(descriptionTextArea.getText());
             milestone.setStart(new Date());
             milestone.setEnd(java.sql.Date.valueOf(dueDatePicker.getValue()));
-
+            milestone.setTasks(addedTasksArrayList);
+            
             assignment.addMilestone(milestone); 
 
             stage.hide();
