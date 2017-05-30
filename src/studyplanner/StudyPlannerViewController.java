@@ -19,10 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -30,8 +26,8 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import studyplanner.Model.StudyProfile;
 /**
  *
@@ -69,6 +65,19 @@ public class StudyPlannerViewController implements Initializable {
         showCreateStudyProfile();
     }
     
+    @FXML private void updateStudyProfile() throws Exception{
+        final FileChooser fileChooser = new FileChooser();
+        //configuring FileChoser so that it is more user friendly.
+        configureFileChooser(fileChooser);
+        
+        //opening new fileChooser window on this stage
+        File file = fileChooser.showOpenDialog((Stage) content.getScene().getWindow());
+        if(file != null) {
+            StudyProfile.updateStudyProfile(profile, file);
+            saveStudyProfile();
+        }
+    }
+        
     @FXML private void saveStudyProfile() throws Exception{
         File f;
         String filestring;
@@ -171,7 +180,19 @@ public class StudyPlannerViewController implements Initializable {
                 }
             }
         });
-        cmenu.getItems().addAll(i1,i2);
+        MenuItem i3 = new MenuItem("Update Profile");
+        i3.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                try {
+                    updateStudyProfile();
+                } catch (Exception ex) {
+                    Logger.getLogger(StudyPlannerViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        cmenu.getItems().addAll(i1,i2,i3);
         profileListView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
  
             @Override
@@ -182,6 +203,18 @@ public class StudyPlannerViewController implements Initializable {
         });
     }
    
+    /**
+     * Defines name and allowed extensions for fileChooser
+     * @param fileChooser - fileChooser to be configured
+     */
+    public void configureFileChooser(final FileChooser fileChooser){
+        fileChooser.setTitle("Select Hub File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("XML", "*.xml"),
+                new FileChooser.ExtensionFilter("HUB", "*.hub"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+            );
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -90,7 +90,7 @@ public class CreateStudyProfileViewController implements Initializable {
     @FXML private void browseButtonClick(){
         final FileChooser fileChooser = new FileChooser();
         //configuring FileChoser so that it is more user friendly.
-        configureFileChooser(fileChooser);
+        mainController.configureFileChooser(fileChooser);
         
         //opening new fileChooser window on this stage
         File file = fileChooser.showOpenDialog(stage);
@@ -107,19 +107,6 @@ public class CreateStudyProfileViewController implements Initializable {
     public void initData(StudyPlannerViewController controller){
         stage = (Stage) createProfileWindow.getScene().getWindow();
         this.mainController = controller;
-    }
-    
-    /**
-     * Defines name and allowed extensions for fileChooser
-     * @param fileChooser - fileChooser to be configured
-     */
-    private void configureFileChooser(final FileChooser fileChooser){
-        fileChooser.setTitle("Select Hub File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XML", "*.xml"),
-                new FileChooser.ExtensionFilter("HUB", "*.hub"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-            );
     }
 
     @Override

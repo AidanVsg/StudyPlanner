@@ -144,7 +144,7 @@ public class StudyProfile implements Serializable{
     public boolean isValid(File FXMLFile){
         return false;
     }
-    public static void UpdateStudyProfile(StudyProfile profile, File file){
+    public static void updateStudyProfile(StudyProfile profile, File file){
         try{
             File xmlFile = file;
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
