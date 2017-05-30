@@ -227,6 +227,7 @@ public class StudyProfileViewController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        updateStage(stage);
 
         CreateMilestoneViewController controller
                 = loader.<CreateMilestoneViewController>getController();
@@ -312,12 +313,24 @@ public class StudyProfileViewController implements Initializable {
             public void handle(WindowEvent event) {
                 updateTaskList(selectedAssignment);
                 updateCriteriaList(selectedTask);
+                updateMilestoneList(profile);
                 updateDeadlines(profile);
                 showCriteriaProgress(selectedCriterion);                   
             }
         });
     }
     
+    private void updateMilestoneList(StudyProfile profile){
+        milestoneListView.getItems().clear();
+        profile.getModules().forEach((Module m) -> {
+            m.getAssignments().forEach((Assignment a) -> {
+                for(Milestone mileS : a.getMilestones()){
+                    mileS.update();
+                    this.milestoneAdded(mileS);
+                }
+            });
+        });
+    }
     private void updateDeadlines(StudyProfile profile) {
         boolean allDone = true;
         
@@ -395,14 +408,6 @@ public class StudyProfileViewController implements Initializable {
     
     public void initData(StudyProfile profile) {
         this.profile = profile;
-//        ChangeListener listener = (ChangeListener<Assignment>) 
-//                (ObservableValue<? extends Assignment> observable, 
-//                        Assignment oldValue, Assignment newValue) -> {
-//            if(newValue.getTasks().size() != 0)
-//                taskListView.getItems().setAll(newValue.getTasks());
-//            if(newValue.getMilestones().size() != 0)
-//                milestoneListView.getItems().setAll(newValue.getMilestones());
-//        };
 
         PropertyValueFactory<Assignment,String> aName = new PropertyValueFactory<>("name");
         PropertyValueFactory<Assignment,Date> aDate = new PropertyValueFactory<>("end");
@@ -420,11 +425,7 @@ public class StudyProfileViewController implements Initializable {
 
         profileNameLabel.setText(profile.getName());
         moduleListView.getItems().addAll(profile.getModules());
-        for(Module m : moduleListView.getItems())
-        {
-            System.out.println();
-        }
-
+        
         moduleListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Module>() {
             @Override
             public void changed(ObservableValue ov, Module prev, Module cur) {
@@ -500,6 +501,7 @@ public class StudyProfileViewController implements Initializable {
                     }
                 }
             }});
+        
     }
 
     @Override
