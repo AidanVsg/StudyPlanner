@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -93,6 +94,16 @@ public class TaskViewController
         criterionValue.setCellValueFactory(
                 new PropertyValueFactory<>("value"));
         criterionUOM.setCellValueFactory(
-                new PropertyValueFactory<>("unitOfMeasure"));        
+                new PropertyValueFactory<>("unitOfMeasure"));    
+        addMandatoryFieldRestrictions();
     }    
+
+    @Override
+    void addMandatoryFieldRestrictions() {
+        nameTextField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if(newValue.isEmpty())
+                    ((StringProperty)observable).setValue("taskName");
+                });
+    }
 }
