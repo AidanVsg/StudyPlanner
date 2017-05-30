@@ -45,7 +45,7 @@ public class CreateMilestoneViewController
         if(
             assignmentComboBox.getValue() == null
             ||nameTextField.getText().trim().isEmpty()
-            ||taskListView.getItems().isEmpty()
+            ||addedTaskListView.getItems().isEmpty()
           ){
             createMilestoneErrorLabel.setText("Mandatory fields are empty");
         }else{

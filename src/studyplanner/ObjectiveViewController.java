@@ -52,4 +52,6 @@ public abstract class ObjectiveViewController extends ViewController{
     }
     
     @FXML abstract void updateButtonClick();
+    
+    abstract void addMandatoryFieldRestrictions();
 }
