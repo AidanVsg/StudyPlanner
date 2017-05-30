@@ -122,7 +122,6 @@ public class Objective implements Serializable{
         if(this.isDone()){
             this.end = new Date();
         }
-        //TODO NOTICE! Make sure criteria are unique and stuff
     }
     
 }

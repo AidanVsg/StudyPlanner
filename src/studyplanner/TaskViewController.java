@@ -58,6 +58,7 @@ public class TaskViewController
         task.setType(typeTextField.getText());
         task.setDescription(descriptionTextArea.getText());
         task.setCriteria(addedCriteriaArrayList);
+        task.setEnd(java.sql.Date.valueOf(endDatePicker.getValue()));
         
         stage.hide();
     }

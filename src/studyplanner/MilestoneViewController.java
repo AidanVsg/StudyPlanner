@@ -33,6 +33,7 @@ public class MilestoneViewController
         milestone.setName(nameTextField.getText());
         milestone.setDescription(descriptionTextArea.getText());
         milestone.setTasks((ArrayList<Task>) addedTaskListView.getItems());
+        milestone.setEnd(java.sql.Date.valueOf(endDatePicker.getValue()));
         
         stage.hide();
     }
