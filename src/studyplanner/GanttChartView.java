@@ -22,38 +22,38 @@ import javafx.scene.shape.Rectangle;
 
 public class GanttChartView<X,Y> extends XYChart<X,Y> {
 
-    public static class ExtraData {
+    public static class ChartRectangle {
 
 
-        public double length;
-        public String styleClass;
+        public double rectangleLength;
+        public String style;
 
 
-        public ExtraData(double lengthMs, String styleClass) {
+        public ChartRectangle(double lengthMs, String styleClass) {
 
             super();
-            this.length = lengthMs;
-            this.styleClass = styleClass;
+            this.rectangleLength = lengthMs;
+            this.style = styleClass;
         }
 
         public double getLength() {
 
-            return length;
+            return rectangleLength;
         }
         public void setLength(long length) {
-            this.length = length;
+            this.rectangleLength = length;
         }
         public String getStyleClass() {
-            return styleClass;
+            return style;
         }
         public void setStyleClass(String styleClass) {
-            this.styleClass = styleClass;
+            this.style = styleClass;
         }
 
 
     }
 
-    private double blockHeight = 10;
+    private double rectangleHeight = 10;
 
     public GanttChartView(@NamedArg("xAxis") Axis<X> xAxis, @NamedArg("yAxis") Axis<Y> yAxis) {
         this(xAxis, yAxis, FXCollections.<Series<X, Y>>observableArrayList());
@@ -62,17 +62,17 @@ public class GanttChartView<X,Y> extends XYChart<X,Y> {
     public GanttChartView(@NamedArg("xAxis") Axis<X> xAxis, @NamedArg("yAxis") Axis<Y> yAxis, @NamedArg("data") ObservableList<Series<X,Y>> data) {
         super(xAxis, yAxis);
         if (!(xAxis instanceof DateAxis && yAxis instanceof CategoryAxis)) {
-            throw new IllegalArgumentException("Axis type incorrect, X and Y should both be NumberAxis");
+            throw new IllegalArgumentException("Axis type incorrect, X should be DateAxis, Y should be CategoryAxis");
         }
         setData(data);
     }
 
-    private static String getStyleClass( Object obj) {
-        return ((ExtraData) obj).getStyleClass();
+    private static String getStyle( Object obj) {
+        return ((ChartRectangle) obj).getStyleClass();
     }
 
     private static double getLength( Object obj) {
-        return ((ExtraData) obj).getLength();
+        return ((ChartRectangle) obj).getLength();
     }
 
     @Override protected void layoutPlotChildren() {
@@ -105,9 +105,6 @@ public class GanttChartView<X,Y> extends XYChart<X,Y> {
                         ellipse.setHeight(getBlockHeight() * ((getYAxis() instanceof NumberAxis) ? Math.abs(((NumberAxis)getYAxis()).getScale()) : 1));
                         y -= getBlockHeight() / 2.0;
 
-                        // Note: workaround for RT-7689 - saw this in ProgressControlSkin
-                        // The region doesn't update itself when the shape is mutated in place, so we
-                        // null out and then restore the shape in order to force invalidation.
                         region.setShape(null);
                         region.setShape(ellipse);
                         region.setScaleShape(false);
@@ -123,11 +120,11 @@ public class GanttChartView<X,Y> extends XYChart<X,Y> {
     }
 
     public double getBlockHeight() {
-        return blockHeight;
+        return rectangleHeight;
     }
 
     public void setBlockHeight( double blockHeight) {
-        this.blockHeight = blockHeight;
+        this.rectangleHeight = blockHeight;
     }
 
     @Override protected void dataItemAdded(Series<X,Y> series, int itemIndex, Data<X,Y> item) {
@@ -171,7 +168,7 @@ public class GanttChartView<X,Y> extends XYChart<X,Y> {
             item.setNode(container);
         }
 
-        container.getStyleClass().add( getStyleClass( item.getExtraValue()));
+        container.getStyleClass().add(getStyle( item.getExtraValue()));
 
         return container;
     }

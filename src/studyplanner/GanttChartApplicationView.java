@@ -5,6 +5,7 @@
  */
 package studyplanner;
 
+import java.time.LocalDate;
 import studyplanner.Model.*;
 
 import java.util.Arrays;
@@ -17,22 +18,74 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import studyplanner.GanttChartView.ExtraData;
+import studyplanner.GanttChartView.ChartRectangle;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 
 import java.util.Date;
 import java.util.*;
 import java.util.ArrayList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
-// TODO: use date for x-axis
 public class GanttChartApplicationView extends Application {
 
-
-    public Scene initData(Assignment a, Date firstDateToShow, Date lastDateToShow)
+    Button prev = new Button("Previous Week");
+    Button next = new Button("Next Week");
+    Scene scene;
+    AnchorPane global;
+    //Scene scene = initData(selectedAssignment, , );
+    LocalDate today = LocalDate.now().atStartOfDay().toLocalDate();
+    LocalDate afterAWeek = LocalDate.now().plusDays(6).atStartOfDay().toLocalDate();  
+    
+ 
+    public Scene getScene(){
+        return this.scene;
+    }
+    
+    
+    private void doPrevious(Assignment selectedAssignment,Stage stage) {
+        //temp = LocalDate.now().minusDays(6);
+        today = today.minusDays(6).atStartOfDay().toLocalDate();
+        afterAWeek = today.plusDays(6).atStartOfDay().toLocalDate();
+        initData(selectedAssignment, java.sql.Date.valueOf(today), java.sql.Date.valueOf(afterAWeek));
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+    private void doNext(Assignment selectedAssignment,Stage stage) {
+        //temp = LocalDate.now().minusDays(6);
+        today = today.plusDays(6).atStartOfDay().toLocalDate();
+        afterAWeek = today.plusDays(6).atStartOfDay().toLocalDate();
+        initData(selectedAssignment, java.sql.Date.valueOf(today), java.sql.Date.valueOf(afterAWeek));
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+    public void setPrevious(Assignment selectedAssignment, Stage stage){
+        prev.setOnAction(e->doPrevious(selectedAssignment,stage));
+        prev.setLayoutX(25);
+        prev.setLayoutY(575);
+    }
+    
+    public void firstInit(Assignment selectedAssignment,Stage stage)
     {
+        initData(selectedAssignment, java.sql.Date.valueOf(today), java.sql.Date.valueOf(afterAWeek));
+    }
+    
+    public void setNext(Assignment selectedAssignment,Stage stage){
+        next.setOnAction(e->doNext(selectedAssignment,stage));
+        next.setLayoutX(500);
+        next.setLayoutY(575);
+    }
+
+    public void initData(Assignment a, Date firstDateToShow, Date lastDateToShow)
+    {
+        global = new AnchorPane();
         //Stage stage = new Stage();
         
         // stage.setTitle("Gantt Chart");
@@ -76,36 +129,44 @@ public class GanttChartApplicationView extends Application {
         
         //yAxis.setCategories(FXCollections.<String>observableArrayList(tasknames));
 
-        chart.setTitle("Study Planner");
+        chart.setTitle(a.getName());
         chart.setLegendVisible(false);
         chart.setBlockHeight( 25); //sets depth of block
 
-        float x = 4.2f;
+        double x = 3.0;
         
         for (Task t : a.getTasks())
         {
             double time = (t.getEnd().getTime() - t.getStart().getTime())/3600000;
             XYChart.Series series = new XYChart.Series();
-            series.getData().add(new XYChart.Data(t.getStart(), t.getName(), new ExtraData(time*x,"status-red")));
+            series.getData().add(new XYChart.Data(t.getStart(), t.getName(), new ChartRectangle(time*x,"status-red")));
             chart.getData().add(series);
         }
         
-        
         chart.getStylesheets().add(getClass().getResource("GanttChartView.css").toExternalForm());
-
-
-        return new Scene(chart,800,600);
+        chart.setLayoutX(50);
+        chart.setLayoutY(50);
+        chart.setScaleX(1.2);
+        chart.setScaleY(1.2);
         
-
+        global.getChildren().addAll(chart,prev, next);
+        scene = new Scene(global, 650, 650);
     }
 
 
-    @Override public void start(Stage stage) {
+   // @Override public void start(Stage stage) {
       
        
+   // }
+
+    //public static void main(String[] args) {
+        //launch(args);
+    //}
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    
 }
